@@ -8,8 +8,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+console.log("Starting server...\n");
+
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`BookDelight server listening at http://localhost:${port}`);
 });
 
 const { Client } = require('pg')
@@ -22,5 +24,5 @@ const client = new Client({
 })
 client.connect(function(err) {
   if (err) throw err;
-  console.log("Connected to database!");
+  console.log("Database connected!");
 });
