@@ -4,14 +4,16 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.SERVER_PORT;
+
 
 app.use(bodyParser.json());
-
 app.use(morgan('combined'));
 
-const authRoutes = require('./routes/authRoutes');
+const { swaggerUiServe, swaggerUiSetup } = require('./swagger');
+app.use('/api-docs', swaggerUiServe, swaggerUiSetup);
 
+const authRoutes = require('./routes/authRoutes');
 app.use('/', authRoutes);
 
 app.get('/', (req, res) => {
@@ -20,4 +22,5 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`BookDelight server listening at http://localhost:${port}`);
+  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 });

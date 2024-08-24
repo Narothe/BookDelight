@@ -1,20 +1,33 @@
+const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
 
-const options = {
-    definition: {
+require('dotenv').config();
+
+const port = process.env.SERVER_PORT;
+
+const swaggerOptions = {
+    swaggerDefinition: {
         openapi: '3.0.0',
         info: {
             title: 'BookDelight API',
             version: '1.0.0',
-            description: 'A short description of your API',
+            description: 'API for BookDelight application',
         },
+        servers: [
+            {
+                url: `http://localhost:${port}`,
+            },
+        ],
     },
-    apis: ['./routes/*.js'], // Path to the API docs
+    apis: ['./routes/*.js'],
 };
 
-const specs = swaggerJsdoc(options);
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-module.exports = (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+const swaggerUiSetup = swaggerUi.setup(swaggerDocs);
+const swaggerUiServe = swaggerUi.serve;
+
+module.exports = {
+    swaggerUiServe,
+    swaggerUiSetup
 };
