@@ -20,13 +20,13 @@ const router = express.Router();
  *       properties:
  *         email:
  *           type: string
- *           description: The user's email.
+ *           description: The user's email (must be unique).
  *         password:
  *           type: string
  *           description: The user's password.
  *         username:
  *           type: string
- *           description: The user's username.
+ *           description: The user's username (must be unique).
  *         firstName:
  *           type: string
  *           description: The user's first name.
