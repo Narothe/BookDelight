@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
+const register = require('./routes/register');
+const login = require('./routes/login');
+const swagger = require('./swagger');
+
 const app = express();
 const port = process.env.SERVER_PORT;
 
@@ -10,16 +14,10 @@ const port = process.env.SERVER_PORT;
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-const { swaggerUiServe, swaggerUiSetup } = require('./swagger');
-app.use('/api-docs', swaggerUiServe, swaggerUiSetup);
-
-const register = require('./routes/register');
 app.use('/', register);
-
-const login = require('./routes/login');
 app.use('/', login);
 
-
+swagger(app);
 
 app.get('/', (req, res) => {
   res.send('<h1>Welcome to BookDelight server!</h1><br>');

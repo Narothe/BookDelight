@@ -3,8 +3,6 @@ const swaggerUi = require('swagger-ui-express');
 
 require('dotenv').config();
 
-const port = process.env.SERVER_PORT;
-
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -15,7 +13,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://localhost:${port}`,
+                url: `http://localhost:${process.env.SERVER_PORT}`,
             },
         ],
     },
@@ -24,10 +22,6 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-const swaggerUiSetup = swaggerUi.setup(swaggerDocs);
-const swaggerUiServe = swaggerUi.serve;
-
-module.exports = {
-    swaggerUiServe,
-    swaggerUiSetup
-};
+module.exports = (app) => {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+}
