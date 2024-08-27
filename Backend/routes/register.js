@@ -1,6 +1,6 @@
 const express = require('express');
-const { register } = require('../controllers/authController');
 const router = express.Router();
+const { register } = require('../controllers/registerController');
 
 /**
  * @swagger
@@ -41,7 +41,7 @@ const router = express.Router();
  *           description: The user's birth month.
  *         birthYear:
  *           type: integer
- *           description: The user's birth year.
+ *           description: The user's birth year. Year must be number bigger than 1800.
  *       example:
  *         email: user@example.com
  *         password: Secure_Password123

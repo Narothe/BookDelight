@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
-const { createUser } = require('../models/userModel');
 const client = require('../config/db');
+const bcrypt = require('bcrypt');
+const { createUser } = require('../models/createModel');
 
 const register = async (req, res) => {
     const { email, password, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date } = req.body;
@@ -12,13 +12,13 @@ const register = async (req, res) => {
     try {
         await client.query('BEGIN');
 
-        const emailCheck = await client.query('SELECT id_user FROM bookdelight.users WHERE email = $1', [email]);
+        const emailCheck = await client.query('SELECT id_user FROM bookdelight.Users WHERE email = $1', [email]);
         if (emailCheck.rows.length > 0) {
             await client.query('ROLLBACK');
             return res.status(400).json({error: 'That email already exists.'});
         }
 
-        const usernameCheck = await client.query('SELECT id_user FROM bookdelight.users WHERE username = $1', [username]);
+        const usernameCheck = await client.query('SELECT id_user FROM bookdelight.Users WHERE username = $1', [username]);
         if (usernameCheck.rows.length > 0) {
             await client.query('ROLLBACK');
             return res.status(400).json({error: 'That username already exists.'});

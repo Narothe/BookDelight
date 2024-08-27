@@ -13,8 +13,13 @@ app.use(morgan('combined'));
 const { swaggerUiServe, swaggerUiSetup } = require('./swagger');
 app.use('/api-docs', swaggerUiServe, swaggerUiSetup);
 
-const authRoutes = require('./routes/authRoutes');
-app.use('/', authRoutes);
+const register = require('./routes/register');
+app.use('/', register);
+
+const login = require('./routes/login');
+app.use('/', login);
+
+
 
 app.get('/', (req, res) => {
   res.send('<h1>Welcome to BookDelight server!</h1><br>');
