@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { register } = require('../controllers/registerController');
+const { register } = require('../controllers/createController');
 
 /**
  * @swagger

@@ -1,0 +1,58 @@
+CREATE TABLE bookdelight.Users (
+    id_user SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    birth_day SMALLINT NOT NULL CHECK (birth_day BETWEEN 1 AND 31),
+    birth_month SMALLINT NOT NULL CHECK (birth_month BETWEEN 1 AND 12),
+    birth_year SMALLINT NOT NULL CHECK (birth_year BETWEEN 1800 AND EXTRACT(YEAR FROM CURRENT_DATE)),
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Book (
+    id_book SERIAL PRIMARY KEY,
+    id_book_description INT REFERENCES bookdelight.Book_Description(id_book_description) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    publisher VARCHAR(255),
+    publication_date DATE,
+    isbn BIGINT CHECK (length(isbn::text) IN (10, 13)),
+    book_length INT,
+    photo_path VARCHAR(255),
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Genre (
+    id_genre SERIAL PRIMARY KEY,
+    genre_name VARCHAR(100) NOT NULL UNIQUE CHECK (genre_name IN ('novels', 'scifi', 'fantasy', 'crime_stories', 'thrillers', 'romantic', 'historical', 'biographies', 'non_fiction', 'comics', 'classics_of_literature'))
+);
+
+
+CREATE TABLE bookdelight.Book_Genre (
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    id_genre INT REFERENCES bookdelight.Genre(id_genre) ON DELETE CASCADE,
+    PRIMARY KEY (id_book, id_genre)
+);
+
+
+CREATE TABLE bookdelight.Book_Description (
+    id_book_description SERIAL PRIMARY KEY,
+    short_description TEXT,
+    long_description TEXT
+);
+
+
+CREATE TABLE bookdelight.Author (
+    id_author SERIAL PRIMARY KEY,
+    author_name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE bookdelight.Book_Author (
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    id_author INT REFERENCES bookdelight.Author(id_author) ON DELETE CASCADE,
+    PRIMARY KEY (id_book, id_author)
+);
