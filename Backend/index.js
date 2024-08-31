@@ -5,17 +5,22 @@ require('dotenv').config();
 
 const register = require('./routes/register');
 const login = require('./routes/login');
+const logout = require("./routes/logout");
+
 const swagger = require('./swagger');
 
 const app = express();
 const port = process.env.SERVER_PORT;
 
 
+console.log('Server is starting...\n');
+
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
 app.use('/', register);
 app.use('/', login);
+app.use('/', logout);
 
 swagger(app);
 
