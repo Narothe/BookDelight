@@ -13,7 +13,7 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *         - token
  *       properties:
  *         token:
- *           type: JWT Bearer
+ *           type: Bearer token
  *           description: The user's token
  *       example:
  *         token: secrettoken
@@ -37,7 +37,10 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *       401:
  *         description: Token is required.
  *       403:
- *         description: Invalid token.
+ *         description: Session expired.
+ *       500:
+ *         description: An error occurred during logging out the user.
+ *
  */
 router.post('/logout', authenticateToken, logout);
 
