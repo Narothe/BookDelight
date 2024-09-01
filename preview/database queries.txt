@@ -59,7 +59,7 @@ CREATE TABLE bookdelight.Book_Author (
 
 
 CREATE TABLE bookdelight.Sessions (
-    id SERIAL PRIMARY KEY,
+    id_sessions SERIAL PRIMARY KEY,
     user_id INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     jwt_token TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
