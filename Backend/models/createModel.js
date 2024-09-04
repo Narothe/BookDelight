@@ -7,9 +7,14 @@ const createUser = async (email, hashedPassword, username, firstName, lastName, 
             RETURNING id_user`;
 
     const values = [email, hashedPassword, username, firstName, lastName, birthDay, birthMonth, birthYear];
-    const result = await client.query(query, values);
 
-    return result.rows[0].id_user;
+    try {
+        const result = await client.query(query, values);
+        return result.rows[0].id_user;
+    } catch (err) {
+        console.error('Error while creating the user:', err);
+        return { error: 'An error occurred during creating the user.' };
+    }
 };
 
 module.exports = { createUser };
