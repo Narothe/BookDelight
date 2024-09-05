@@ -1,10 +1,9 @@
 const client = require('../config/db');
 const bcrypt = require('bcrypt');
 
-const loginUser = async (email, password) => {
+const loginUser = async (identity, password) => {
     try {
-        const searchUser = await client.query('SELECT * FROM bookdelight.Users WHERE email = $1', [email]);
-
+        const searchUser = await client.query('SELECT * FROM bookdelight.Users WHERE email = $1 OR username = $1', [identity]);
         if (searchUser.rows.length === 0) {
             return {error: 'User not found.'};
         }

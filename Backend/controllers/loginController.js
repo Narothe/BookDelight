@@ -4,17 +4,17 @@ const client = require('../config/db');
 require('dotenv').config();
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
+    const { identity, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required.' });
+    if (!identity || !password) {
+        return res.status(400).json({ error: 'Email or username and password are required.' });
     }
 
     try {
-        const result = await loginUser(email, password);
+        const result = await loginUser(identity, password);
 
         if (result.error) {
-            return res.status(401).json({error: 'Invalid password or email.', message: result.error});
+            return res.status(401).json({error: 'Invalid password or email or username.', message: result.error});
         }
 
         console.log('User logged - userId:', result.userId);
