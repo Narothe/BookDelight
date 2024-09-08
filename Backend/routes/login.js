@@ -9,17 +9,17 @@ const { login } = require('../controllers/loginController');
  *     Login:
  *       type: object
  *       required:
- *         - email
+ *         - identity
  *         - password
  *       properties:
- *         email:
+ *         identity:
  *           type: string
  *           description: The user's email
  *         password:
  *           type: string
  *           description: The user's password
  *       example:
- *         email: user@example.com
+ *         identity: user@example.com
  *         password: SecurePassword123
  */
 

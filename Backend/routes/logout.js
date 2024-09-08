@@ -6,17 +6,21 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
  *   schemas:
  *     Logout:
  *       type: object
- *       required:
- *         - token
  *       properties:
  *         token:
- *           type: Bearer token
- *           description: The user's token
+ *           type: string
+ *           description: Bearer token used to authenticate the user.
  *       example:
- *         token: secrettoken
+ *         token: Bearer secrettoken
 */
 
 /**

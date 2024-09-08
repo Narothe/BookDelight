@@ -15,7 +15,6 @@ CREATE TABLE bookdelight.Users (
 CREATE TABLE bookdelight.Book (
     id_book SERIAL PRIMARY KEY,
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE SET NULL,
-    id_book_description INT REFERENCES bookdelight.Book_Description(id_book_description) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
     publisher VARCHAR(255),
     publication_date DATE,
@@ -41,6 +40,7 @@ CREATE TABLE bookdelight.Book_Genre (
 
 CREATE TABLE bookdelight.Book_Description (
     id_book_description SERIAL PRIMARY KEY,
+	id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
     short_description TEXT,
     long_description TEXT
 );

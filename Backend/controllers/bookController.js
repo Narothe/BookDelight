@@ -1,4 +1,4 @@
-const { addBook, addAuthor } = require('../models/bookModel');
+const { addBook, addAuthor, addDescription } = require('../models/bookModel');
 
 const insertBook = async (req, res) => {
     const {
@@ -8,12 +8,14 @@ const insertBook = async (req, res) => {
         isbn,
         book_length,
         photo_path,
-        authors
+        authors,
+        short_description,
+        long_description
     } = req.body;
     const userId = req.user.userId;
 
-    if (!title || !authors) {
-        return res.status(400).json({ error: 'Title and authors are required.' });
+    if (!title || !authors, !short_description, !long_description) {
+        return res.status(400).json({ error: 'Title, authors, both descriptions are required.' });
     }
 
     try {
@@ -28,6 +30,7 @@ const insertBook = async (req, res) => {
         );
 
         await addAuthor(authors, result.id_book);
+        await addDescription(result.id_book, short_description, long_description);
 
         res.status(201).json({ message: 'Book added successfully.', bookId: result.id_book, userId: userId });
     } catch (err) {

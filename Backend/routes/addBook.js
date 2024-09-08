@@ -37,6 +37,12 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *           description: The book's authors
  *           items:
  *             type: string
+ *         short_description:
+ *           type: string
+ *           description: The book's short description
+ *         long_description:
+ *           type: string
+ *           description: The book's long description
  *       example:
  *         title: Book Title
  *         publisher: Publisher
@@ -47,6 +53,8 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *         authors:
  *           - Author1
  *           - Author2
+ *         short_description: Short description
+ *         long_description: Long description
  */
 
 /**
@@ -67,7 +75,7 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *       201:
  *         description: Book added successfully.
  *       400:
- *         description: Title and authors are required.
+ *         description: Title, authors, both descriptions are required.
  *       500:
  *         description: An error occurred while adding the book.
  */
