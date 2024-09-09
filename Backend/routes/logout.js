@@ -15,12 +15,6 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *   schemas:
  *     Logout:
  *       type: object
- *       properties:
- *         token:
- *           type: string
- *           description: Bearer token used to authenticate the user.
- *       example:
- *         token: Bearer secrettoken
 */
 
 /**

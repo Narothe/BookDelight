@@ -7,6 +7,12 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
  *   schemas:
  *     Book:
  *       type: object
@@ -43,6 +49,11 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *         long_description:
  *           type: string
  *           description: The book's long description
+ *         genres:
+ *           type: array
+ *           description: The book's genres
+ *           items:
+ *             type: string
  *       example:
  *         title: Book Title
  *         publisher: Publisher
@@ -55,6 +66,9 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *           - Author2
  *         short_description: Short description
  *         long_description: Long description
+ *         genres:
+ *           - novels
+ *           - scifi
  */
 
 /**
