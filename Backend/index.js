@@ -7,6 +7,8 @@ const register = require('./routes/register');
 const login = require('./routes/login');
 const logout = require("./routes/logout");
 const addBook = require('./routes/addBook');
+const addReview = require('./routes/addReview');
+const book = require('./routes/book');
 
 const swagger = require('./swagger');
 
@@ -22,7 +24,9 @@ app.use(morgan('combined'));
 app.use('/', register);
 app.use('/', login);
 app.use('/', logout);
-app.use('/', addBook)
+app.use('/', addBook);
+app.use('/', addReview);
+app.use('/', book);
 
 swagger(app);
 

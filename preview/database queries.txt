@@ -1,3 +1,5 @@
+-- CREATE SECTION
+
 CREATE TABLE bookdelight.Users (
     id_user SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -22,6 +24,24 @@ CREATE TABLE bookdelight.Book (
     book_length INT,
     photo_path VARCHAR(255),
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Review (
+    id_review SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE, -- Recenzowana książka
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE, -- Użytkownik, który dodał recenzję
+    description TEXT NOT NULL, -- Opis recenzji
+    rating INT CHECK (rating >= 1 AND rating <= 10) NOT NULL, -- Ocena w skali 1-10
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Review_Votes (
+    id_review INT REFERENCES bookdelight.Review(id_review) ON DELETE CASCADE,
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    vote_type VARCHAR(10) CHECK (vote_type IN ('up', 'down')),
+    PRIMARY KEY (id_review, id_user)
 );
 
 
@@ -73,3 +93,28 @@ CREATE TABLE bookdelight.Sessions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP
 );
+
+
+
+-- QUERIES SECTION
+
+
+-- SHOW ALL INFO ABOUT BOOK
+SELECT b.id_book, 
+	b.title, b.publisher, b.publication_date, b.isbn, b.book_length, 
+	bd.short_description, bd.long_description, 
+	ARRAY_AGG(a.author_name) AS authors
+FROM bookdelight.Book b
+JOIN bookdelight.Book_Description bd ON b.id_book = bd.id_book
+JOIN bookdelight.Book_Author ba ON b.id_book = ba.id_book
+JOIN bookdelight.Author a ON ba.id_author = a.id_author
+WHERE b.id_book = 30
+GROUP BY 
+	b.id_book, 
+	b.title, 
+	b.publisher, 
+	b.publication_date, 
+	b.isbn, 
+	b.book_length, 
+	bd.short_description, 
+	bd.long_description;
