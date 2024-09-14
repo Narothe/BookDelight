@@ -9,6 +9,7 @@ const logout = require("./routes/logout");
 const addBook = require('./routes/addBook');
 const addReview = require('./routes/addReview');
 const book = require('./routes/book');
+const books = require('./routes/books');
 
 const swagger = require('./swagger');
 
@@ -27,6 +28,7 @@ app.use('/', logout);
 app.use('/', addBook);
 app.use('/', addReview);
 app.use('/', book);
+app.use('/', books)
 
 swagger(app);
 
