@@ -1,4 +1,5 @@
 const { addReview } = require('../models/reviewModel');
+const {getBookById} = require("../models/getBookModel");
 
 const insertReview = async (req, res) => {
     const { description, rating } = req.body;
@@ -14,6 +15,12 @@ const insertReview = async (req, res) => {
     }
 
     try {
+        const book = await getBookById(id_book);
+
+        if (!book) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+
         const review = await addReview(id_book, userId, description, rating);
         res.status(201).json({ message: 'Review added successfully', review });
     } catch (err) {
