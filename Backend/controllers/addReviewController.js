@@ -1,5 +1,5 @@
-const { addReview } = require('../models/reviewModel');
-const {getBookById} = require("../models/getBookModel");
+const { addReview, userReviewed} = require('../models/addReviewModel');
+const { getBookById } = require("../models/getBookModel");
 
 const insertReview = async (req, res) => {
     const { description, rating } = req.body;
@@ -15,6 +15,12 @@ const insertReview = async (req, res) => {
     }
 
     try {
+        const reviewed = await userReviewed(userId, id_book);
+
+        if (reviewed) {
+            return res.status(400).json({ error: 'User has already reviewed this book' });
+        }
+
         const book = await getBookById(id_book);
 
         if (!book) {

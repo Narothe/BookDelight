@@ -1,6 +1,6 @@
-const { addBook } = require('../models/bookModel');
-const { addAuthor } = require('../models/authorModel');
-const { addDescription } = require('../models/descriptionModel');
+const { addBook } = require('../models/addBookModel');
+const { addAuthor } = require('../models/addAuthorModel');
+const { addDescription } = require('../models/addDescriptionModel');
 const { addGenre } = require('../models/genreModel');
 
 const insertBook = async (req, res) => {

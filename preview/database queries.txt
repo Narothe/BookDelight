@@ -29,19 +29,22 @@ CREATE TABLE bookdelight.Book (
 
 CREATE TABLE bookdelight.Review (
     id_review SERIAL PRIMARY KEY,
-    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE, -- Recenzowana książka
-    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE, -- Użytkownik, który dodał recenzję
-    description TEXT NOT NULL, -- Opis recenzji
-    rating INT CHECK (rating >= 1 AND rating <= 10) NOT NULL, -- Ocena w skali 1-10
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    description TEXT NOT NULL, 
+    rating INT CHECK (rating >= 1 AND rating <= 10) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT unique_user_review UNIQUE (id_book, id_user)
 );
 
 
 CREATE TABLE bookdelight.Review_Votes (
+    id_review_vote SERIAL PRIMARY KEY,
     id_review INT REFERENCES bookdelight.Review(id_review) ON DELETE CASCADE,
     id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
-    vote_type VARCHAR(10) CHECK (vote_type IN ('up', 'down')),
-    PRIMARY KEY (id_review, id_user)
+    vote_type VARCHAR(10) CHECK (vote_type IN ('upvote', 'downvote')),
+	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (id_review, id_user)
 );
 
 
@@ -118,3 +121,39 @@ GROUP BY
 	b.book_length, 
 	bd.short_description, 
 	bd.long_description;
+
+
+-- SHOW ALL INFO ABOUT BOOK REVIEW
+SELECT 
+    r.id_book,
+    r.id_user,
+    b.title,
+    authors_array.authors,
+    r.description, 
+    r.rating, 
+    COALESCE(vote_summary.upvotes, 0) AS upvotes,
+    COALESCE(vote_summary.downvotes, 0) AS downvotes 
+FROM bookdelight.review r
+JOIN bookdelight.book b ON r.id_book = b.id_book
+JOIN LATERAL (
+    SELECT ARRAY_AGG(a.author_name) AS authors
+    FROM bookdelight.book_author ba
+    JOIN bookdelight.author a ON ba.id_author = a.id_author
+    WHERE ba.id_book = r.id_book
+) authors_array ON true
+LEFT JOIN LATERAL (
+    SELECT 
+        COUNT(CASE WHEN rv.vote_type = 'upvote' THEN 1 END) AS upvotes,
+        COUNT(CASE WHEN rv.vote_type = 'downvote' THEN 1 END) AS downvotes
+    FROM bookdelight.review_votes rv
+    WHERE rv.id_review = r.id_review
+) vote_summary ON true
+WHERE r.id_review = 8 AND b.id_book = 30
+GROUP BY r.id_book, 
+	r.id_user, 
+	b.title, 
+	r.description, 
+	r.rating, 
+	authors_array.authors, 
+	vote_summary.upvotes, 
+	vote_summary.downvotes;

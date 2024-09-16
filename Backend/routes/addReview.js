@@ -1,5 +1,5 @@
 const express = require('express');
-const { insertReview } = require('../controllers/reviewController');
+const { insertReview } = require('../controllers/addReviewController');
 const {authenticateToken} = require("../middlewares/authenticateToken");
 
 const router = express.Router();

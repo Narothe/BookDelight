@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {insertBook} = require("../controllers/bookController");
+const {insertBook} = require("../controllers/addBookController");
 const {authenticateToken} = require("../middlewares/authenticateToken");
 
 

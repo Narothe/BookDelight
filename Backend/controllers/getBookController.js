@@ -2,7 +2,6 @@ const { getBookById } = require("../models/getBookModel");
 
 const getBook = async (req, res) => {
     const bookId = req.params.id;
-    console.log('Book ID:', bookId);
 
     try {
         const result = await getBookById(bookId);

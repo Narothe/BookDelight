@@ -1,6 +1,6 @@
 const client = require('../config/db');
 const bcrypt = require('bcrypt');
-const { createUser } = require('../models/createModel');
+const { createUser } = require('../models/registerModel');
 
 const register = async (req, res) => {
     const { email, password, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date } = req.body;
