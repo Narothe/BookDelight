@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
@@ -18,6 +19,11 @@ const swagger = require('./swagger');
 const app = express();
 const port = process.env.SERVER_PORT;
 
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  next();
+});
+app.use(cors());
 
 console.log('Server is starting...\n');
 
