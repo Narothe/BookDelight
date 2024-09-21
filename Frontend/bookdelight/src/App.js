@@ -4,7 +4,7 @@ import axios from "axios";
 
 function App() {
     useEffect(() => {
-        axios.get('http://localhost:3000/', {
+        axios.get(`http://localhost:${process.env.BACKEND_PORT}/`, {
             headers: {
                 'Cache-Control': 'no-cache',
             }
@@ -13,7 +13,7 @@ function App() {
                 console.log('Api is working');
             })
             .catch(error => {
-                console.log('Api is NOT working');
+                console.error('Api is NOT working');
                 console.error(error);
             });
     }, []);
