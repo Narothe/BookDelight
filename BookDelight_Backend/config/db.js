@@ -15,4 +15,10 @@ client.connect(function(err) {
     console.log("Database connected!");
 });
 
+// client.release = function(err) {
+//     if (err) throw err;
+//     console.log("Database released!");
+//     client.end();
+// }
+
 module.exports = client;

@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomeText () {
+function HomeTextForNotRegisteredOnly () {
   return (
     <div>
         <h1 className="text-3xl font-bold mb-4 font-mono">Welcome to BookDelight!</h1>
@@ -15,4 +15,4 @@ function HomeText () {
   );
 }
 
-export default HomeText;
+export default HomeTextForNotRegisteredOnly;
