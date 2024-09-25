@@ -4,8 +4,11 @@ module.exports = {
     './src/**/*.{js,jsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        dancing: ['"Dancing Script"', 'cursive'],
+      },
+    },
   },
   plugins: [],
 }
-
