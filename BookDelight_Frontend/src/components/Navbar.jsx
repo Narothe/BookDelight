@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 import logo from '../assets/bookdelight_logo.png'
+import Button from "../utils/Button";
 
 function Navbar() {
     const location = useLocation();
@@ -18,7 +19,7 @@ function Navbar() {
                 <p>BookDelight</p>
             </Link>
             <Link to="/login">
-                Login
+                <Button text="Log in" size="7" />
             </Link>
         </nav>
     );
