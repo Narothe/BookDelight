@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 import logo from '../assets/bookdelight_logo.png'
 import Button from "../utils/Button";
+import SearchBar from "../utils/SearchBar";
 
 function Navbar() {
     const location = useLocation();
@@ -18,9 +19,12 @@ function Navbar() {
                 <img src={logo} alt="BookDelight Logo" className="h-14 w-auto inline-block mr-2"/>
                 <p>BookDelight</p>
             </Link>
-            <Link to="/login">
-                <Button text="Log in" size="7" />
-            </Link>
+            <div className="flex flex-auto items-center bg-amber-500">
+                <SearchBar/>
+            </div>
+            <div className="grid place-content-center">
+                <Button text="Log in" link="/login"/>
+            </div>
         </nav>
     );
 }
