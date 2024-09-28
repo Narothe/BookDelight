@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from "axios";
 import {Outlet} from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 
-function Button({ text, link }) {
+function Button({ text }) {
     return (
-        <Link to={link} className="bg-custom-light-blue hover:bg-custom-hover-light-blue text-white px-7 rounded-full">
+        <button className="bg-orange-100 hover:bg-orange-200 px-7 rounded-full">
             <p className="pb-1">{text}</p>
-        </Link>
+        </button>
     );
 }
 
