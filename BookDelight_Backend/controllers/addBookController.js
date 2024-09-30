@@ -10,7 +10,6 @@ const insertBook = async (req, res) => {
         publication_date,
         isbn,
         book_length,
-        photo_path,
         authors,
         short_description,
         long_description,
@@ -29,8 +28,7 @@ const insertBook = async (req, res) => {
             publisher,
             publication_date,
             isbn,
-            book_length,
-            photo_path
+            book_length
         );
 
         await addAuthor(authors, result.id_book);

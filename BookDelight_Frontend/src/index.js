@@ -1,21 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createRoot } from "react-dom/client";
 import App from './App';
 import Login from "./components/Login";
 import Home from "./components/Home/Home";
+import Book from "./components/Book/Book";
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+root.render(
     <React.StrictMode>
         <Router>
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/book/:id" element={<Book />} />
                 </Route>
             </Routes>
         </Router>
     </React.StrictMode>,
-    document.getElementById('root')
 );

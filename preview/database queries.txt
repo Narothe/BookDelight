@@ -22,7 +22,6 @@ CREATE TABLE bookdelight.Book (
     publication_date DATE,
     isbn BIGINT CHECK (length(isbn::text) IN (10, 13)),
     book_length INT,
-    photo_path VARCHAR(255),
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -95,6 +94,13 @@ CREATE TABLE bookdelight.Sessions (
     jwt_token TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP
+);
+
+CREATE TABLE bookdelight.Book_Photos (
+    id_photo SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    photo_path VARCHAR(255) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

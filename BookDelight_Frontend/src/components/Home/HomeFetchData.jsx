@@ -1,20 +1,21 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import DisplayRating from "../../utils/DisplayRating";
+import LinkButton from "../../utils/LinkButton";
 
 function HomeFetchData() {
 
-    const backendURL = process.env.REACT_APP_BACKEND_URL;
+    const query = process.env.REACT_APP_BACKEND_URL;
 
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(backendURL);
+            const response = await axios.get(query);
             setData(response.data);
             console.log(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        } catch (err) {
+            console.error('Error fetching data:', err);
         }
     };
 
@@ -55,6 +56,9 @@ function HomeFetchData() {
 
                             <div>
                                 <p className="text-base font-semibold mb-2">{item.short_description}</p>
+                            </div>
+                            <div className="flex justify-center">
+                                <LinkButton text="Details" link={`/book/${item.id_book}`}/>
                             </div>
                         </div>
                     ))}

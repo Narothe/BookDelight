@@ -35,9 +35,6 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *         book_length:
  *           type: integer
  *           description: The book's length
- *         photo_path:
- *           type: string
- *           description: The book's photo path
  *         authors:
  *           type: array
  *           description: The book's authors
@@ -60,7 +57,6 @@ const {authenticateToken} = require("../middlewares/authenticateToken");
  *         publication_date: 2021-01-01
  *         isbn: 1234567890123
  *         book_length: 200
- *         photo_path: /path/to/photo.jpg
  *         authors:
  *           - Author1
  *           - Author2
