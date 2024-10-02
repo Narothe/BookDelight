@@ -99,6 +99,7 @@ CREATE TABLE bookdelight.Sessions (
 CREATE TABLE bookdelight.Book_Photos (
     id_photo SERIAL PRIMARY KEY,
     id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     photo_path VARCHAR(255) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -165,3 +166,5 @@ GROUP BY r.id_book,
 	authors_array.authors, 
 	vote_summary.upvotes, 
 	vote_summary.downvotes;
+
+
