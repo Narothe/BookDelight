@@ -1,5 +1,22 @@
 const pool = require('../config/db');
 
+const checkBookOwner = async (bookId, userId) => {
+    const query = `
+        SELECT id_user FROM bookdelight.Book 
+        WHERE id_book = $1 AND id_user = $2;
+    `;
+
+    const values = [bookId, userId];
+
+    try {
+        const result = await pool.query(query, values);
+        return result.rowCount > 0;
+    } catch (err) {
+        console.error('Error while checking the book owner:', err);
+        return { error: 'An error occurred during checking the book owner.' };
+    }
+}
+
 const getPhotoOwner = async (bookId, userId) => {
     const query = `
         SELECT id_user
@@ -57,5 +74,6 @@ const addPhoto = async (bookId, userId, photoPath) => {
 module.exports = {
     addPhoto,
     setNewFileName,
-    getPhotoOwner
+    getPhotoOwner,
+    checkBookOwner
 };

@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const {addPhoto, setNewFileName, getPhotoOwner} = require("../models/addPhotoModel");
+const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/addPhotoModel");
 const fs = require("node:fs");
 
 const storage = multer.diskStorage({
@@ -19,14 +19,13 @@ const uploadPhoto = async (req, res) => {
     const id_book = req.params.id;
     const userId = req.user.userId;
 
-    // const photoOwner = await getPhotoOwner(id_book, userId);
-    //
-    // if (photoOwner === userId) {
-    //     return res.status(403).json({ error: 'You are not longer allowed to upload photos for this book' });
-    // }
-
-    // id_user must be allocated to id_book
     try {
+        const bookOwner = await checkBookOwner(id_book, userId);
+
+        if (!bookOwner) {
+            return res.status(403).json({ error: 'You are not allowed to upload photos for this book' });
+        }
+
         const photoOwner = await getPhotoOwner(id_book, userId);
 
         if (photoOwner) {
@@ -45,6 +44,7 @@ const uploadPhoto = async (req, res) => {
         }
 
         try {
+
             const photoData = await addPhoto(id_book, userId, req.file.filename);
 
             // change the file name
