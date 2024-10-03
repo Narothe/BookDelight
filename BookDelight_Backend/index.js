@@ -13,6 +13,7 @@ const book = require('./routes/book');
 const books = require('./routes/books');
 const reviewVotes = require('./routes/reviewVotes');
 const review = require('./routes/review');
+const reviews = require('./routes/reviews');
 const addPhoto = require('./routes/addPhoto');
 
 const swagger = require('./swagger');
@@ -40,6 +41,7 @@ app.use('/', book);
 app.use('/', books);
 app.use('/', reviewVotes);
 app.use('/', review)
+app.use('/', reviews)
 app.use('/', addPhoto);
 
 app.use('/uploads', express.static('uploads')); // Udostępnia folder z obrazkami
