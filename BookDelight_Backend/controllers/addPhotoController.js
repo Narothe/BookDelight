@@ -3,9 +3,11 @@ const path = require('path');
 const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/addPhotoModel");
 const fs = require("node:fs");
 
+const filePath = "uploads/book_photos/";
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, filePath);
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
@@ -49,7 +51,7 @@ const uploadPhoto = async (req, res) => {
 
             // change the file name
             const newFileName = photoData.id_photo + path.extname(req.file.originalname);
-            const newFilePath = path.join('uploads', newFileName);
+            const newFilePath = path.join(filePath, newFileName);
 
             fs.rename(req.file.path, newFilePath, (err) => {
                 if (err) throw err;
