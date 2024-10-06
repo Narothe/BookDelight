@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
-import AltImage from "../../utils/AltImage";
+import LoadBookImage from "../../utils/LoadBookImage";
 
 function HomeFetchData() {
 
@@ -10,8 +10,6 @@ function HomeFetchData() {
     const photoUrl = url + '/photo/';
 
     const [data, setData] = useState([]);
-    const [imageError, setImageError] = useState(false);
-
 
     const fetchData = async () => {
         try {
@@ -35,13 +33,12 @@ function HomeFetchData() {
                         <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-orange-50">
 
                             <div className="flex flex-row">
-                                <div className="flex w-44">
-                                    {item.photo_path === null || imageError ? (
-                                        <AltImage/>
-                                    ) : (
-                                        <img src={photoUrl+item.photo_path} alt="book photo" className="rounded-md" onError={() => setImageError(true)}/>
-                                    )}
+                                <div className="flex w-48">
+                                    <LoadBookImage item={item} photoUrl={photoUrl}/>
                                 </div>
+
+                                {/*refactor this code - mobile and desktop version*/}
+
                                 <div className="basis-3/4">
                                     <div className="flex flex-col px-4">
                                         <h2 className="text-3xl font-semibold">{item.title}</h2>
@@ -64,6 +61,9 @@ function HomeFetchData() {
                                         </div>
                                     </div>
                                 </div>
+
+                                {/*refactor this code*/}
+
                             </div>
                             <div className="flex justify-center mt-4">
                                 <LinkButton text="Details" link={`/book/${item.id_book}`}/>
@@ -72,7 +72,7 @@ function HomeFetchData() {
                     ))}
                 </div>
             ) : (
-                <p>Loading data...</p>  // Show while fetching data /// or error ¯\_(ツ)_/¯
+                <p>Loading data...</p>  // Show while fetching data /// or backend error ¯\_(ツ)_/¯
             )}
         </div>
     );
