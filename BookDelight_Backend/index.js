@@ -46,7 +46,7 @@ app.use('/', reviews)
 app.use('/', addPhoto);
 app.use('/', photo);
 
-app.use('/uploads', express.static('uploads/book_photos'));
+app.use('/photo', express.static('uploads/book_photos'));
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 

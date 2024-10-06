@@ -6,8 +6,6 @@ function Book() {
     const { id } = useParams();
 
     const [book, setBook] = useState(null);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchBookDetails = async () => {
@@ -19,18 +17,12 @@ function Book() {
                 setBook(response.data);
             } catch (err) {
                 console.error('Error fetching book details:', err);
-                // setError('Failed to fetch book details');
             }
-            // finally {
-            //     setLoading(false);
-            // }
         };
 
         fetchBookDetails();
     }, [id]);
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>{error}</p>;
     if (!book) return <p>No book data found</p>;
 
     return (

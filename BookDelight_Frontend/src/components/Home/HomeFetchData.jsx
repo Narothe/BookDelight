@@ -7,7 +7,7 @@ import AltImage from "../../utils/AltImage";
 function HomeFetchData() {
 
     const url = process.env.REACT_APP_BACKEND_URL;
-    const photoUrl = url + '/uploads/';
+    const photoUrl = url + '/photo/';
 
     const [data, setData] = useState([]);
     const [imageError, setImageError] = useState(false);

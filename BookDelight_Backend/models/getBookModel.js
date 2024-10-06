@@ -19,7 +19,7 @@ const getBookById = async (id) => {
                  JOIN bookdelight.Book_Author ba ON b.id_book = ba.id_book
                  LEFT JOIN bookdelight.review r ON b.id_book = r.id_book
                  JOIN bookdelight.Author a ON ba.id_author = a.id_author
-                 JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
+                 LEFT JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
         WHERE b.id_book = $1
         GROUP BY b.id_book,
                  bd.short_description,
