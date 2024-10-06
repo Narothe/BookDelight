@@ -5,6 +5,7 @@ const getAllBooks = async () => {
         SELECT b.id_book,
                b.title,
                bd.short_description,
+               bp.photo_path,
                ROUND(AVG(r.rating), 2)     AS rating,
                COUNT(DISTINCT r.id_review) AS review_count,
                ARRAY_AGG(DISTINCT a.author_name)    AS authors
@@ -13,8 +14,10 @@ const getAllBooks = async () => {
                  JOIN bookdelight.Book_Author ba ON b.id_book = ba.id_book
                  LEFT JOIN bookdelight.review r ON b.id_book = r.id_book
                  JOIN bookdelight.Author a ON ba.id_author = a.id_author
+                 LEFT JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
         GROUP BY b.id_book,
-                 bd.short_description;
+                 bd.short_description,
+                 bp.photo_path;
     `;
 
     try {
