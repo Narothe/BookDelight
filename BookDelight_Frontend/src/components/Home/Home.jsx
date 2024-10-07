@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeTextForNotRegisteredOnly from "./HomeTextForNotRegisteredOnly";
-import HomeFetchData from "./HomeFetchData";
+import HomeFetch from "./HomeFetch";
 
 function Home() {
 
@@ -8,7 +8,7 @@ function Home() {
         <div>
             <HomeTextForNotRegisteredOnly/>
 
-            <HomeFetchData/>
+            <HomeFetch/>
         </div>
     );
 }
