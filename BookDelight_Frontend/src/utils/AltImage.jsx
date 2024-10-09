@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function AltImage() {
     return (
         <div className="flex flex-col w-full h-44 sm:h-56 md:h-64 bg-orange-200 justify-center items-center text-center rounded-md space-y-5">

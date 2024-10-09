@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from "react-router-dom";
-import logo from '../../assets/bookdelight_logo.png'
-import LinkButton from "../../utils/LinkButton";
-import SearchBar from "./SearchBar";
+import { useLocation } from "react-router-dom";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 
@@ -17,10 +14,10 @@ function Navbar() {
 
     return (
         <div>
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
                 <DesktopNavbar/>
             </div>
-            <div className="block md:hidden">
+            <div className="block lg:hidden">
                 <MobileNavbar/>
             </div>
         </div>

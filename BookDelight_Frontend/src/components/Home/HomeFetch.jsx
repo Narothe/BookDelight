@@ -1,23 +1,19 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
-import LoadBookImage from "../../utils/LoadBookImage";
 import HomeFetchDesktop from "./HomeFetchDesktop";
-import DesktopNavbar from "../Navbar/DesktopNavbar";
-import MobileNavbar from "../Navbar/MobileNavbar";
 import HomeFetchMobile from "./HomeFetchMobile";
 
 function HomeFetch() {
 
-    const url = process.env.REACT_APP_BACKEND_URL;
-    const photoUrl = url + '/photo/';
+    const query = process.env.REACT_APP_BACKEND_URL;
+    const photoUrl = `${process.env.REACT_APP_PHOTO_URL}`;
 
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(query);
             setData(response.data);
             console.log(response.data);
         } catch (err) {
@@ -32,7 +28,7 @@ function HomeFetch() {
     return (
         <div className="container py-8">
             {data.length > 0 ? (
-                <div className="border p-4 mb-4 rounded-lg bg-orange-100">
+                <div className="border p-4 mb-4 rounded-lg shadow-md bg-orange-100">
                     {data.map((item) => (
                         <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-orange-50">
 

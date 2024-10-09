@@ -3,7 +3,7 @@ const view = require('../config/db');
 const getAllReviews = async (bookId) => {
     const query = `
         SELECT r.id_book,
-               r.id_user,
+               r.id_user AS review_author,
                b.title,
                authors_array.authors,
                r.description,

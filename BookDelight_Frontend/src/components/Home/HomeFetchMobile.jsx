@@ -1,6 +1,4 @@
 import React from "react";
-
-import DisplayRating from "../../utils/DisplayRating";
 import LoadBookImage from "../../utils/LoadBookImage";
 
 function HomeFetchMobile({ item, photoUrl }) {
@@ -19,8 +17,7 @@ function HomeFetchMobile({ item, photoUrl }) {
             </div>
         </div>
 
-    )
-        ;
+    );
 }
 
 export default HomeFetchMobile;

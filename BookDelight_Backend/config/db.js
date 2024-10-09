@@ -15,6 +15,18 @@ client.connect(function(err) {
     console.log("Database connected!");
 });
 
+const queryDatabase = async () => {
+    try {
+        const result = await client.query('SELECT NOW();');
+        console.log('Database still connected. Database server current time:', result.rows[0]);
+    } catch (err) {
+        console.error('Error during connect to database server', err);
+    }
+};
+
+setInterval(queryDatabase, 120000);
+
+
 // client.release = function(err) {
 //     if (err) throw err;
 //     console.log("Database released!");
