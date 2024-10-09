@@ -11,8 +11,10 @@ function LoadBookImage({ item, photoUrl }) {
                 <img src={do_not_exist} alt="alt" className="flex rounded-md justify-items-center"/>
 
             ) : (
-                <img src={photoUrl + item.photo_path} alt="book" className="flex rounded-md justify-items-center"
-                     onError={() => setImageError(true)}/>
+                <a href={photoUrl + item.photo_path} target="_blank" rel="noopener noreferrer">
+                    <img src={photoUrl + item.photo_path} alt="book" className="flex rounded-md justify-items-center"
+                         onError={() => setImageError(true)}/>
+                </a>
             )}
         </div>
     );

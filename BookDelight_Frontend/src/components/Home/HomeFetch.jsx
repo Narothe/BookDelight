@@ -15,7 +15,6 @@ function HomeFetch() {
         try {
             const response = await axios.get(query);
             setData(response.data);
-            console.log(response.data);
         } catch (err) {
             console.error('Error fetching data:', err);
         }
@@ -31,7 +30,6 @@ function HomeFetch() {
                 <div className="border p-4 mb-4 rounded-lg shadow-md bg-orange-100">
                     {data.map((item) => (
                         <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-orange-50">
-
                             <div className="hidden md:block">
                                 <HomeFetchDesktop item={item} photoUrl={photoUrl}/>
                             </div>
