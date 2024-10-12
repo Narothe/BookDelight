@@ -1,8 +1,8 @@
 const express = require('express');
-const {uploadPhoto} = require("../controllers/addPhotoController");
 const {authenticateToken} = require("../middlewares/authenticateToken");
+const {uploadPhoto} = require("../controllers/addUserPhotoController");
 const router = express.Router();
 
-router.post('/book/:id/add-photo', authenticateToken, uploadPhoto);
+router.post('/user/change-photo', authenticateToken, uploadPhoto);
 
 module.exports = router;

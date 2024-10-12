@@ -14,6 +14,14 @@ CREATE TABLE bookdelight.Users (
 );
 
 
+CREATE TABLE bookdelight.User_Photos (
+    id_photo SERIAL PRIMARY KEY,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    photo_path VARCHAR(255) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE bookdelight.Book (
     id_book SERIAL PRIMARY KEY,
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE SET NULL,

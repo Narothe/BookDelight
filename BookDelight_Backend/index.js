@@ -14,8 +14,9 @@ const books = require('./routes/books');
 const reviewVotes = require('./routes/reviewVotes');
 const review = require('./routes/review');
 const reviews = require('./routes/reviews');
-const addPhoto = require('./routes/addPhoto');
-const photo = require('./routes/photo');
+const addBookPhoto = require('./routes/addBookPhoto');
+const addUserPhoto = require('./routes/addUserPhoto');
+const bookPhoto = require('./routes/bookPhoto');
 
 const swagger = require('./swagger');
 
@@ -43,8 +44,9 @@ app.use('/', books);
 app.use('/', reviewVotes);
 app.use('/', review)
 app.use('/', reviews)
-app.use('/', addPhoto);
-app.use('/', photo);
+app.use('/', addBookPhoto);
+app.use('/', addUserPhoto);
+app.use('/', bookPhoto);
 
 app.use('/photo', express.static('uploads/book_photos'));
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/addPhotoModel");
+const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/addBookPhotoModel");
 const fs = require("node:fs");
 
 const filePath = "uploads/book_photos/";
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }).single('photo');
+const upload = multer({ storage: storage }).single('book-photo');
 
 const uploadPhoto = async (req, res) => {
     const id_book = req.params.id;
@@ -54,7 +54,10 @@ const uploadPhoto = async (req, res) => {
             const newFilePath = path.join(filePath, newFileName);
 
             fs.rename(req.file.path, newFilePath, (err) => {
-                if (err) throw err;
+                if (err) {
+                    console.error('Error renaming the file:', err);
+                    return res.status(500).json({ error: 'File renaming failed' });
+                }
             });
 
             await setNewFileName(newFileName, photoData.id_photo);

@@ -1,4 +1,4 @@
-const {getPhotosByBookId} = require("../models/getPhotoModel");
+const {getPhotosByBookId} = require("../models/getBookPhotoModel");
 
 const getPhoto = async (req, res) => {
     const bookId = req.params.id;
