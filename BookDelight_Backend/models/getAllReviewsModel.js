@@ -3,16 +3,18 @@ const view = require('../config/db');
 const getAllReviews = async (bookId) => {
     const query = `
         SELECT r.id_book,
-               r.id_user AS review_author,
+               r.id_user AS review_author_id,
                b.title,
                authors_array.authors,
                r.description,
                r.rating,
                COALESCE(vote_summary.upvotes, 0)   AS upvotes,
                COALESCE(vote_summary.downvotes, 0) AS downvotes,
+               up.photo_path AS author_photo,
                r.creation_date
         FROM bookdelight.review r
                  JOIN bookdelight.book b ON r.id_book = b.id_book
+                 LEFT JOIN bookdelight.User_Photos up ON b.id_user = up.id_user
                  JOIN LATERAL (
             SELECT ARRAY_AGG(a.author_name) AS authors
             FROM bookdelight.book_author ba
@@ -34,6 +36,7 @@ const getAllReviews = async (bookId) => {
                  authors_array.authors,
                  vote_summary.upvotes,
                  vote_summary.downvotes,
+                 up.photo_path,
                  r.creation_date;
     `;
 
