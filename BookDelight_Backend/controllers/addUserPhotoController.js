@@ -3,6 +3,7 @@ const path = require('path');
 const {addPhoto, setNewFileName} = require("../models/addUserPhotoModel");
 const fs = require("node:fs");
 const sharp = require("sharp");
+const fileFilter = require("../utils/fileFilter");
 
 const filePath = "uploads/user_photos/";
 
@@ -15,18 +16,6 @@ const storage = multer.diskStorage({
         cb(null, uniqueSuffix);
     }
 });
-
-const fileFilter = (req, file, cb) => {
-    const allowedFileTypes = /jpeg|jpg|png/;
-    const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimeType = allowedFileTypes.test(file.mimetype);
-
-    if (extname && mimeType) {
-        return cb(null, true);
-    } else {
-        return cb(new Error('Only .png and .jpg files are allowed!'));
-    }
-};
 
 const upload = multer({
     storage: storage,

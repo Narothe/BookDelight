@@ -2,6 +2,8 @@ const multer = require('multer');
 const path = require('path');
 const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/addBookPhotoModel");
 const fs = require("node:fs");
+const fileFilter = require("../utils/fileFilter");
+const sharp = require("sharp");
 
 const filePath = "uploads/book_photos/";
 
@@ -15,7 +17,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }).single('book-photo');
+const upload = multer({ storage: storage, fileFilter: fileFilter }).single('book-photo');
 
 const uploadPhoto = async (req, res) => {
     const id_book = req.params.id;
@@ -42,10 +44,27 @@ const uploadPhoto = async (req, res) => {
         if (err instanceof multer.MulterError) {
             return res.status(500).json({ error: err.message });
         } else if (err) {
-            return res.status(500).json({ error: 'File upload failed' });
+            return res.status(400).json({ error: err.message });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'Please upload an image' });
         }
 
         try {
+            const imagePath = req.file.path;
+            const image = sharp(imagePath);
+            const metadata = await image.metadata();
+
+            if (metadata.width > metadata.height) {
+                fs.unlinkSync(imagePath);
+                return res.status(400).json({ error: 'The image must have height wider than width' });
+            }
+
+            if (metadata.width >= 2000 && metadata.height >= 2500) {
+                return res.status(400).json({ error: 'The image width and height must be less than 2000 and 2500 pixels' });
+            }
+
 
             const photoData = await addPhoto(id_book, userId, req.file.filename);
 
