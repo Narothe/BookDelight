@@ -16,7 +16,22 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }).single('user-photo');
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = /jpeg|jpg|png/;
+    const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimeType = allowedFileTypes.test(file.mimetype);
+
+    if (extname && mimeType) {
+        return cb(null, true);
+    } else {
+        return cb(new Error('Only .png and .jpg files are allowed!'));
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+}).single('user-photo');
 
 const uploadPhoto = async (req, res) => {
     const userId = req.user.userId;
@@ -25,7 +40,11 @@ const uploadPhoto = async (req, res) => {
         if (err instanceof multer.MulterError) {
             return res.status(500).json({ error: err.message });
         } else if (err) {
-            return res.status(500).json({ error: 'File upload failed' });
+            return res.status(400).json({ error: err.message });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'Please upload an image' });
         }
 
         try {
@@ -37,6 +56,14 @@ const uploadPhoto = async (req, res) => {
                 fs.unlinkSync(imagePath);
                 return res.status(400).json({ error: 'The image must have the same width and height' });
             }
+
+            if (metadata.width >= 300 && metadata.width <= 1000) {
+                // continue
+            } else {
+                fs.unlinkSync(imagePath);
+                return res.status(400).json({ error: 'The image width must be between 1000 and 300 pixels' });
+            }
+
             const photoData = await addPhoto(userId, req.file.filename);
 
             // change the file name
