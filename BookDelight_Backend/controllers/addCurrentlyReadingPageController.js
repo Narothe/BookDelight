@@ -1,4 +1,4 @@
-const {addCurrentlyReadingPage ,checkAmountOfPages} = require("../models/addCurrentlyReadingPageModel");
+const {addCurrentlyReadingPage ,checkAmountOfPages, checkExistenceOfBook} = require("../models/addCurrentlyReadingPageModel");
 
 
 const insertCurrentlyReadingPage = async (req, res) => {
@@ -16,6 +16,12 @@ const insertCurrentlyReadingPage = async (req, res) => {
     }
 
     try {
+        const checkBook = await checkExistenceOfBook(id_book);
+
+        if (!checkBook) {
+            return res.status(404).json({ error: 'Book not found.' });
+        }
+
         const bookLength = await checkAmountOfPages(id_book)
 
         if (current_page > bookLength.book_length) {

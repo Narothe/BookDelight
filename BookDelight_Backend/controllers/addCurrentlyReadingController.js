@@ -1,13 +1,19 @@
-const {addCurrentlyReading, checkCurrentlyReading} = require("../models/addCurrentlyReadingModel");
+const {addCurrentlyReading, checkCurrentlyReading, checkExistenceOfBook} = require("../models/addCurrentlyReadingModel");
 
 const insertCurrentlyReading = async (req, res) => {
     const id_book = req.params.id;
     const userId = req.user.userId;
 
     try {
-        const check = await checkCurrentlyReading(userId, id_book);
+        const checkBook = await checkExistenceOfBook(id_book);
 
-        if (check) {
+        if (!checkBook) {
+            return res.status(404).json({ error: 'Book not found.' });
+        }
+
+        const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, id_book);
+
+        if (checkExistenceOfCurrentlyReadingBook) {
             return res.status(400).json({ error: 'Currently reading book already exists.' });
         }
         await addCurrentlyReading( userId, id_book);
