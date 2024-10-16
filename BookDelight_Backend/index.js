@@ -18,7 +18,9 @@ const addBookPhoto = require('./routes/addBookPhoto');
 const addUserPhoto = require('./routes/addUserPhoto');
 const bookPhoto = require('./routes/bookPhoto');
 const userPhoto = require('./routes/userPhoto');
-const currentlyReading = require('./routes/addCurrentReading');
+const currentlyReading = require('./routes/addCurrentlyReading');
+const currentlyReadingPage = require('./routes/addCurrentlyReadingPage');
+const showCurrentlyReading = require('./routes/currentlyReading');
 
 const swagger = require('./swagger');
 
@@ -51,6 +53,8 @@ app.use('/', addUserPhoto);
 app.use('/', bookPhoto);
 app.use('/', userPhoto);
 app.use('/', currentlyReading);
+app.use('/', currentlyReadingPage);
+app.use('/', showCurrentlyReading);
 
 app.use('/photo', express.static('uploads/book_photos'));
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
