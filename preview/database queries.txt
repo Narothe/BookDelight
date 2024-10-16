@@ -88,6 +88,7 @@ CREATE TABLE bookdelight.Book_Author (
     PRIMARY KEY (id_book, id_author)
 );
 
+
 CREATE TABLE bookdelight.Preferences (
     id_preferences SERIAL PRIMARY KEY,
     id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
@@ -95,6 +96,7 @@ CREATE TABLE bookdelight.Preferences (
     average_rate DECIMAL(3,2) DEFAULT 0,
     popularity_rate INT DEFAULT 0
 );
+
 
 CREATE TABLE bookdelight.Sessions (
     id_sessions SERIAL PRIMARY KEY,
@@ -104,6 +106,7 @@ CREATE TABLE bookdelight.Sessions (
     expires_at TIMESTAMP
 );
 
+
 CREATE TABLE bookdelight.Book_Photos (
     id_photo SERIAL PRIMARY KEY,
     id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
@@ -111,6 +114,35 @@ CREATE TABLE bookdelight.Book_Photos (
     photo_path VARCHAR(255) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE bookdelight.Currently_Reading (
+    id_current SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+	current_page INT DEFAULT 0,
+	update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	start_reading_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+-- TRIGGERS SECTION
+
+
+CREATE OR REPLACE FUNCTION update_date_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.update_date = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_date_trigger
+BEFORE UPDATE ON bookdelight.Currently_Reading
+FOR EACH ROW
+EXECUTE FUNCTION update_date_column();
 
 
 
