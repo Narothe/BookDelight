@@ -89,6 +89,7 @@ CREATE TABLE bookdelight.Book_Author (
 );
 
 
+// DO PRZEROBIENIA
 CREATE TABLE bookdelight.Preferences (
     id_preferences SERIAL PRIMARY KEY,
     id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
