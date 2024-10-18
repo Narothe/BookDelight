@@ -1,0 +1,34 @@
+Na razie jest za mało oryginalnych funkcjonalności, trzeba to zmienić
+
+Pomysł 1:
+dorobić system do rozpoznawania zmieniania adresu IP. System wysyła powiadomienia na adres email w momencie, gdy adres sieci lub urządzenie się zmieni lub urządzenie z którego ktoś został zalogowany
+Korzyść: Zwiększenie bezpieczeństwa użytkowników, możliwości zablokowania dalszego dostępu do konta jednym kliknięciem
+
+Pomysł 2:
+quiz w celu znalezienia idealnej książki. Chodzi o to aby była możliwość zrobienia krótkiego quizu a system sam znajdzie pasującą książkę. WYMAGA: dodania dużej ilości książek, zwiększenia typu preferencji użytkownika
+Korzyść: Przyciągnięcie większej ilości użytkowników, a także szybsze dostosowanie szukanych treści
+
+Pomysł 3:
+Personalizowane rekomendacje opierające się na nastroju użytkownika / System rekomendacji książek oparty na nastroju. Użytkownicy mogliby wprowadzić, jaki mają nastrój (np. smutek, radość, motywacja), a system na podstawie słów kluczowych i algorytmów uczenia maszynowego wybierałby dla nich książki pasujące do ich aktualnego stanu emocjonalnego.
+Korzyść: Rekomendacje dostosowane do emocji są oryginalnym podejściem, które tworzy bardziej osobiste doświadczenie. Użytkownicy czują, że aplikacja rozumie ich potrzeby w danym momencie.
+
+Pomysł 4:
+Tryb "Book Challenge" z rankingami użytkowników. Wprowadzenie wyzwania książkowego (np. „10 książek w miesiąc” lub „Przeczytaj wszystkie dzieła Tolkiena”). Użytkownicy mogą zapisywać się do wyzwań, zdobywać odznaki i punkty za osiągnięcia, a wyniki są wyświetlane na tablicach rankingowych.
+Korzyść: Element rywalizacji wciąga użytkowników i motywuje ich do większej aktywności. Rywalizacja oraz współpraca (np. wspólne wyzwania) wprowadza interakcje między użytkownikami, budując społeczność wokół aplikacji.
+DLA TAKIEGO SYSTEMU WARTO ROZWAŻYĆ SYSTEM ODZNAK / NAGRÓD
+ 
+Pomysł 5:
+Losowa książka dnia. Każdego dnia aplikacja mogłaby wyświetlać losową książkę z bazy, dając użytkownikom możliwość odkrywania nowych tytułów i gatunków.
+Korzyść: Dodaje element niespodzianki i pomaga w odkrywaniu książek, które mogłyby umknąć w standardowych rekomendacjach.
+
+Pomysł 6:
+Funkcja "Co teraz czytam?" Opcja, która pozwala użytkownikom zaznaczać aktualnie czytaną książkę. Dzięki temu aplikacja może proponować spersonalizowane rekomendacje np. podobne książki lub propozycje dalszego czytania.
+Korzyść: Działa jako tracker czytania i jednocześnie personalizuje doświadczenie w czasie rzeczywistym.
+
+Pomysł 7:
+Przypomnienia o postępach w czytaniu. Przypomnienia, które motywują użytkowników do regularnego czytania. Użytkownik może ustawić cel (np. 50 stron dziennie), a aplikacja przypomina, jeśli cel nie zostanie osiągnięty (trochę jak w duolingo xd).
+Korzyść: Proste narzędzie motywacyjne, które przyciąga użytkowników do aplikacji i pomaga w realizacji celów związanych z czytaniem.
+
+Pomysł 8:
+Wykresy czasu rzeczywistego odnośnie książek / użytkowników / postępów / odznak. Wykresy pokazują sformułowane dane, które każdy użytkownik po sobie zostawia. Ciekawy sposób na wyświetlanie zebranych danych
+Korzyść: Wizualizacja i możliwa analiza zebranych danych przez serwis
