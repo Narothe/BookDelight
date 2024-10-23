@@ -4,23 +4,23 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const register = require('./routes/register');
-const login = require('./routes/login');
-const logout = require("./routes/logout");
-const addBook = require('./routes/addBook');
-const addReview = require('./routes/addReview');
-const book = require('./routes/book');
-const books = require('./routes/books');
-const reviewVotes = require('./routes/reviewVotes');
-const review = require('./routes/review');
-const reviews = require('./routes/reviews');
-const addBookPhoto = require('./routes/addBookPhoto');
-const addUserPhoto = require('./routes/addUserPhoto');
-const bookPhoto = require('./routes/bookPhoto');
-const userPhoto = require('./routes/userPhoto');
-const currentlyReading = require('./routes/addCurrentlyReading');
-const currentlyReadingPage = require('./routes/addCurrentlyReadingPage');
-const showCurrentlyReading = require('./routes/currentlyReading');
+const register = require('./routes/auth/register');
+const login = require('./routes/auth/login');
+const logout = require("./routes/auth/logout");
+const addBook = require('./routes/book/addBook');
+const addReview = require('./routes/review/addReview');
+const book = require('./routes/book/book');
+const books = require('./routes/book/books');
+const reviewVotes = require('./routes/review/reviewVotes');
+const review = require('./routes/review/review');
+const reviews = require('./routes/review/reviews');
+const addBookPhoto = require('./routes/book/addBookPhoto');
+const addUserPhoto = require('./routes/user/addUserPhoto');
+const bookPhoto = require('./routes/book/bookPhoto');
+const userPhoto = require('./routes/user/userPhoto');
+const currentlyReading = require('./routes/user/addCurrentlyReading');
+const currentlyReadingPage = require('./routes/user/addCurrentlyReadingPage');
+const showCurrentlyReading = require('./routes/user/currentlyReading');
 
 const swagger = require('./swagger');
 
@@ -56,7 +56,8 @@ app.use('/', currentlyReading);
 app.use('/', currentlyReadingPage);
 app.use('/', showCurrentlyReading);
 
-app.use('/photo', express.static('uploads/book_photos'));
+app.use('/book-photo', express.static('uploads/book_photos'));
+app.use('/user-photo', express.static('uploads/user_photos'));
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
