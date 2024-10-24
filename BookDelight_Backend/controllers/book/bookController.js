@@ -1,6 +1,7 @@
-const { findBook } = require("../../service/book/getBookService");
-const { findBooks } = require("../../service/book/getAllBooksService");
-const { findPhoto } = require("../../service/book/getBookPhotoService");
+const { findBook } = require("../../services/book/getBookService");
+const { findBooks } = require("../../services/book/getAllBooksService");
+const { findPhoto } = require("../../services/book/getBookPhotoService");
+const {insertBook} = require("../../services/book/postBookService");
 
 
 const writeResult = (res, result, error, statusCode) => {
@@ -35,4 +36,24 @@ const getPhoto = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
-module.exports = { getBook, getBooks, getPhoto };
+const postBook = async (req, res) => {
+    const userId = req.user.userId;
+
+    const content = {
+        title,
+        publisher,
+        publication_date,
+        isbn,
+        book_length,
+        authors,
+        short_description,
+        long_description,
+        genres
+    } = req.body;
+
+    const { result, error, statusCode } = await insertBook(userId, content);
+
+    writeResult(res, result, error, statusCode);
+}
+
+module.exports = { getBook, getBooks, getPhoto, postBook };

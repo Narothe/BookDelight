@@ -7,9 +7,9 @@ require('dotenv').config();
 const register = require('./routes/auth/register');
 const login = require('./routes/auth/login');
 const logout = require("./routes/auth/logout");
-const addBook = require('./routes/book/addBook');
 const addReview = require('./routes/review/addReview');
 
+// const addBook = require('./routes/book/addBook');
 // const book = require('./routes/book/book');
 // const books = require('./routes/book/book');
 // const bookPhoto = require('./routes/book/book');
@@ -45,14 +45,13 @@ app.use(morgan('combined'));
 app.use('/', register);
 app.use('/', login);
 app.use('/', logout);
-app.use('/', addBook);
 app.use('/', addReview);
 
+// app.use('/', addBook);
 // app.use('/', book);
 // app.use('/', books);
 // app.use('/', bookPhoto);
 
-// book(app);
 app.use('/', bookRoute)
 
 app.use('/', reviewVotes);
