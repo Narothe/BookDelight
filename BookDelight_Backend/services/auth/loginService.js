@@ -30,17 +30,12 @@ const login = async (content) => {
         }
 
         return { result: {
-            message: result.message,
+            message: 'User logged in successfully',
             token,
             user: {
                 userId: result.id_user,
                 email: result.email,
-                username: result.username,
-                firstName: result.firstName,
-                lastName: result.lastName,
-                birthDay: result.birthDay,
-                birthMonth: result.birthMonth,
-                birthYear: result.birthYear
+                username: result.username
             }
         }, statusCode: 200 };
     } catch (err) {
