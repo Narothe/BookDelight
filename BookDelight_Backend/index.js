@@ -5,8 +5,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 
-const addReview = require('./routes/review/addReview');
-
+// const addReview = require('./routes/review/addReview');
 const reviewVotes = require('./routes/review/reviewVotes');
 const review = require('./routes/review/review');
 const reviews = require('./routes/review/reviews');
@@ -18,6 +17,8 @@ const showCurrentlyReading = require('./routes/user/currentlyReading');
 
 const bookRoute = require('./routes/bookRoute');
 const authRoute = require('./routes/authRoute');
+const reviewRoute = require('./routes/reviewRoute');
+
 
 const swagger = require('./swagger');
 
@@ -35,14 +36,15 @@ console.log('Server is starting...\n');
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-app.use('/', addReview);
+// app.use('/', addReview);
 
+app.use('/', reviewRoute);
 app.use('/', bookRoute)
 app.use('/', authRoute)
 
-app.use('/', reviewVotes);
-app.use('/', review)
-app.use('/', reviews)
+// app.use('/', reviewVotes);
+// app.use('/', review)
+// app.use('/', reviews)
 
 app.use('/', addUserPhoto);
 app.use('/', userPhoto);
