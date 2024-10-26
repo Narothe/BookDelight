@@ -1,8 +1,8 @@
 const multer = require('multer');
 const path = require('path');
-const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../../models/book/addBookPhotoModel");
+const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../models/book/addBookPhotoModel");
 const fs = require("node:fs");
-const fileFilter = require("../../utils/fileFilter");
+const fileFilter = require("../utils/fileFilter");
 const sharp = require("sharp");
 
 const filePath = "uploads/book_photos/";

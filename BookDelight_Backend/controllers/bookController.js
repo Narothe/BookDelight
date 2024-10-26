@@ -1,7 +1,9 @@
-const { findBook } = require("../../services/book/getBookService");
-const { findBooks } = require("../../services/book/getAllBooksService");
-const { findPhoto } = require("../../services/book/getBookPhotoService");
-const {insertBook} = require("../../services/book/postBookService");
+const { findBook } = require("../services/book/getBookService");
+const { findBooks } = require("../services/book/getAllBooksService");
+const { findPhoto } = require("../services/book/getBookPhotoService");
+const { insertBook } = require("../services/book/postBookService");
+const {uploadPhoto} = require("./addBookPhotoController");
+// const { uploadPhoto } = require("../../services/book/postBookPhotoService");
 
 
 const writeResult = (res, result, error, statusCode) => {

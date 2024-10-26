@@ -9,22 +9,16 @@ const login = require('./routes/auth/login');
 const logout = require("./routes/auth/logout");
 const addReview = require('./routes/review/addReview');
 
-// const addBook = require('./routes/book/addBook');
-// const book = require('./routes/book/book');
-// const books = require('./routes/book/book');
-// const bookPhoto = require('./routes/book/book');
-
 const reviewVotes = require('./routes/review/reviewVotes');
 const review = require('./routes/review/review');
 const reviews = require('./routes/review/reviews');
-const addBookPhoto = require('./routes/book/addBookPhoto');
 const addUserPhoto = require('./routes/user/addUserPhoto');
 const userPhoto = require('./routes/user/userPhoto');
 const currentlyReading = require('./routes/user/addCurrentlyReading');
 const currentlyReadingPage = require('./routes/user/addCurrentlyReadingPage');
 const showCurrentlyReading = require('./routes/user/currentlyReading');
 
-const bookRoute = require('./routes/book/bookRoute');
+const bookRoute = require('./routes/bookRoute');
 
 const swagger = require('./swagger');
 
@@ -47,17 +41,12 @@ app.use('/', login);
 app.use('/', logout);
 app.use('/', addReview);
 
-// app.use('/', addBook);
-// app.use('/', book);
-// app.use('/', books);
-// app.use('/', bookPhoto);
-
 app.use('/', bookRoute)
 
 app.use('/', reviewVotes);
 app.use('/', review)
 app.use('/', reviews)
-app.use('/', addBookPhoto);
+
 app.use('/', addUserPhoto);
 app.use('/', userPhoto);
 app.use('/', currentlyReading);

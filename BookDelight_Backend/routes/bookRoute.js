@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { getBook, getPhoto, getBooks, postBook} = require('../../controllers/book/bookController');
-const {authenticateToken} = require("../../middlewares/authenticateToken");
+const { getBook, getPhoto, getBooks, postBook} = require('../controllers/bookController');
+const {authenticateToken} = require("../middlewares/authenticateToken");
+
+const {uploadPhoto} = require("../controllers/addBookPhotoController");
 
 router.get('/book/:id', getBook);
 router.get('/book/:id/photo', getPhoto);
 router.get('/', getBooks);
 router.post('/add-book', authenticateToken, postBook);
+// router.post('/book/:id/add-photo', authenticateToken, postBookPhoto);
+
+router.post('/book/:id/add-photo', authenticateToken, uploadPhoto);
+
 
 module.exports = router;
 
