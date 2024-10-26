@@ -1,6 +1,7 @@
 const {writeResult} = require("../utils/writeResult");
 const {login} = require("../services/auth/loginService");
 const {logout} = require("../services/auth/logoutService");
+const {register} = require("../services/auth/registerService");
 
 
 const postLogin = async (req, res) => {
@@ -20,4 +21,12 @@ const postLogout = async (req, res) => {
     writeResult(res, result, error, statusCode);
 };
 
-module.exports = { postLogin, postLogout };
+const postRegister = async (req, res) => {
+    const content = { email, password, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date } = req.body;
+
+    const { result, error, statusCode } = await register(content);
+
+    writeResult(res, result, error, statusCode);
+};
+
+module.exports = { postLogin, postLogout, postRegister };

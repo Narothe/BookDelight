@@ -1,13 +1,12 @@
 const express = require('express');
 const {authenticateToken} = require("../middlewares/authenticateToken");
-const {register} = require("../controllers/auth/registerController");
-const {postLogin, postLogout} = require("../controllers/authController");
+const {postLogin, postLogout, postRegister} = require("../controllers/authController");
 const router = express.Router();
 
 
 router.post('/login', postLogin);
 router.post('/logout', authenticateToken, postLogout);
-router.post('/register', register);
+router.post('/register', postRegister);
 
 module.exports = router;
 
