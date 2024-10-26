@@ -1,18 +1,11 @@
+const {writeResult} = require("../utils/writeResult");
+
 const { findBook } = require("../services/book/getBookService");
 const { findBooks } = require("../services/book/getAllBooksService");
 const { findPhoto } = require("../services/book/getBookPhotoService");
 const { insertBook } = require("../services/book/postBookService");
 const {uploadPhoto} = require("./addBookPhotoController");
 // const { uploadPhoto } = require("../../services/book/postBookPhotoService");
-
-
-const writeResult = (res, result, error, statusCode) => {
-    if (error) {
-        return res.status(statusCode).json({ message: error });
-    }
-
-    res.status(statusCode).json(result);
-}
 
 
 const getBook = async (req, res) => {

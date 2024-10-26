@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const register = require('./routes/auth/register');
-const login = require('./routes/auth/login');
-const logout = require("./routes/auth/logout");
+// const register = require('./routes/auth/register');
+// const login = require('./routes/auth/login');
+// const logout = require("./routes/auth/logout");
 const addReview = require('./routes/review/addReview');
 
 const reviewVotes = require('./routes/review/reviewVotes');
@@ -19,6 +19,7 @@ const currentlyReadingPage = require('./routes/user/addCurrentlyReadingPage');
 const showCurrentlyReading = require('./routes/user/currentlyReading');
 
 const bookRoute = require('./routes/bookRoute');
+const authRoute = require('./routes/authRoute');
 
 const swagger = require('./swagger');
 
@@ -36,12 +37,13 @@ console.log('Server is starting...\n');
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-app.use('/', register);
-app.use('/', login);
-app.use('/', logout);
+// app.use('/', register);
+// app.use('/', login);
+// app.use('/', logout);
 app.use('/', addReview);
 
 app.use('/', bookRoute)
+app.use('/', authRoute)
 
 app.use('/', reviewVotes);
 app.use('/', review)
