@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {authenticateToken} = require("../middlewares/authenticateToken");
-const { postReview } = require("../controllers/reviewController");
-
+const { postReview, getReviewById, postReviewVote, getAllReviews} = require("../controllers/reviewController");
 
 
 router.post('/book/:id/add-review', authenticateToken, postReview);
-// router.get('/book/:id/review/:reviewId', );
-// router.get('/book/:id/reviews', );
-// router.post('/book/:id/review/:id_review/vote', authenticateToken, );
+router.get('/book/:id/review/:reviewId', getReviewById);
+router.get('/book/:id/reviews', getAllReviews);
+router.post('/book/:id/review/:id_review/vote', authenticateToken, postReviewVote);
 
 module.exports = router;
 

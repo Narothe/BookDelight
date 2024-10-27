@@ -4,11 +4,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
-
-// const addReview = require('./routes/review/addReview');
-const reviewVotes = require('./routes/review/reviewVotes');
-const review = require('./routes/review/review');
-const reviews = require('./routes/review/reviews');
 const addUserPhoto = require('./routes/user/addUserPhoto');
 const userPhoto = require('./routes/user/userPhoto');
 const currentlyReading = require('./routes/user/addCurrentlyReading');
@@ -36,15 +31,10 @@ console.log('Server is starting...\n');
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-// app.use('/', addReview);
-
 app.use('/', reviewRoute);
 app.use('/', bookRoute)
 app.use('/', authRoute)
 
-// app.use('/', reviewVotes);
-// app.use('/', review)
-// app.use('/', reviews)
 
 app.use('/', addUserPhoto);
 app.use('/', userPhoto);

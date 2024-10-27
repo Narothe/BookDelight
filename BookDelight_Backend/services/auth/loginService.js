@@ -8,7 +8,7 @@ const login = async (content) => {
     const { identity, password } = content;
 
     if (!identity || !password) {
-        console.log('Email or username and password are required.');
+        console.error('Email or username and password are required.');
         return { error: 'Email or username and password are required.', statusCode: 400 };
     }
 
