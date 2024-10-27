@@ -4,18 +4,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
-// const addUserPhoto = require('./routes/user/addUserPhoto');
-// const userPhoto = require('./routes/user/userPhoto');
-// const currentlyReading = require('./routes/user/addCurrentlyReading');
-// const currentlyReadingPage = require('./routes/user/addCurrentlyReadingPage');
-// const showCurrentlyReading = require('./routes/user/currentlyReading');
-
 const bookRoute = require('./routes/bookRoute');
 const authRoute = require('./routes/authRoute');
 const reviewRoute = require('./routes/reviewRoute');
 const userRoute = require('./routes/userRoute');
-
-
 
 const swagger = require('./swagger');
 
@@ -37,13 +29,6 @@ app.use('/', reviewRoute);
 app.use('/', bookRoute)
 app.use('/', authRoute)
 app.use('/', userRoute)
-
-
-// app.use('/', addUserPhoto);
-// app.use('/', userPhoto);
-// app.use('/', currentlyReading);
-// app.use('/', currentlyReadingPage);
-// app.use('/', showCurrentlyReading);
 
 app.use('/book-photo', express.static('uploads/book_photos'));
 app.use('/user-photo', express.static('uploads/user_photos'));
