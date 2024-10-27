@@ -1,27 +1,25 @@
 const {addCurrentlyReading, checkCurrentlyReading, checkExistenceOfBook} = require("../../models/user/addCurrentlyReadingModel");
 
-const insertCurrentlyReading = async (req, res) => {
-    const id_book = req.params.id;
-    const userId = req.user.userId;
+const insertCurrentlyReading = async (id_book, userId) => {
 
     try {
         const checkBook = await checkExistenceOfBook(id_book);
 
         if (!checkBook) {
-            return res.status(404).json({ error: 'Book not found.' });
+            return { result: null, error: 'Book not found.', statusCode: 404 };
         }
 
         const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, id_book);
 
         if (checkExistenceOfCurrentlyReadingBook) {
-            return res.status(400).json({ error: 'Currently reading book already exists.' });
+            return { result: null, error: 'Currently reading book already exists.', statusCode: 400 };
         }
         await addCurrentlyReading( userId, id_book);
 
-        res.status(201).json({ message: 'Currently reading added successfully.', userId: userId });
+        return { result: { message: 'Currently reading added successfully.', userId: userId }, error: null, statusCode: 201 };
     } catch (err) {
         console.error("Error while adding the currently reading:", err);
-        res.status(500).json({ error: 'An error occurred while adding the currently reading.' });
+        return { result: null, error: 'An error occurred while adding the currently reading.', statusCode: 500 };
     }
 };
 
