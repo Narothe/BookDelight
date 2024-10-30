@@ -16,7 +16,7 @@ transporter.verify(async (error, maxAttempt = 5) => {
         console.warn(`Attempt ${attempt} to verify SMTP configuration...`);
         try {
             await transporter.verify();
-            console.log('SMTP server is ready to send emails');
+            console.log('SMTP server is ready to send emails!');
             break;
         } catch (error) {
             console.error(`Attempt ${attempt} failed: ${error.message}`);

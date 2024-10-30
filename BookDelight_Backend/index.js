@@ -10,6 +10,7 @@ const reviewRoute = require('./routes/reviewRoute');
 const userRoute = require('./routes/userRoute');
 
 const swagger = require('./swagger');
+const {UAParser} = require("ua-parser-js");
 
 const app = express();
 const port = process.env.SERVER_PORT;
@@ -44,4 +45,11 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`BookDelight server listening at http://localhost:${port}`);
   console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
+});
+
+// this is just a test endpoint to get the IP address of the client
+// in the final version, this should be removed/reworked
+app.get('/get-ip', (req, res) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  res.send({ ip });
 });
