@@ -13,6 +13,12 @@ CREATE TABLE bookdelight.Users (
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE bookdelight.Verify_User (
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+	verify BOOLEAN DEFAULT FALSE,
+	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE bookdelight.User_Photos (
     id_photo SERIAL PRIMARY KEY,
@@ -54,7 +60,7 @@ CREATE TABLE bookdelight.Review_Votes (
     UNIQUE (id_review, id_user)
 );
 
-
+// DO PRZEROBIENIA
 CREATE TABLE bookdelight.Genre (
     id_genre SERIAL PRIMARY KEY,
     genre_name VARCHAR(100) NOT NULL UNIQUE CHECK (genre_name IN ('novels', 'scifi', 'fantasy', 'crime_stories', 'thrillers', 'romantic', 'historical', 'biographies', 'non_fiction', 'comics', 'classics_of_literature'))
