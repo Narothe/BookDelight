@@ -161,6 +161,7 @@ EXECUTE FUNCTION update_currently_reading_date();
 
 
 
+
 CREATE OR REPLACE FUNCTION update_security_date()
 RETURNS TRIGGER AS $$
 BEGIN
