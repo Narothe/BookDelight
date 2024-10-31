@@ -43,4 +43,22 @@ const createUser = async (email, hashedPassword, username, firstName, lastName, 
     }
 };
 
-module.exports = { createUser, checkEmailExistence, checkUsernameExistence };
+const savePassword = async (userId, hashedPassword) => {
+    const query = `
+        INSERT INTO bookdelight.Security (id_user, password)
+        VALUES ($1, $2)
+            RETURNING id_user;
+        `;
+
+    const values = [userId, hashedPassword];
+
+    try {
+        const result = await client.query(query, values);
+        return result.rows[0].id_user
+    } catch (err) {
+        console.error('Error while saving the password:', err);
+        return { error: 'An error occurred during saving the password.' };
+    }
+};
+
+module.exports = { createUser, checkEmailExistence, checkUsernameExistence, savePassword };

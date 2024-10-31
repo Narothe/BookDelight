@@ -1,6 +1,6 @@
 const client = require('../../config/db');
 const bcrypt = require('bcrypt');
-const { createUser, checkEmailExistence, checkUsernameExistence} = require('../../models/auth/registerModel');
+const { createUser, checkEmailExistence, checkUsernameExistence, savePassword} = require('../../models/auth/registerModel');
 
 const register = async (content) => {
     const { email, password, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date } = content;
@@ -25,7 +25,15 @@ const register = async (content) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const userId = await createUser(email, hashedPassword, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date);
+
+        const registerPassword = await savePassword(userId, hashedPassword);
+
+        if (registerPassword.error) {
+            await client.query('ROLLBACK');
+            return { error: 'An error occurred while registering the users password.', statusCode: 400 };
+        }
 
         await client.query('COMMIT');
         return { result: { message: 'User registered successfully.', userId }, statusCode: 201 };

@@ -3,7 +3,6 @@
 CREATE TABLE bookdelight.Users (
     id_user SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -12,6 +11,15 @@ CREATE TABLE bookdelight.Users (
     birth_year SMALLINT NOT NULL CHECK (birth_year BETWEEN 1800 AND EXTRACT(YEAR FROM CURRENT_DATE)),
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE bookdelight.Security (
+    id_security SERIAL PRIMARY KEY,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    password VARCHAR(255) NOT NULL,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE bookdelight.Verify_User (
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
@@ -138,7 +146,7 @@ CREATE TABLE bookdelight.Currently_Reading (
 -- TRIGGERS SECTION
 
 
-CREATE OR REPLACE FUNCTION update_date_column()
+CREATE OR REPLACE FUNCTION update_currently_reading_date()
 RETURNS TRIGGER AS $$
 BEGIN
     NEW.update_date = CURRENT_TIMESTAMP;
@@ -146,72 +154,23 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_date_trigger
+CREATE TRIGGER update_currently_reading_date_trigger
 BEFORE UPDATE ON bookdelight.Currently_Reading
 FOR EACH ROW
-EXECUTE FUNCTION update_date_column();
+EXECUTE FUNCTION update_currently_reading_date();
 
 
 
--- QUERIES SECTION
+CREATE OR REPLACE FUNCTION update_security_date()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.update_date = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-
--- SHOW ALL INFO ABOUT BOOK
-SELECT b.id_book,
-               b.title,
-               b.publisher,
-               b.publication_date,
-               b.isbn,
-               b.book_length,
-               bd.short_description,
-               bd.long_description,
-			   ROUND(AVG(r.rating), 2) AS rating, 
-			   COUNT(DISTINCT r.id_review) AS review_count,
-               ARRAY_AGG(a.author_name) AS authors
-        FROM bookdelight.Book b
-                 JOIN bookdelight.Book_Description bd ON b.id_book = bd.id_book
-                 JOIN bookdelight.Book_Author ba ON b.id_book = ba.id_book
-				 LEFT JOIN bookdelight.review r ON b.id_book = r.id_book
-                 JOIN bookdelight.Author a ON ba.id_author = a.id_author
-		WHERE b.id_book = 30
-        GROUP BY b.id_book,
-                 bd.short_description,
-                 bd.long_description;
-
-
--- SHOW ALL INFO ABOUT BOOK REVIEW
-SELECT 
-    r.id_book,
-    r.id_user,
-    b.title,
-    authors_array.authors,
-    r.description, 
-    r.rating, 
-    COALESCE(vote_summary.upvotes, 0) AS upvotes,
-    COALESCE(vote_summary.downvotes, 0) AS downvotes 
-FROM bookdelight.review r
-JOIN bookdelight.book b ON r.id_book = b.id_book
-JOIN LATERAL (
-    SELECT ARRAY_AGG(a.author_name) AS authors
-    FROM bookdelight.book_author ba
-    JOIN bookdelight.author a ON ba.id_author = a.id_author
-    WHERE ba.id_book = r.id_book
-) authors_array ON true
-LEFT JOIN LATERAL (
-    SELECT 
-        COUNT(CASE WHEN rv.vote_type = 'upvote' THEN 1 END) AS upvotes,
-        COUNT(CASE WHEN rv.vote_type = 'downvote' THEN 1 END) AS downvotes
-    FROM bookdelight.review_votes rv
-    WHERE rv.id_review = r.id_review
-) vote_summary ON true
-WHERE r.id_review = 8 AND b.id_book = 30
-GROUP BY r.id_book, 
-	r.id_user, 
-	b.title, 
-	r.description, 
-	r.rating, 
-	authors_array.authors, 
-	vote_summary.upvotes, 
-	vote_summary.downvotes;
-
+CREATE TRIGGER update_security_date_trigger
+BEFORE UPDATE ON bookdelight.Security
+FOR EACH ROW
+EXECUTE FUNCTION update_security_date();
 

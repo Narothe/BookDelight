@@ -11,23 +11,23 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-transporter.verify(async (error, maxAttempt = 5) => {
-    for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+const verifySMTPConnection = async (transporter, maxAttempts = 10) => {
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         console.warn(`Attempt ${attempt} to verify SMTP configuration...`);
         try {
             await transporter.verify();
             console.log('SMTP server is ready to send emails!');
-            break;
+            return;
         } catch (error) {
             console.error(`Attempt ${attempt} failed: ${error.message}`);
-            if (attempt === maxAttempt) {
+            if (attempt === maxAttempts) {
                 console.error('Max retries reached. SMTP setup failed.', error);
                 throw new Error('Could not verify SMTP configuration after multiple attempts');
             }
             await new Promise(resolve => setTimeout(resolve, 2000));
         }
     }
-});
+};
 
 
-module.exports = { transporter };
+module.exports = { transporter, verifySMTPConnection };
