@@ -1,6 +1,6 @@
 const {writeResult} = require("../utils/writeResult");
 const {insertReview} = require("../services/review/postReviewService");
-const {addVote} = require("../services/review/addReviewVotesService");
+const {addReviewVote} = require("../services/review/addReviewVotesService");
 const {getReview} = require("../services/review/getReviewService");
 const {getReviews} = require("../services/review/getAllReviewsService");
 
@@ -21,7 +21,7 @@ const postReviewVote = async (req, res) => {
     const userId = req.user.userId;
     const bookId = req.params.id;
 
-    const { result, error, statusCode } = await addVote(id_review, vote_type, userId, bookId);
+    const { result, error, statusCode } = await addReviewVote(id_review, vote_type, userId, bookId);
 
     writeResult(res, result, error, statusCode);
 };

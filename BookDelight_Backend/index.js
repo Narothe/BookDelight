@@ -10,6 +10,7 @@ const { verifySMTPConnection } = require('./config/mailConfig');
 const bookRoute = require('./routes/bookRoute');
 const authRoute = require('./routes/authRoute');
 const reviewRoute = require('./routes/reviewRoute');
+const replyRoute = require('./routes/replyRoute');
 const userRoute = require('./routes/userRoute');
 
 const swagger = require('./swagger');
@@ -29,6 +30,7 @@ app.use(bodyParser.json());
 app.use(morgan('combined'));
 
 app.use('/', reviewRoute);
+app.use('/', replyRoute);
 app.use('/', bookRoute)
 app.use('/', authRoute)
 app.use('/', userRoute)

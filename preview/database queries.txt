@@ -61,12 +61,11 @@ CREATE TABLE bookdelight.Review (
 
 CREATE TABLE bookdelight.Reply (
     id_reply SERIAL PRIMARY KEY,
-    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    id_review INT REFERENCES bookdelight.Review(id_review) ON DELETE CASCADE,
     id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     description TEXT NOT NULL, 
-    rating INT CHECK (rating >= 1 AND rating <= 10) NOT NULL,
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	CONSTRAINT unique_user_reply UNIQUE (id_book, id_user)
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

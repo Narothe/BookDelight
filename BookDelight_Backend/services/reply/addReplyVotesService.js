@@ -1,20 +1,20 @@
-const { addOrUpdateReviewVote } = require("../../models/review/addReviewVotesModel");
-const {getOneReview} = require("../../models/review/getReviewModel");
+const { addOrUpdateReplyVote } = require("../../models/reply/addReplyVotesModel");
+const {getOneReply} = require("../../models/reply/getReplyModel");
 
-const addReviewVote = async (id_review, vote_type, userId, bookId) => {
+const addVote = async (vote_type, userId, bookId, reviewId, replyId) => {
 
     if (!['upvote', 'downvote'].includes(vote_type)) {
         return { error: 'Invalid vote type. Must be either upvote or downvote.', statusCode: 400 };
     }
 
     try {
-        const review = await getOneReview(id_review, bookId);
+        const review = await getOneReply(bookId, reviewId, replyId);
 
         if (!review) {
             return { error: 'Review not found', statusCode: 404 };
         }
 
-        const result = await addOrUpdateReviewVote(id_review, userId, vote_type);
+        const result = await addOrUpdateReplyVote(userId, vote_type, replyId);
 
         if (result) {
             return { result: { message: `Vote ${vote_type} added successfully`, vote: result }, statusCode: 200 };
@@ -27,4 +27,4 @@ const addReviewVote = async (id_review, vote_type, userId, bookId) => {
     }
 };
 
-module.exports = { addReviewVote };
+module.exports = { addVote };
