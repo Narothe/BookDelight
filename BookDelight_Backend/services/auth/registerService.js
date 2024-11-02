@@ -24,9 +24,29 @@ const register = async (content) => {
             return { error: 'That username already exists.', statusCode: 400 };
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        if (password.length < 8) {
+            await client.query('ROLLBACK');
+            return { error: 'Password must be at least 8 characters long.', statusCode: 400 };
+        }
 
-        const userId = await createUser(email, hashedPassword, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date);
+        if (password.length > 72) {
+            await client.query('ROLLBACK');
+            return { error: 'Password must be at most 72 characters long.', statusCode: 400 };
+        }
+
+        if (password.startsWith(' ') || password.endsWith(' ')) {
+            await client.query('ROLLBACK');
+            return { error: 'Password must not start or end with empty spaces.', statusCode: 400 };
+        }
+
+        if (!password.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+{}/,.<>?`~;:'"])/, 'g')) {
+            await client.query('ROLLBACK');
+            return { error: 'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special sign.', statusCode: 400 };
+        }
+
+        const userId = await createUser(email, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date);
+
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const registerPassword = await savePassword(userId, hashedPassword);
 

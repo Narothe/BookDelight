@@ -1,4 +1,4 @@
-const { addOrUpdateVote } = require("../../models/review/addReviewVotesModel");
+const { addOrUpdateReviewVote } = require("../../models/review/addReviewVotesModel");
 const {getOneReview} = require("../../models/review/getReviewModel");
 
 const addVote = async (id_review, vote_type, userId, bookId) => {
@@ -14,7 +14,7 @@ const addVote = async (id_review, vote_type, userId, bookId) => {
             return { error: 'Review not found', statusCode: 404 };
         }
 
-        const result = await addOrUpdateVote(id_review, userId, vote_type);
+        const result = await addOrUpdateReviewVote(id_review, userId, vote_type);
 
         if (result) {
             return { result: { message: `Vote ${vote_type} added successfully`, vote: result }, statusCode: 200 };

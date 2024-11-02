@@ -59,8 +59,19 @@ CREATE TABLE bookdelight.Review (
 );
 
 
+CREATE TABLE bookdelight.Reply (
+    id_reply SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    description TEXT NOT NULL, 
+    rating INT CHECK (rating >= 1 AND rating <= 10) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT unique_user_reply UNIQUE (id_book, id_user)
+);
+
+
 CREATE TABLE bookdelight.Review_Votes (
-    id_review_vote SERIAL PRIMARY KEY,
+    id_vote SERIAL PRIMARY KEY,
     id_review INT REFERENCES bookdelight.Review(id_review) ON DELETE CASCADE,
     id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     vote_type VARCHAR(10) CHECK (vote_type IN ('upvote', 'downvote')),
@@ -68,10 +79,20 @@ CREATE TABLE bookdelight.Review_Votes (
     UNIQUE (id_review, id_user)
 );
 
-// DO PRZEROBIENIA
+
+CREATE TABLE bookdelight.Reply_Votes (
+    id_vote SERIAL PRIMARY KEY,
+    id_reply INT REFERENCES bookdelight.Reply(id_reply) ON DELETE CASCADE,
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    vote_type VARCHAR(10) CHECK (vote_type IN ('upvote', 'downvote')),
+	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (id_reply, id_user)
+);
+
+
 CREATE TABLE bookdelight.Genre (
     id_genre SERIAL PRIMARY KEY,
-    genre_name VARCHAR(100) NOT NULL UNIQUE CHECK (genre_name IN ('novels', 'scifi', 'fantasy', 'crime_stories', 'thrillers', 'romantic', 'historical', 'biographies', 'non_fiction', 'comics', 'classics_of_literature'))
+    genre_name VARCHAR(100) NOT NULL UNIQUE
 );
 
 
@@ -115,7 +136,7 @@ CREATE TABLE bookdelight.Preferences (
 
 CREATE TABLE bookdelight.Sessions (
     id_sessions SERIAL PRIMARY KEY,
-    user_id INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     jwt_token TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP

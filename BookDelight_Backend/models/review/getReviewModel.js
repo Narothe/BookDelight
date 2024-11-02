@@ -1,41 +1,6 @@
 const view = require('../../config/db');
 
 const getOneReview = async (reviewId, bookId) => {
-    // const query = `
-    //     SELECT r.id_book,
-    //            r.id_user,
-    //            b.title,
-    //            authors_array.authors,
-    //            r.description,
-    //            r.rating,
-    //            COALESCE(vote_summary.upvotes, 0)   AS upvotes,
-    //            COALESCE(vote_summary.downvotes, 0) AS downvotes
-    //     FROM bookdelight.review r
-    //     JOIN bookdelight.book b ON r.id_book = b.id_book
-    //     JOIN LATERAL (
-    //         SELECT ARRAY_AGG(a.author_name) AS authors
-    //         FROM bookdelight.book_author ba
-    //             JOIN bookdelight.author a ON ba.id_author = a.id_author
-    //         WHERE ba.id_book = r.id_book
-    //     ) authors_array ON true
-    //         LEFT JOIN LATERAL (
-    //         SELECT COUNT(CASE WHEN rv.vote_type = 'upvote' THEN 1 END)   AS upvotes,
-    //             COUNT(CASE WHEN rv.vote_type = 'downvote' THEN 1 END) AS downvotes
-    //         FROM bookdelight.review_votes rv
-    //         WHERE rv.id_review = r.id_review
-    //     ) vote_summary ON true
-    //     WHERE r.id_review = $1
-    //     AND b.id_book = $2
-    //     GROUP BY r.id_book,
-    //         r.id_user,
-    //         b.title,
-    //         r.description,
-    //         r.rating,
-    //         authors_array.authors,
-    //         vote_summary.upvotes,
-    //         vote_summary.downvotes;
-    // `;
-
     const query = `
         SELECT r.id_book,
                r.id_user                           AS review_author_id,
@@ -45,10 +10,12 @@ const getOneReview = async (reviewId, bookId) => {
                r.rating,
                COALESCE(vote_summary.upvotes, 0)   AS upvotes,
                COALESCE(vote_summary.downvotes, 0) AS downvotes,
+               u.username,
                up.photo_path                       AS author_photo,
                r.creation_date
         FROM bookdelight.review r
                  JOIN bookdelight.book b ON r.id_book = b.id_book
+                 JOIN bookdelight.users u ON b.id_user = u.id_user
                  LEFT JOIN bookdelight.User_Photos up ON b.id_user = up.id_user
                  JOIN LATERAL (
             SELECT ARRAY_AGG(a.author_name) AS authors
@@ -62,8 +29,8 @@ const getOneReview = async (reviewId, bookId) => {
             FROM bookdelight.review_votes rv
             WHERE rv.id_review = r.id_review
                 ) vote_summary ON true
-        WHERE b.id_book = $2
-          AND r.id_review = $1
+        WHERE b.id_book = $1
+          AND r.id_review = $2
         GROUP BY r.id_book,
                  r.id_user,
                  b.title,
@@ -72,6 +39,7 @@ const getOneReview = async (reviewId, bookId) => {
                  authors_array.authors,
                  vote_summary.upvotes,
                  vote_summary.downvotes,
+                 u.username,
                  up.photo_path,
                  r.creation_date;
     `;

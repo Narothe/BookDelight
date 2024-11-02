@@ -1,6 +1,6 @@
 const view = require("../../config/db");
 
-const addOrUpdateVote = async (reviewId, id_user, voteType) => {
+const addOrUpdateReviewVote = async (reviewId, id_user, voteType) => {
     const query = `
     INSERT INTO bookdelight.Review_Votes (id_review, id_user, vote_type)
     VALUES ($1, $2, $3)
@@ -20,4 +20,4 @@ const addOrUpdateVote = async (reviewId, id_user, voteType) => {
     }
 };
 
-module.exports = { addOrUpdateVote };
+module.exports = { addOrUpdateReviewVote };

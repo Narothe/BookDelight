@@ -24,7 +24,6 @@ const loginPassword = async (userId, password) => {
 
         const user = searchPassword.rows[0];
 
-
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {

@@ -1,6 +1,6 @@
 const book = require('../../config/db');
 
-const acceptedGenres = ['novels', 'scifi', 'fantasy', 'crime_stories', 'thrillers', 'romantic', 'historical', 'biographies', 'non_fiction', 'comics', 'classics_of_literature'];
+// const acceptedGenres = ['novels', 'scifi', 'fantasy', 'crime_stories', 'thrillers', 'romantic', 'historical', 'biographies', 'non_fiction', 'comics', 'classics_of_literature'];
 
 const validGenres = (genres) => {
     const uniqueGenres = [...new Set(genres)];
@@ -8,11 +8,11 @@ const validGenres = (genres) => {
         throw new Error('Duplicate genres are not allowed.');
     }
 
-    for (let genre of genres) {
-        if (!acceptedGenres.includes(genre)) {
-            throw new Error(`Invalid genre: "${genre}"`);
-        }
-    }
+    // for (let genre of genres) {
+    //     if (!acceptedGenres.includes(genre)) {
+    //         throw new Error(`Invalid genre: "${genre}"`);
+    //     }
+    // }
 }
 
 const addGenre = async (genres, bookId) => {
