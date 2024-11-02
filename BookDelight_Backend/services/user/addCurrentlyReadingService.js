@@ -1,22 +1,31 @@
-const {addCurrentlyReading, checkCurrentlyReading, checkExistenceOfBook} = require("../../models/user/addCurrentlyReadingModel");
+const {addCurrentlyReading} = require("../../models/user/addCurrentlyReadingModel");
+const {checkExistenceOfBook, checkCurrentlyReading, checkWishToRead} = require("../../models/user/checkVariousUserBookmarks");
+const {deleteWishToRead} = require("../../models/user/deleteWishToReadModel");
 
 const insertCurrentlyReading = async (id_book, userId) => {
 
     try {
         const checkBook = await checkExistenceOfBook(id_book);
-
         if (!checkBook) {
-            return { result: null, error: 'Book not found.', statusCode: 404 };
+            return { error: 'Book not found.', statusCode: 404 };
         }
 
         const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, id_book);
-
         if (checkExistenceOfCurrentlyReadingBook) {
             return { result: null, error: 'Currently reading book already exists.', statusCode: 400 };
         }
-        await addCurrentlyReading( userId, id_book);
 
-        return { result: { message: 'Currently reading added successfully.', userId: userId }, error: null, statusCode: 201 };
+        const checkExistenceOfWishToReadBook = await checkWishToRead(userId, id_book);
+        if (checkExistenceOfWishToReadBook) {
+            await deleteWishToRead(userId, id_book);
+            if (deleteWishToRead) {
+                await addCurrentlyReading( userId, id_book);
+                return {result: {message: 'Book deleted from wish to read successfully and added to currently reading successfully', userId: userId}, statusCode: 201};
+            }
+        }
+
+        await addCurrentlyReading( userId, id_book);
+        return { result: { message: 'Currently reading added successfully.', userId: userId }, statusCode: 201 };
     } catch (err) {
         console.error("Error while adding the currently reading:", err);
         return { result: null, error: 'An error occurred while adding the currently reading.', statusCode: 500 };

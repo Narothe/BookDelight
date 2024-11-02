@@ -1,39 +1,5 @@
 const pool = require('../../config/db');
 
-const checkExistenceOfBook = async (id_book) => {
-    const query = `
-        SELECT * FROM bookdelight.Book
-        WHERE id_book = $1
-        `;
-
-    const values = [id_book];
-
-    try {
-        const result = await pool.query(query, values);
-        return result.rows[0];
-    } catch (err) {
-        console.error('Error while checking the existence of the book:', err);
-        return { error: 'An error occurred while checking the existence of the book.' };
-    }
-}
-
-const checkCurrentlyReading = async (id_user, id_book) => {
-    const query = `
-        SELECT * FROM bookdelight.Currently_Reading
-        WHERE id_user = $1 AND id_book = $2
-        `;
-
-    const values = [id_user, id_book];
-
-    try {
-        const result = await pool.query(query, values);
-        return result.rows[0];
-    } catch (err) {
-        console.error('Error while checking if the book is currently reading:', err);
-        return { error: 'An error occurred while checking if the book is currently reading.' };
-    }
-}
-
 const addCurrentlyReading = async (id_user, id_book) => {
     const query = `
         INSERT INTO bookdelight.Currently_Reading (id_book, id_user) 
@@ -52,7 +18,5 @@ const addCurrentlyReading = async (id_user, id_book) => {
 }
 
 module.exports = {
-    addCurrentlyReading,
-    checkCurrentlyReading,
-    checkExistenceOfBook
+    addCurrentlyReading
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {authenticateToken} = require("../middlewares/authenticateToken");
-const {postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto} = require("../controllers/userController");
+const {postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto, postWishToRead} = require("../controllers/userController");
 const {uploadPhoto} = require("../controllers/addUserPhotoController");
 
 
@@ -10,6 +10,7 @@ router.post('/book/:id/update-currently-reading-page', authenticateToken, postCu
 router.post('/user/change-photo', authenticateToken, uploadPhoto);
 router.get('/user/:id/currently-reading', getCurrentlyReading);
 router.get('/user/:id/photo', getUserPhoto);
+router.post('/book/:id/add-wish-to-read', authenticateToken, postWishToRead);
 
 
 module.exports = router;

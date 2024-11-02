@@ -1,5 +1,5 @@
-const {addCurrentlyReadingPage ,checkAmountOfPages, checkExistenceOfBook, checkAddedBookToUser} = require("../../models/user/addCurrentlyReadingPageModel");
-
+const {addCurrentlyReadingPage ,checkAmountOfPages} = require("../../models/user/addCurrentlyReadingPageModel");
+const {checkExistenceOfBook, checkCurrentlyReading} = require("../../models/user/checkVariousUserBookmarks");
 
 const insertCurrentlyReadingPage = async (id_book, userId, current_page) => {
     if (!current_page) {
@@ -17,7 +17,7 @@ const insertCurrentlyReadingPage = async (id_book, userId, current_page) => {
             return { error: 'Book not found.', statusCode: 404 };
         }
 
-        const checkCurrentlyReadingBook = await checkAddedBookToUser(userId, id_book);
+        const checkCurrentlyReadingBook = await checkCurrentlyReading(userId, id_book);
 
         if (!checkCurrentlyReadingBook) {
             return { error: 'Currently reading book not found.', statusCode: 404 };

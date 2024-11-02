@@ -3,6 +3,7 @@ const {insertCurrentlyReading} = require("../services/user/addCurrentlyReadingSe
 const {insertCurrentlyReadingPage} = require("../services/user/addCurrentlyReadingPageService");
 const {showCurrentlyReading} = require("../services/user/getCurrentlyReadingService");
 const {getPhoto} = require("../services/user/getUserPhotoService");
+const {insertWishToRead} = require("../services/user/addWishToReadService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -41,5 +42,14 @@ const getUserPhoto = async (req, res) => {
     writeResult(res, result, error, statusCode);
 };
 
+const postWishToRead = async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user.userId;
 
-module.exports = { postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto };
+    const { result, error, statusCode } = await insertWishToRead(bookId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
+
+module.exports = { postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto, postWishToRead };

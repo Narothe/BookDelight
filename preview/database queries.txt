@@ -161,6 +161,30 @@ CREATE TABLE bookdelight.Currently_Reading (
 );
 
 
+CREATE TABLE bookdelight.Wish_Read (
+    id_wish SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Favorite_Books (
+    id_favorite SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bookdelight.Read_Books (
+    id_read SERIAL PRIMARY KEY,
+    id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 
 
 -- TRIGGERS SECTION
@@ -194,4 +218,8 @@ CREATE TRIGGER update_security_date_trigger
 BEFORE UPDATE ON bookdelight.Security
 FOR EACH ROW
 EXECUTE FUNCTION update_security_date();
+
+
+
+
 
