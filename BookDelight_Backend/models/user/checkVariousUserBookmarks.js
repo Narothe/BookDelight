@@ -17,6 +17,24 @@ const checkExistenceOfBook = async (id_book) => {
     }
 }
 
+const checkExistenceOfUser = async (userId) => {
+    const query = `
+        SELECT id_user
+        FROM bookdelight.Users
+        WHERE id_user = $1;
+    `;
+
+    const values = [userId];
+
+    try {
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    } catch (err) {
+        console.error('Error while getting the user:', err);
+        return { error: 'An error occurred while getting the user.' };
+    }
+}
+
 const checkCurrentlyReading = async (id_user, id_book) => {
     const query = `
         SELECT * FROM bookdelight.Currently_Reading
@@ -88,6 +106,7 @@ const checkReadBooks = async (id_user, id_book) => {
 
 module.exports = {
     checkExistenceOfBook,
+    checkExistenceOfUser,
 
     checkCurrentlyReading,
     checkWishToRead,

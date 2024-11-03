@@ -1,7 +1,8 @@
-const { getCurrentlyReading} = require("../../models/user/getCurrentlyReadingModel");
 const {checkExistenceOfUser} = require("../../models/user/checkVariousUserBookmarks");
+const {getWishToRead} = require("../../models/user/getWishToReadModel");
 
-const showCurrentlyReading = async (userId) => {
+
+const showWishToRead = async (userId) => {
 
     try {
         const checkUser = await checkExistenceOfUser(userId);
@@ -10,13 +11,13 @@ const showCurrentlyReading = async (userId) => {
             return {error: 'User not found', statusCode: 404};
         }
 
-        const result = await getCurrentlyReading(userId);
+        const result = await getWishToRead(userId);
 
         if (result.length === 0) {
             return {error: 'Currently reading books not found', statusCode: 404};
         }
 
-        return { result, error: null, statusCode: 200 };
+        return { result, statusCode: 200 };
     } catch (err) {
         console.error('Error while getting the currently reading books:', err);
         return { error: 'An error occurred while getting the currently reading books.', statusCode: 500 };
@@ -24,5 +25,5 @@ const showCurrentlyReading = async (userId) => {
 }
 
 module.exports = {
-    showCurrentlyReading
+    showWishToRead
 };
