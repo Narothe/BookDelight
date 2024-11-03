@@ -7,7 +7,8 @@ const {insertWishToRead} = require("../services/user/addWishToReadService");
 const {showWishToRead} = require("../services/user/getWishToReadService");
 const {insertReadBook} = require("../services/user/addReadBookService");
 const {showReadBooks} = require("../services/user/getReadBookService");
-const {insertFavorite} = require("../services/user/addFavoriteService");
+const {insertFavorite} = require("../services/user/addFavoriteBookService");
+const {showFavorite} = require("../services/user/getFavoriteBookService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -89,6 +90,14 @@ const postFavorite = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const getFavoriteBooks = async (req, res) => {
+    const userId = req.params.id;
+
+    const { result, error, statusCode } = await showFavorite(userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
 
 module.exports = {
     postCurrentlyReading,
@@ -99,5 +108,6 @@ module.exports = {
     getWishToRead,
     postReadBook,
     getReadBooks,
-    postFavorite
+    postFavorite,
+    getFavoriteBooks
 };

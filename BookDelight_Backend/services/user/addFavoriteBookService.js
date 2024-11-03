@@ -1,8 +1,6 @@
-const {checkExistenceOfBook, checkCurrentlyReading, checkWishToRead, checkReadBooks, checkFavoriteBooks} = require("../../models/user/checkVariousUserBookmarks");
-const {deleteCurrentlyReading} = require("../../models/user/deleteCurrentlyReadingModel");
-const {deleteReadBook} = require("../../models/user/deleteReadBookModel");
+const {checkExistenceOfBook, checkFavoriteBooks} = require("../../models/user/checkVariousUserBookmarks");
+
 const {addFavorite} = require("../../models/user/addFavoriteBookModel");
-const {deleteWishToRead} = require("../../models/user/deleteWishToReadModel");
 
 
 const insertFavorite = async (bookId, userId) => {
