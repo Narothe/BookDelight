@@ -1,10 +1,10 @@
 const {checkExistenceOfBook, checkCurrentlyReading, checkWishToRead, checkReadBooks} = require("../../models/user/checkVariousUserBookmarks");
-const {addWishToRead} = require("../../models/user/addWishToReadModel");
 const {deleteCurrentlyReading} = require("../../models/user/deleteCurrentlyReadingModel");
-const {deleteReadBook} = require("../../models/user/deleteReadBookModel");
+const {addReadBook} = require("../../models/user/addReadBookModel");
+const {deleteWishToRead} = require("../../models/user/deleteWishToReadModel");
 
 
-const insertWishToRead = async (bookId, userId) => {
+const insertReadBook = async (bookId, userId) => {
 
     try {
         const checkBook = await checkExistenceOfBook(bookId);
@@ -12,30 +12,30 @@ const insertWishToRead = async (bookId, userId) => {
             return { error: 'Book not found.', statusCode: 404 };
         }
 
-        const checkExistenceOfWishToReadBook = await checkWishToRead(userId, bookId);
-        if (checkExistenceOfWishToReadBook) {
-            return { error: 'Book already exists in wish to read.', statusCode: 400 };
-        }
-
         const checkExistenceOfReadBook = await checkReadBooks(userId, bookId);
         if (checkExistenceOfReadBook) {
-            await deleteReadBook(userId, bookId);
-            if (deleteReadBook) {
-                await addWishToRead( userId, bookId);
-                return {result: {message: 'Book deleted from read books successfully and added to wish to read successfully', userId: userId}, statusCode: 201};
-            }
+            return { error: 'Book already exists in read book.', statusCode: 400 };
         }
 
         const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, bookId);
         if (checkExistenceOfCurrentlyReadingBook) {
             await deleteCurrentlyReading(userId, bookId);
             if (deleteCurrentlyReading) {
-                await addWishToRead(userId, bookId);
-                return { result: {  message: 'Book deleted from currently reading successfully and added to wish to read successfully', userId: userId }, statusCode: 201 };
+                await addReadBook(userId, bookId);
+                return { result: {  message: 'Book deleted from currently reading successfully and added to read books successfully', userId: userId }, statusCode: 201 };
             }
         }
 
-        await addWishToRead(userId, bookId);
+        const checkExistenceOfWishToReadBook = await checkWishToRead(userId, bookId);
+        if (checkExistenceOfWishToReadBook) {
+            await deleteWishToRead(userId, bookId);
+            if (deleteWishToRead) {
+                await addReadBook(userId, bookId);
+                return {result: {message: 'Book deleted from wish to read successfully and added to read books successfully', userId: userId}, statusCode: 201};
+            }
+        }
+
+        await addReadBook(userId, bookId);
         return { result: { message: 'Wish to read added successfully.', userId: userId }, statusCode: 201 };
     } catch (err) {
         console.error("Error while adding the wish to read book:", err);
@@ -44,5 +44,5 @@ const insertWishToRead = async (bookId, userId) => {
 };
 
 module.exports = {
-    insertWishToRead
+    insertReadBook
 };
