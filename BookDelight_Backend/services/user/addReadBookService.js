@@ -2,6 +2,8 @@ const {checkExistenceOfBook, checkCurrentlyReading, checkWishToRead, checkReadBo
 const {deleteCurrentlyReading} = require("../../models/user/deleteCurrentlyReadingModel");
 const {addReadBook} = require("../../models/user/addReadBookModel");
 const {deleteWishToRead} = require("../../models/user/deleteWishToReadModel");
+const {deleteFavorite} = require("../../models/user/deleteFavoriteBookModel");
+const {addCurrentlyReading} = require("../../models/user/addCurrentlyReadingModel");
 
 
 const insertReadBook = async (bookId, userId) => {
@@ -32,6 +34,15 @@ const insertReadBook = async (bookId, userId) => {
             if (deleteWishToRead) {
                 await addReadBook(userId, bookId);
                 return {result: {message: 'Book deleted from wish to read successfully and added to read books successfully', userId: userId}, statusCode: 201};
+            }
+        }
+
+        const checkExistenceOfFavorite = await checkReadBooks(userId, bookId);
+        if (checkExistenceOfFavorite) {
+            await deleteFavorite(userId, bookId);
+            if (deleteFavorite) {
+                await addReadBook( userId, bookId);
+                return {result: {message: 'Book deleted from favorite successfully and added to read books successfully', userId: userId}, statusCode: 201};
             }
         }
 
