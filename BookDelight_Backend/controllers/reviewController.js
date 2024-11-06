@@ -44,4 +44,9 @@ const getAllReviews = async (req, res) => {
 };
 
 
-module.exports = { postReview, getReviewById, postReviewVote, getAllReviews };
+module.exports = {
+    postReview,
+    getReviewById,
+    postReviewVote,
+    getAllReviews
+};

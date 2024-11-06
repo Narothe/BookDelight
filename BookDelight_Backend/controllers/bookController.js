@@ -51,4 +51,9 @@ const postBook = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
-module.exports = { getBook, getBooks, getPhoto, postBook };
+module.exports = {
+    getBook,
+    getBooks,
+    getPhoto,
+    postBook
+};

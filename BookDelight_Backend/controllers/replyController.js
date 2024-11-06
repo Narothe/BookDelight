@@ -49,7 +49,8 @@ const getAllReply = async (req, res) => {
 };
 
 
-module.exports = { postReply,
+module.exports = {
+    postReply,
     getReplyById,
     postReplyVote,
     getAllReply

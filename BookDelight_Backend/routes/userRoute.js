@@ -15,6 +15,8 @@ router.get('/user/:id/wish-to-read', getWishToRead);
 router.get('/user/:id/read-book', getReadBooks);
 router.get('/user/:id/favorite', getFavoriteBooks);
 
+router.delete('/user/:id/delete-wish-to-read', authenticateToken, deleteWishToRead);
+
 router.post('/book/:id/add-wish-to-read', authenticateToken, postWishToRead);
 router.post('/book/:id/add-read-book', authenticateToken, postReadBook);
 router.post('/book/:id/add-favorite', authenticateToken, postFavorite);

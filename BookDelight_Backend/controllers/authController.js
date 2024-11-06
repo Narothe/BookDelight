@@ -47,4 +47,10 @@ const getVerifyToken = async (req, res) => {
 }
 
 
-module.exports = { postLogin, postLogout, postRegister, postVerify, getVerifyToken };
+module.exports = {
+    postLogin,
+    postLogout,
+    postRegister,
+    postVerify,
+    getVerifyToken
+};
