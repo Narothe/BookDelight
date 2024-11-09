@@ -218,5 +218,7 @@ EXECUTE FUNCTION update_security_date();
 
 
 
+-- EXTENSION SECTION
 
 
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
