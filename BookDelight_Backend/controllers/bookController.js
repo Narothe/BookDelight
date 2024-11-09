@@ -4,8 +4,7 @@ const { findBook } = require("../services/book/getBookService");
 const { findBooks } = require("../services/book/getAllBooksService");
 const { findPhoto } = require("../services/book/getBookPhotoService");
 const { insertBook } = require("../services/book/postBookService");
-const {uploadPhoto} = require("./addBookPhotoController");
-// const { uploadPhoto } = require("../../services/book/postBookPhotoService");
+const { findBookAuthors, findBookGenres} = require("../services/book/getBookPreferencesService");
 
 
 const getBook = async (req, res) => {
@@ -51,9 +50,25 @@ const postBook = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const getAllBookAuthors = async (req, res) => {
+
+    const { result, error, statusCode } = await findBookAuthors();
+
+    writeResult(res, result, error, statusCode);
+}
+
+const getAllBookGenres = async (req, res) => {
+
+    const { result, error, statusCode } = await findBookGenres();
+
+    writeResult(res, result, error, statusCode);
+}
+
 module.exports = {
     getBook,
     getBooks,
     getPhoto,
-    postBook
+    postBook,
+    getAllBookAuthors,
+    getAllBookGenres
 };

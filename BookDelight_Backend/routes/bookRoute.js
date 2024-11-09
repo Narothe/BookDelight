@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getBook, getPhoto, getBooks, postBook} = require('../controllers/bookController');
+const { getBook, getPhoto, getBooks, postBook, getAllBookAuthors, getAllBookGenres} = require('../controllers/bookController');
 const {authenticateToken} = require("../middlewares/authenticateToken");
 
 const {uploadPhoto} = require("../controllers/addBookPhotoController");
@@ -9,9 +9,12 @@ router.get('/book/:id', getBook);
 router.get('/book/:id/photo', getPhoto);
 router.get('/', getBooks);
 router.post('/add-book', authenticateToken, postBook);
-// router.post('/book/:id/add-photo', authenticateToken, postBookPhoto);
-
 router.post('/book/:id/add-photo', authenticateToken, uploadPhoto);
+
+router.get('/authors', getAllBookAuthors);
+router.get('/genres', getAllBookGenres);
+
+
 
 
 module.exports = router;

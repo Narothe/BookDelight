@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {authenticateToken} = require("../middlewares/authenticateToken");
 const {postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto, postWishToRead, getWishToRead,
-    postReadBook, getReadBooks, postFavorite, getFavoriteBooks
+    postReadBook, getReadBooks, postFavorite, getFavoriteBooks, postUserPreferences
 } = require("../controllers/userController");
 const {uploadPhoto} = require("../controllers/addUserPhotoController");
 
@@ -22,6 +22,8 @@ router.post('/book/:id/add-read-book', authenticateToken, postReadBook);
 router.post('/book/:id/add-favorite', authenticateToken, postFavorite);
 router.post('/book/:id/add-currently-reading', authenticateToken, postCurrentlyReading);
 router.post('/book/:id/update-currently-reading-page', authenticateToken, postCurrentlyReadingPage);
+
+// router.post('/user/:id/add-preferences', authenticateToken, postUserPreferences);
 
 
 module.exports = router;

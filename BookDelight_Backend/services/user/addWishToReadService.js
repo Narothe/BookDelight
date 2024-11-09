@@ -3,7 +3,6 @@ const {addWishToRead} = require("../../models/user/addWishToReadModel");
 const {deleteCurrentlyReading} = require("../../models/user/deleteCurrentlyReadingModel");
 const {deleteReadBook} = require("../../models/user/deleteReadBookModel");
 const {deleteFavorite} = require("../../models/user/deleteFavoriteBookModel");
-const {addReadBook} = require("../../models/user/addReadBookModel");
 
 
 const insertWishToRead = async (bookId, userId) => {
