@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const { createUser, checkEmailExistence, checkUsernameExistence, savePassword} = require('../../models/auth/registerModel');
 
 const register = async (content) => {
-    const { email, password, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date } = content;
+    const { email, password, username, firstName, lastName, birthday } = content;
 
-    if (!email || !password || !username || !firstName || !lastName || !birthDay || !birthMonth || !birthYear) {
+    if (!email || !password || !username || !firstName || !lastName || !birthday) {
         return { error: 'All fields are required.', statusCode: 400 };
     }
 
@@ -44,7 +44,7 @@ const register = async (content) => {
             return { error: 'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special sign.', statusCode: 400 };
         }
 
-        const userId = await createUser(email, username, firstName, lastName, birthDay, birthMonth, birthYear, creation_date);
+        const userId = await createUser(email, username, firstName, lastName, birthday);
 
         const hashedPassword = await bcrypt.hash(password, 10);
 

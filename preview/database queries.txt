@@ -6,9 +6,7 @@ CREATE TABLE bookdelight.Users (
     username VARCHAR(100) NOT NULL UNIQUE,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    birth_day SMALLINT NOT NULL CHECK (birth_day BETWEEN 1 AND 31),
-    birth_month SMALLINT NOT NULL CHECK (birth_month BETWEEN 1 AND 12),
-    birth_year SMALLINT NOT NULL CHECK (birth_year BETWEEN 1800 AND EXTRACT(YEAR FROM CURRENT_DATE)),
+    birthday DATE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -123,7 +121,7 @@ CREATE TABLE bookdelight.Book_Author (
 );
 
 
-// DO PRZEROBIENIA
+-- // DO PRZEROBIENIA
 CREATE TABLE bookdelight.Preferences (
     id_preferences SERIAL PRIMARY KEY,
     id_book INT REFERENCES bookdelight.Book(id_book) ON DELETE CASCADE,
@@ -183,6 +181,7 @@ CREATE TABLE bookdelight.Read_Books (
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 
