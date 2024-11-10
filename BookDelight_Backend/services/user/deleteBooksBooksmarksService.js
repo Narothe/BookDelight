@@ -27,7 +27,7 @@ const removeWishToRead = async (bookId, userId) => {
             return { error: 'An error occurred while removing the book from wish to read.', statusCode: 500 };
         }
 
-        return { result: { message: 'Book removed successfully from wish to read.', userId: userId }, statusCode: 201 };
+        return { result: { message: 'Book removed successfully from wish to read.', userId: userId }, statusCode: 200 };
     } catch (err) {
         console.error("Error while removing book from wish to read:", err);
         return { error: 'An error occurred while removing the book from wish to read.', statusCode: 500 };
@@ -56,7 +56,7 @@ const removeFavorite = async (bookId, userId) => {
             return { error: 'An error occurred while removing the book from favorite.', statusCode: 500 };
         }
 
-        return { result: { message: 'Book removed successfully from favorite.', userId: userId }, statusCode: 201 };
+        return { result: { message: 'Book removed successfully from favorite.', userId: userId }, statusCode: 200 };
     } catch (err) {
         console.error("Error while removing book from favorite:", err);
         return { error: 'An error occurred while removing the book from favorite.', statusCode: 500 };
@@ -85,7 +85,7 @@ const removeReadBook = async (bookId, userId) => {
             return { error: 'An error occurred while removing the book from read book.', statusCode: 500 };
         }
 
-        return { result: { message: 'Book removed successfully from read book.', userId: userId }, statusCode: 201 };
+        return { result: { message: 'Book removed successfully from read book.', userId: userId }, statusCode: 200 };
     } catch (err) {
         console.error("Error while removing book from read book:", err);
         return { error: 'An error occurred while removing the book from read book.', statusCode: 500 };
@@ -114,7 +114,7 @@ const removeCurrentlyReading = async (bookId, userId) => {
             return { error: 'An error occurred while removing the book from currently reading.', statusCode: 500 };
         }
 
-        return { result: { message: 'Book removed successfully from currently reading.', userId: userId }, statusCode: 201 };
+        return { result: { message: 'Book removed successfully from currently reading.', userId: userId }, statusCode: 200 };
     } catch (err) {
         console.error("Error while removing book from currently reading:", err);
         return { error: 'An error occurred while removing the book from currently reading.', statusCode: 500 };
