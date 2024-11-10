@@ -34,12 +34,15 @@ const getAuthors = async () => {
 
 const getSpecificGenres = async (genre) => {
     const query = `
-        select genre_name from bookdelight.genre
+        select * from bookdelight.genre
         where genre_name ILIKE $1;
     `;
 
     try {
         const result = await pool.query(query, [genre]);
+
+        // console.log(result.rows[0].id_genre);
+
         return result.rows;
     } catch (err) {
         console.error('Error while getting the genre:', err);
@@ -49,7 +52,7 @@ const getSpecificGenres = async (genre) => {
 
 const getSpecificAuthors = async (author) => {
     const query = `
-        SELECT author_name
+        SELECT *
         FROM bookdelight.author
         WHERE
             (LEVENSHTEIN(author_name, $1) <= 3 OR author_name ILIKE '%' || $1 || '%')
@@ -58,11 +61,44 @@ const getSpecificAuthors = async (author) => {
 
     try {
         const result = await pool.query(query, [author]);
-        // return result.rows;
-        return result.rows.map(row => row.author_name)
+        return result.rows;
     } catch (err) {
         console.error('Error while getting the author:', err);
         return { error: 'An error occurred during getting the author.' };
+    }
+}
+
+const getGenreByIds = async (userId, genreId) => {
+    const query = `
+        SELECT * FROM bookdelight.User_Genres
+        WHERE id_user = $1 AND id_genre = $2;
+    `;
+
+    try {
+        const result = await pool.query(query, [userId, genreId]);
+
+        return result.rows.length > 0;
+
+    } catch (err) {
+        console.error('Error while getting the genre by user:', err);
+        return { error: 'An error occurred during getting the genre by user.' };
+    }
+}
+
+const getAuthorByIds = async (userId, authorId) => {
+    const query = `
+        SELECT * FROM bookdelight.User_Authors
+        WHERE id_user = $1 AND id_author = $2;
+    `;
+
+    try {
+        const result = await pool.query(query, [userId, authorId]);
+
+        return result.rows.length > 0;
+
+    } catch (err) {
+        console.error('Error while getting the author by user:', err);
+        return { error: 'An error occurred during getting the author by user.' };
     }
 }
 
@@ -70,5 +106,7 @@ module.exports = {
     getAuthors,
     getGenres,
     getSpecificGenres,
-    getSpecificAuthors
+    getSpecificAuthors,
+    getGenreByIds,
+    getAuthorByIds
 };

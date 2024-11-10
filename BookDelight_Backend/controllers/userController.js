@@ -9,6 +9,7 @@ const {insertReadBook} = require("../services/user/addReadBookService");
 const {showReadBooks} = require("../services/user/getReadBookService");
 const {insertFavorite} = require("../services/user/addFavoriteBookService");
 const {showFavorite} = require("../services/user/getFavoriteBookService");
+const {insertUserGenrePreferences, insertUserAuthorPreferences} = require("../services/user/addUserPreferencesService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -98,6 +99,24 @@ const getFavoriteBooks = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const postUserGenrePreferences = async (req, res) => {
+    const userId = req.params.id;
+    const { genre } = req.body;
+
+    const { result, error, statusCode } = await insertUserGenrePreferences(userId, genre);
+
+    writeResult(res, result, error, statusCode);
+}
+
+const postUserAuthorPreferences = async (req, res) => {
+    const userId = req.params.id;
+    const { author } = req.body;
+
+    const { result, error, statusCode } = await insertUserAuthorPreferences(userId, author);
+
+    writeResult(res, result, error, statusCode);
+}
+
 
 module.exports = {
     postCurrentlyReading,
@@ -109,5 +128,7 @@ module.exports = {
     postReadBook,
     getReadBooks,
     postFavorite,
-    getFavoriteBooks
+    getFavoriteBooks,
+    postUserGenrePreferences,
+    postUserAuthorPreferences
 };

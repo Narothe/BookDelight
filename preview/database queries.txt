@@ -121,10 +121,14 @@ CREATE TABLE bookdelight.Book_Author (
 );
 
 
-CREATE TABLE bookdelight.User_Preferences (
-    id_user_preferences SERIAL PRIMARY KEY,
+CREATE TABLE bookdelight.User_Genres (
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     id_genre INT REFERENCES bookdelight.Genre(id_genre) ON DELETE CASCADE,
+);
+
+
+CREATE TABLE bookdelight.User_Authors (
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     id_author INT REFERENCES bookdelight.Author(id_author) ON DELETE CASCADE
 );
 
