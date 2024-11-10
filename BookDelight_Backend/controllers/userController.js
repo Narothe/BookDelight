@@ -10,6 +10,7 @@ const {showReadBooks} = require("../services/user/getReadBookService");
 const {insertFavorite} = require("../services/user/addFavoriteBookService");
 const {showFavorite} = require("../services/user/getFavoriteBookService");
 const {insertUserGenrePreferences, insertUserAuthorPreferences} = require("../services/user/addUserPreferencesService");
+const {removeWishToRead, removeFavorite, removeReadBook, removeCurrentlyReading} = require("../services/user/deleteBooksBooksmarksService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -117,6 +118,42 @@ const postUserAuthorPreferences = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const deleteWishToRead = async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await removeWishToRead(bookId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
+const deleteFavorite = async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await removeFavorite(bookId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
+const deleteReadBook = async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await removeReadBook(bookId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
+const deleteCurrentlyReading = async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await removeCurrentlyReading(bookId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
 
 module.exports = {
     postCurrentlyReading,
@@ -130,5 +167,9 @@ module.exports = {
     postFavorite,
     getFavoriteBooks,
     postUserGenrePreferences,
-    postUserAuthorPreferences
+    postUserAuthorPreferences,
+    deleteWishToRead,
+    deleteFavorite,
+    deleteReadBook,
+    deleteCurrentlyReading
 };

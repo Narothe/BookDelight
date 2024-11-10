@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {authenticateToken} = require("../middlewares/authenticateToken");
 const {postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto, postWishToRead, getWishToRead,
-    postReadBook, getReadBooks, postFavorite, getFavoriteBooks, postUserGenrePreferences, postUserAuthorPreferences
+    postReadBook, getReadBooks, postFavorite, getFavoriteBooks, postUserGenrePreferences, postUserAuthorPreferences,
+    deleteWishToRead, deleteFavorite, deleteReadBook, deleteCurrentlyReading
 } = require("../controllers/userController");
 const {uploadPhoto} = require("../controllers/addUserPhotoController");
 
@@ -15,7 +16,10 @@ router.get('/user/:id/wish-to-read', getWishToRead);
 router.get('/user/:id/read-book', getReadBooks);
 router.get('/user/:id/favorite', getFavoriteBooks);
 
-// router.delete('/user/:id/delete-wish-to-read', authenticateToken, deleteWishToRead);
+router.delete('/book/:id/delete-wish-to-read', authenticateToken, deleteWishToRead);
+router.delete('/book/:id/delete-favorite', authenticateToken, deleteFavorite);
+router.delete('/book/:id/delete-read-book', authenticateToken, deleteReadBook);
+router.delete('/book/:id/currently-reading', authenticateToken, deleteCurrentlyReading);
 
 router.post('/book/:id/add-wish-to-read', authenticateToken, postWishToRead);
 router.post('/book/:id/add-read-book', authenticateToken, postReadBook);
