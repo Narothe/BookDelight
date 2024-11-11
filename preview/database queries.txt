@@ -7,6 +7,7 @@ CREATE TABLE bookdelight.Users (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     birthday DATE,
+	verify BOOLEAN DEFAULT FALSE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -16,13 +17,6 @@ CREATE TABLE bookdelight.Security (
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
     password VARCHAR(255) NOT NULL,
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE bookdelight.Verify_User (
-	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
-	verify BOOLEAN DEFAULT FALSE,
-	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -123,7 +117,7 @@ CREATE TABLE bookdelight.Book_Author (
 
 CREATE TABLE bookdelight.User_Genres (
 	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
-    id_genre INT REFERENCES bookdelight.Genre(id_genre) ON DELETE CASCADE,
+    id_genre INT REFERENCES bookdelight.Genre(id_genre) ON DELETE CASCADE
 );
 
 
