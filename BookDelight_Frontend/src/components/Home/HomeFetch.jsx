@@ -30,7 +30,7 @@ function HomeFetch() {
             {data.length > 0 ? (
                 <div className="border pt-4 p-2 mb-4 rounded-md shadow-md bg-custom-new-white">
                     {data.map((item) => (
-                        <div key={item.id_book}  className="border p-4 mb-4 rounded-md shadow-md bg-white">
+                        <div key={item.id_book} className="border p-4 mb-4 rounded-md shadow-md bg-white">
                             <div className="hidden md:block">
                                 <HomeFetchDesktop item={item} photoUrl={photoUrl}/>
                                 <div className="flex justify-center mt-4">
@@ -40,7 +40,7 @@ function HomeFetch() {
                             <Link to={`/book/${item.id_book}`} className="block md:hidden">
                                 <HomeFetchMobile item={item} photoUrl={photoUrl}/>
                                 <div className="flex justify-end mt-4">
-                                    <p className="text-sm sm:text-base text-gray-400">Click and see more</p>
+                                    <i className="text-sm sm:text-base text-gray-400 ">Click and see more</i>
                                 </div>
                             </Link>
 

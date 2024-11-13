@@ -17,7 +17,7 @@ function LinkButton({ text, link }) {
                 styleOverrides: {
                     root: {
                         textTransform: 'none',
-                        width: '5rem',
+                        minWidth: '5rem',
                         '&:hover': {
                             color: '#000000',
                         },

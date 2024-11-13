@@ -41,17 +41,18 @@ function Book() {
     if (!book) return <p>No book data found</p>;
 
     return (
-
         <div className="pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
             <div className="hidden md:block">
-                <DesktopBook book={book} photoUrl={photoUrl}/>
+                <DesktopBook book={book} review={review} photoUrl={photoUrl}/>
             </div>
             <div className="block md:hidden">
-                <MobileBook book={book} photoUrl={photoUrl}/>
+                <MobileBook book={book} review={review} photoUrl={photoUrl}/>
             </div>
-            <div className="flex justify-center mt-4">
-                <LinkButton text="Reviews" link={`/book/${book.id_book}/reviews`}/>
-            </div>
+            {review && (
+                <div className="flex justify-center mt-4">
+                    <LinkButton text="Show all reviews" link={`/book/${book.id_book}/reviews`}/>
+                </div>
+            )}
         </div>
     );
 }

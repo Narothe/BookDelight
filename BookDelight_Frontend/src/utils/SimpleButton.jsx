@@ -17,7 +17,7 @@ function SimpleButton({ text }) {
                 styleOverrides: {
                     root: {
                         textTransform: 'none',
-                        width: '5rem',
+                        minWidth: '5rem',
                         '&:hover': {
                             color: '#ffffff',
                         },
