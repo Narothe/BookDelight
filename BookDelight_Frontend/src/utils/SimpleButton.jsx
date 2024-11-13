@@ -1,15 +1,15 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
-function LinkButton({ text, link }) {
+
+function SimpleButton({ text }) {
 
     const theme = createTheme({
         palette: {
             primary: {
-                main: '#495464',
-                dark: '#BBBFCA',
+                main: '#BBBFCA',
+                dark: '#495464',
             },
         },
         components: {
@@ -18,15 +18,15 @@ function LinkButton({ text, link }) {
                     root: {
                         textTransform: 'none',
                         '&:hover': {
-                            color: '#000000',
+                            color: '#ffffff',
                         },
                     },
                     // outlined: {
-                    //     borderColor: '#6B7AA1',
+                    //     borderColor: '#FFEDD5',
                     //     borderWidth: '2px',
-                    //     color: '#6B7AA1',
+                    //     color: '#FFEDD5',
                     //     '&:hover': {
-                    //         backgroundColor: '#E0E5EC',
+                    //         backgroundColor: '#ecece0',
                     //         borderColor: '#4B5C93',
                     //     },
                     // },
@@ -37,17 +37,15 @@ function LinkButton({ text, link }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <Button variant="contained" component={Link} to={link}>{text}</Button>
+            <Button variant="contained">{text}</Button>
         </ThemeProvider>
     );
 
     // return (
-    //     <Link to={link} className="bg-custom-light-blue hover:bg-custom-hover-light-blue text-white px-7 h-7 text-center whitespace-nowrap rounded-full active:border-custom-light-blue">
+    //     <button className="bg-orange-100 hover:bg-orange-200 px-7 rounded-full">
     //         <p className="pb-1">{text}</p>
-    //     </Link>
+    //     </button>
     // );
-
-
 }
 
-export default LinkButton;
+export default SimpleButton;

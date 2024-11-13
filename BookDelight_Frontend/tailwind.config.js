@@ -13,6 +13,11 @@ module.exports = {
         'custom-hover-light-blue':'#4b5c93',
         'custom-dark-blue':'#11324D',
         'custom-hover-dark-blue':'#082840',
+
+        'custom-new-dark': '#495464',
+        'custom-new-light-dark': '#BBBFCA',
+        'custom-new-light': '#E8E8E8',
+        'custom-new-white': '#F4F4F2',
       }
     },
   },

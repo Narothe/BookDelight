@@ -25,11 +25,11 @@ function HomeFetch() {
     }, []);
 
     return (
-        <div className="container py-8">
+        <div className="py-8">
             {data.length > 0 ? (
-                <div className="border p-4 mb-4 rounded-lg shadow-md bg-orange-100">
+                <div className="border p-2 mb-4 rounded-lg shadow-md bg-custom-new-white">
                     {data.map((item) => (
-                        <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-orange-50">
+                        <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-white">
                             <div className="hidden md:block">
                                 <HomeFetchDesktop item={item} photoUrl={photoUrl}/>
                             </div>

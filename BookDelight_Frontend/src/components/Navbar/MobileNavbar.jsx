@@ -6,7 +6,7 @@ import logo from "../../assets/bookdelight_logo.png";
 
 function MobileNavbar() {
     return (
-        <nav className="flex flex-col justify-between mb-9">
+        <nav className="flex flex-col justify-between mb-9 p-2 border">
             <div className="flex flex-row justify-between mb-3">
                 <Link to="/" className="flex items-center font-dancing font-bold text-3xl">
                     <img src={logo} alt="BookDelight Logo" className="h-14 w-auto inline-block mr-2"/>

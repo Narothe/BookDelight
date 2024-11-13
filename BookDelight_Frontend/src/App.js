@@ -12,12 +12,16 @@ console.log("Device:", parser.getDevice());
 
 function App() {
     return (
-        <div className="md:w-10/12 lg:w-10/12 max-w-7xl w-full mx-auto px-4 py-8">
-            <Navbar/>
-            <Outlet/>
+        // <div className="md:w-10/12 lg:w-10/12 max-w-7xl w-full mx-auto px-4">
+        <div>
+            <div>
+                <Navbar/>
+            </div>
+            <div className="md:px-5 px-4 w-full">
+                <Outlet/>
+            </div>
         </div>
     );
-
 }
 
 export default App;
