@@ -9,7 +9,7 @@ function LinkButton({ text, link }) {
         palette: {
             primary: {
                 main: '#495464',
-                dark: '#BBBFCA',
+                dark: '#E8E8E8',
             },
         },
         components: {
@@ -17,6 +17,7 @@ function LinkButton({ text, link }) {
                 styleOverrides: {
                     root: {
                         textTransform: 'none',
+                        width: '5rem',
                         '&:hover': {
                             color: '#000000',
                         },

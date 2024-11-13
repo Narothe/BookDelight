@@ -6,7 +6,7 @@ import BookRatingInfo from "./BookRatingInfo";
 function DesktopBook({ book, photoUrl }) {
 
     return (
-        <div className="flex border p-4 rounded-lg shadow-md bg-orange-50">
+        <div className="flex border p-4 rounded-md shadow-md bg-white">
             <div className="flex flex-col w-56">
                 <div className="pb-4">
                     <LoadBookImage item={book} photoUrl={photoUrl}/>

@@ -18,6 +18,7 @@ module.exports = {
         'custom-new-light-dark': '#BBBFCA',
         'custom-new-light': '#E8E8E8',
         'custom-new-white': '#F4F4F2',
+        'custom-new-dark-hover': '#262c37',
       }
     },
   },

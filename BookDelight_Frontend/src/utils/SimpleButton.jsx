@@ -9,7 +9,7 @@ function SimpleButton({ text }) {
         palette: {
             primary: {
                 main: '#BBBFCA',
-                dark: '#495464',
+                dark: '#262c37',
             },
         },
         components: {
@@ -17,6 +17,7 @@ function SimpleButton({ text }) {
                 styleOverrides: {
                     root: {
                         textTransform: 'none',
+                        width: '5rem',
                         '&:hover': {
                             color: '#ffffff',
                         },

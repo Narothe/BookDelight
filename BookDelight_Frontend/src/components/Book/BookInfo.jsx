@@ -4,7 +4,7 @@ import FormattedDate from "../../utils/FormattedDate";
 function BookInfo({ book }) {
 
     return (
-        <div className="flex flex-col text-sm md:text-base lg:text-lg font-semibold px-4 border-4 border-orange-200 rounded-lg">
+        <div className="flex flex-col text-sm md:text-base lg:text-lg font-semibold px-4 border-4 bg-custom-new-white rounded-lg">
             <p className="mt-3">Publisher:</p>
             <p className="mb-3">{book.publisher}</p>
             <p className="">Publication date:</p>

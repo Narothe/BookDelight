@@ -3,6 +3,7 @@ import axios from "axios";
 import LinkButton from "../../utils/LinkButton";
 import HomeFetchDesktop from "./HomeFetchDesktop";
 import HomeFetchMobile from "./HomeFetchMobile";
+import {Link} from "react-router-dom";
 
 function HomeFetch() {
 
@@ -27,19 +28,23 @@ function HomeFetch() {
     return (
         <div className="py-8">
             {data.length > 0 ? (
-                <div className="border p-2 mb-4 rounded-lg shadow-md bg-custom-new-white">
+                <div className="border pt-4 p-2 mb-4 rounded-md shadow-md bg-custom-new-white">
                     {data.map((item) => (
-                        <div key={item.id_book} className="border p-4 mb-4 rounded-lg shadow-md bg-white">
+                        <div key={item.id_book}  className="border p-4 mb-4 rounded-md shadow-md bg-white">
                             <div className="hidden md:block">
                                 <HomeFetchDesktop item={item} photoUrl={photoUrl}/>
+                                <div className="flex justify-center mt-4">
+                                    <LinkButton text="Details" link={`/book/${item.id_book}`}/>
+                                </div>
                             </div>
-                            <div className="block md:hidden">
+                            <Link to={`/book/${item.id_book}`} className="block md:hidden">
                                 <HomeFetchMobile item={item} photoUrl={photoUrl}/>
-                            </div>
+                                <div className="flex justify-end mt-4">
+                                    <p className="text-sm sm:text-base text-gray-400">Click and see more</p>
+                                </div>
+                            </Link>
 
-                            <div className="flex justify-center mt-4">
-                                <LinkButton text="Details" link={`/book/${item.id_book}`}/>
-                            </div>
+
                         </div>
                     ))}
                 </div>

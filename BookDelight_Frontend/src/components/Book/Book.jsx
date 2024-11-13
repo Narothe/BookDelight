@@ -42,7 +42,7 @@ function Book() {
 
     return (
 
-        <div className="container pt-8 border p-4 mb-4 shadow-md rounded-lg bg-orange-100">
+        <div className="pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
             <div className="hidden md:block">
                 <DesktopBook book={book} photoUrl={photoUrl}/>
             </div>
