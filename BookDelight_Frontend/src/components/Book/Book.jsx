@@ -28,7 +28,6 @@ function Book() {
             try {
                 const response = await axios.get(reviewQuery);
                 setReview(response.data);
-                console.log(response.data);
             } catch (err) {
                 console.error('Error fetching review details:', err);
             }

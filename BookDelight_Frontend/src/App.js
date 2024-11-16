@@ -13,7 +13,7 @@ console.log("Device:", parser.getDevice());
 function App() {
     return (
         // <div className="md:w-10/12 lg:w-10/12 max-w-7xl w-full mx-auto px-4">
-        <div>
+        <div className="max-w-[1920px] mx-auto">
             <div>
                 <Navbar/>
             </div>

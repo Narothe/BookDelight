@@ -2,6 +2,7 @@ import React from 'react';
 import LoadBookImage from "../../utils/LoadBookImage";
 import BookInfo from "./BookInfo";
 import BookRatingInfo from "./BookRatingInfo";
+import DesktopReview from "../Reviews/DesktopReview";
 
 function DesktopBook({ book, review, photoUrl }) {
 
@@ -30,13 +31,13 @@ function DesktopBook({ book, review, photoUrl }) {
                     </div>
                 </div>
             </div>
-            { review && (
-            <div className="flex border mt-4 p-4 rounded-md shadow-md bg-white">
-                <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
-            </div>
-            )}
+            {review && (
+                <DesktopReview review={review}/>
+            )
+            }
         </div>
-    );
+    )
+        ;
 }
 
 export default DesktopBook;
