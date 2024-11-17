@@ -45,6 +45,7 @@ const getAllReviews = async (bookId) => {
 
     const query = `
         SELECT r.id_book,
+               r.id_review,
                r.id_user                           AS review_author_id,
                r.description,
                r.rating,
@@ -65,6 +66,7 @@ const getAllReviews = async (bookId) => {
                 ) vote_summary ON true
         WHERE b.id_book = $1
         GROUP BY r.id_book,
+                 r.id_review,
                  r.id_user,
                  r.description,
                  r.rating,

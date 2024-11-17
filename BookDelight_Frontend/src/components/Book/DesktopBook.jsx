@@ -2,9 +2,10 @@ import React from 'react';
 import LoadBookImage from "../../utils/LoadBookImage";
 import BookInfo from "./BookInfo";
 import BookRatingInfo from "./BookRatingInfo";
-import ReviewDesktop from "../Reviews/ReviewDesktop";
+import ReviewDesktop from "../Comments/ReviewDesktop";
 
 function DesktopBook({ book, review, photoUrl }) {
+
 
     return (
         <div className="flex flex-col">

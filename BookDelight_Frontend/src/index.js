@@ -3,9 +3,10 @@ import './index.css';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import { createRoot } from "react-dom/client";
 import App from './App';
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Book from "./components/Book/Book";
+import OverallReview from "./components/Comments/OverallReview";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -18,6 +19,8 @@ root.render(
                     <Route path="/books" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/book/:id" element={<Book />} />
+                    {/*<Route path="/book/:id/reviews" element={<OverallReview />} />*/}
+                    <Route path="/book/:id/review/:id/all-reply" element={<OverallReview />} />
                 </Route>
             </Routes>
         </Router>

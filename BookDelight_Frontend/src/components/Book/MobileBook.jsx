@@ -2,7 +2,7 @@ import React from 'react';
 import LoadBookImage from "../../utils/LoadBookImage";
 import BookInfo from "./BookInfo";
 import BookRatingInfo from "./BookRatingInfo";
-import ReviewMobile from "../Reviews/ReviewMobile";
+import ReviewMobile from "../Comments/ReviewMobile";
 
 function DesktopBook({ book, review, photoUrl }) {
 
@@ -35,7 +35,7 @@ function DesktopBook({ book, review, photoUrl }) {
                 </div>
             </div>
             {review && (
-                <ReviewMobile review={review}/>
+                <ReviewMobile review={review} />
             )
             }
         </div>

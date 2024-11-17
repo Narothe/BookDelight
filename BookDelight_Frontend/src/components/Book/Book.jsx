@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import DesktopBook from "./DesktopBook";
 import MobileBook from "./MobileBook";
-import LinkButton from "../../utils/LinkButton";
 
 function Book() {
     const {id} = useParams();

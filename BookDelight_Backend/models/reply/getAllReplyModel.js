@@ -3,6 +3,7 @@ const view = require('../../config/db');
 const getExistingReply = async (bookId, reviewId) => {
     const query = `
         SELECT re.id_book,
+               re.id_review,
                re.id_user                          AS review_author_id,
                re.description,
                COALESCE(vote_summary.upvotes, 0)   AS upvotes,
@@ -23,6 +24,7 @@ const getExistingReply = async (bookId, reviewId) => {
         WHERE b.id_book = $1
           AND re.id_review = $2
         GROUP BY re.id_book,
+                 re.id_review,
                  re.id_user,
                  re.description,
                  vote_summary.upvotes,

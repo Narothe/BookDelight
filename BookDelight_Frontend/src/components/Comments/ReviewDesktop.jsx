@@ -2,15 +2,22 @@ import React from "react";
 import LoadUserImage from "../../utils/LoadUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
+import repliesFetch from "./RepliesFetch";
+import {useParams} from "react-router-dom";
 
-function ReviewMobile({review}) {
+
+function ReviewDesktop({review}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
-
+    const { id } = useParams();
+    const replies = repliesFetch(id, review);
 
     return (
         <div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">
             <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
-            {review.map((item, index) => (
+            {review.map((item, index) => {
+                const replyData = replies.find((reply) => reply.id_review === item.id_review);
+
+                return (
                 <div className="flex flex-row border p-4 mb-4 rounded-md shadow-md bg-white" key={index}>
                     <div className="flex flex-col justify-between w-11/12">
                         {/*photo & username*/}
@@ -49,9 +56,14 @@ function ReviewMobile({review}) {
                                 </div>
                             </div>
                         </div>
+                        {replyData?.hasReplies && (
+                            <div className="flex flex-row justify-center mt-2">
+                                <LinkButton text="Replies" link={`/book/${id}/review/${item.id_review}/all-reply`}/>
+                            </div>)
+                        }
                     </div>
                 </div>
-            ))}
+            )})}
             <div className="flex justify-center mt-4">
                 <LinkButton text="Show more reviews" link={`/login`}/>
             </div>
@@ -59,4 +71,4 @@ function ReviewMobile({review}) {
     );
 }
 
-export default ReviewMobile;
+export default ReviewDesktop;

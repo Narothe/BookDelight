@@ -3,7 +3,7 @@ import LoadUserImage from "../../utils/LoadUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 
-function ReviewDesktop({review}) {
+function ReviewMobile({review}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
 
 
@@ -62,4 +62,4 @@ function ReviewDesktop({review}) {
     );
 }
 
-export default ReviewDesktop;
+export default ReviewMobile;
