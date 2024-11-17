@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 function HomeFetch() {
 
     const query = process.env.REACT_APP_BACKEND_URL;
-    const photoUrl = `${process.env.REACT_APP_PHOTO_URL}`;
+    const photoUrl = `${process.env.REACT_APP_BOOK_PHOTO_URL}`;
 
     const [data, setData] = useState([]);
 

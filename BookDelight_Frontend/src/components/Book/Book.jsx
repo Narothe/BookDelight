@@ -9,7 +9,7 @@ function Book() {
     const {id} = useParams();
     const bookQuery = `${process.env.REACT_APP_BACKEND_URL}/book/${id}`;
     const reviewQuery = `${process.env.REACT_APP_BACKEND_URL}/book/${id}/reviews`;
-    const photoUrl = `${process.env.REACT_APP_PHOTO_URL}`;
+    const photoUrl = `${process.env.REACT_APP_BOOK_PHOTO_URL}`;
 
     const [book, setBook] = useState(null);
     const [review, setReview] = useState(null);
@@ -47,11 +47,6 @@ function Book() {
             <div className="block md:hidden">
                 <MobileBook book={book} review={review} photoUrl={photoUrl}/>
             </div>
-            {review && (
-                <div className="flex justify-center mt-4">
-                    <LinkButton text="Show all reviews" link={`/book/${book.id_book}/reviews`}/>
-                </div>
-            )}
         </div>
     );
 }
