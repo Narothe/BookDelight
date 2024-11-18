@@ -22,16 +22,16 @@ function RepliesFetch(id, reviews) {
 
                             return {
                                 id_review: review.id_review,
-                                replyCount: replyCount, // Total number of replies
-                                hasReplies: replyCount > 0, // Boolean flag
+                                replyCount: replyCount,
+                                hasReplies: replyCount > 0,
                             };
                         } catch (error) {
                             console.error(`Error fetching replies for review ${review.id_review}:`, error);
 
                             return {
                                 id_review: review.id_review,
-                                replyCount: 0, // No replies in case of error
-                                hasReplies: false, // Default to no replies
+                                replyCount: 0,
+                                hasReplies: false,
                             };
                         }
                     })
