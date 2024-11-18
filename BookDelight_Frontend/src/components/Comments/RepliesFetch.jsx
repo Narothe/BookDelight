@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function RepliesFetch(id, reviews) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [repliesData, setRepliesData] = useState([]);
 
-    const backendUrl =`${process.env.REACT_APP_BACKEND_URL}`;
+    const backendUrl = `${process.env.REACT_APP_BACKEND_URL}`;
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const fetchRepliesForReview = async () => {
             try {
@@ -18,15 +16,22 @@ function RepliesFetch(id, reviews) {
                                 `${backendUrl}/book/${id}/review/${review.id_review}/all-reply`,
                                 { validateStatus: (status) => status === 200 || status === 404 }
                             );
+
+                            // Extracting reply count
+                            const replyCount = response.status === 200 ? response.data.length : 0;
+
                             return {
                                 id_review: review.id_review,
-                                hasReplies: response.status === 200 && response.data.length > 0,
+                                replyCount: replyCount, // Total number of replies
+                                hasReplies: replyCount > 0, // Boolean flag
                             };
                         } catch (error) {
                             console.error(`Error fetching replies for review ${review.id_review}:`, error);
+
                             return {
                                 id_review: review.id_review,
-                                hasReplies: false,
+                                replyCount: 0, // No replies in case of error
+                                hasReplies: false, // Default to no replies
                             };
                         }
                     })
