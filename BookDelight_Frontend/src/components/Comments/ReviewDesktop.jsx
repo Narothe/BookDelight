@@ -60,6 +60,7 @@ function ReviewDesktop({review}) {
 
                             </div>
                         </div>
+                        {/*<SingleDesktopReview item={item} photoUrl={photoUrl}/>*/}
                         <div className="flex flex-row">
                             {replyInfo?.hasReplies && (
                                 <div className="flex flex-row justify-center mt-2">

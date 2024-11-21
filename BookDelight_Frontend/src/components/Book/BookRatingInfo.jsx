@@ -3,6 +3,8 @@ import DisplayRating from "../../utils/DisplayRating";
 
 function BookRatingInfo({ book }) {
 
+    console.log("BookRatingInfo book:", book);
+
     return (
         <div className="flex flex-col text-sm md:text-base lg:text-lg font-semibold">
             <div className="flex flex-row">

@@ -6,7 +6,7 @@ import App from './App';
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Book from "./components/Book/Book";
-import OverallReview from "./components/Comments/OverallReview";
+import ReviewCommentSection from "./components/Comments/ReviewCommentSection";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -19,7 +19,7 @@ root.render(
                     <Route path="/books" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/book/:id" element={<Book />} />
-                    <Route path="/book/:bookId/review/:reviewId/all-reply" element={<OverallReview />} />
+                    <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
                 </Route>
             </Routes>
         </Router>
