@@ -33,7 +33,7 @@ function ReviewMobile({review}) {
                                         <LoadUserImage item={item} photoUrl={photoUrl}/>
                                     </div>
                                     <div className="flex items-center pl-2.5">
-                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">{item.username}</h2>
+                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
                                     </div>
                                 </div>
                                 <div className="flex items-center">
@@ -49,7 +49,7 @@ function ReviewMobile({review}) {
                                     {/*<p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>*/}
                                     {replyInfo?.hasReplies && (
                                         <div className="flex flex-row justify-center mt-2">
-                                            <LinkButton text={`Show ${replyInfo.replyCount} replies`}
+                                            <LinkButton text={`${replyInfo.replyCount} replies`}
                                                         link={`/book/${id}/review/${item.id_review}/all-reply`}/>
                                         </div>)
                                     }

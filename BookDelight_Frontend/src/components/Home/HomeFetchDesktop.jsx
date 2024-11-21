@@ -13,7 +13,7 @@ function HomeFetchDesktop({ item, photoUrl }) {
                 <div className="flex flex-col w-full px-4">
                     <h2 className="text-2xl lg:text-3xl font-semibold">{item.title}</h2>
                     <p className="text-base lg:text-lg font-semibold mb-2"> by:{' '} {item.authors.join(', ')} </p>
-                    <p className="text-base lg:text-lg font-semibold mb-2">{item.short_description}</p>
+                    <p className="text-base lg:text-lg font-semibold mb-2 text-clip overflow-hidden ...">{item.short_description}</p>
                 </div>
             </div>
             <div className="basis-1/4">

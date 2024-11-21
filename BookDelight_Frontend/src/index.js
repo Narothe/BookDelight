@@ -19,8 +19,7 @@ root.render(
                     <Route path="/books" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/book/:id" element={<Book />} />
-                    {/*<Route path="/book/:id/reviews" element={<OverallReview />} />*/}
-                    <Route path="/book/:id/review/:id/all-reply" element={<OverallReview />} />
+                    <Route path="/book/:bookId/review/:reviewId/all-reply" element={<OverallReview />} />
                 </Route>
             </Routes>
         </Router>

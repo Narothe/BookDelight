@@ -26,7 +26,7 @@ function ReviewDesktop({review}) {
                                         <LoadUserImage item={item} photoUrl={photoUrl}/>
                                     </div>
                                     <div className="flex items-center pl-2.5">
-                                        <h2 className="text-xl md:text-2xl lg:text-3xl  font-semibold">{item.username}</h2>
+                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
                                     </div>
                                 </div>
                                 <div className="flex font-semibold">
@@ -34,8 +34,9 @@ function ReviewDesktop({review}) {
                                 </div>
                             </div>
                             {/*right panel*/}
-                            <div className="flex flex-col border-l w-2/12 pl-2">
-                                <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>
+                            <div className="flex flex-col border-l w-1/12 pl-2">
+                                <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center text-clip overflow-hidden ...">{item.username} rate:</p>
+                                <p className="text-sm md:text-base lg:text-lg font-semibold mb-4 text-center">{item.rating}/10</p>
                                 <div className="flex flex-col">
                                     <div className="flex flex-row mb-2.5">
                                         <button
@@ -62,7 +63,7 @@ function ReviewDesktop({review}) {
                         <div className="flex flex-row">
                             {replyInfo?.hasReplies && (
                                 <div className="flex flex-row justify-center mt-2">
-                                    <LinkButton text={`Show ${replyInfo.replyCount} replies`}
+                                    <LinkButton text={`${replyInfo.replyCount} replies`}
                                                 link={`/book/${id}/review/${item.id_review}/all-reply`}/>
                                 </div>)
                             }
