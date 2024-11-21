@@ -127,6 +127,9 @@ function ReviewCommentSection() {
                                 <MobileReply reply={reply}/>
                             </div>
                         ))}
+                        <div className="flex flex-row justify-center mt-2">
+                            <LinkButton text={`Return`} link={`/book/${reviewData.id_book}`}/>
+                        </div>
                     </div>
                 ) : (
                     <p>Loading data...</p>
@@ -135,4 +138,5 @@ function ReviewCommentSection() {
         </div>
     )
 }
+
 export default ReviewCommentSection;

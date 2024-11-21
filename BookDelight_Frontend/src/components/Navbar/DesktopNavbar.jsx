@@ -1,17 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import logo from "../../assets/bookdelight_logo.png";
 import LinkButton from "../../utils/LinkButton";
+import LogoLink from "../../utils/LogoLink";
 
 
 function DesktopNavbar() {
     return (
         <nav className="flex justify-between mb-9 p-2 border-y">
-            <Link to="/" className="flex items-center mr-5">
-                <img src={logo} alt="BookDelight Logo" className="h-12 w-auto lg:h-14 inline-block mr-2"/>
-                <p className="font-dancing text-2xl lg:text-3xl font-bold">BookDelight</p>
-            </Link>
+            <LogoLink/>
             <div className="flex flex-auto items-center mr-2">
                 <SearchBar/>
             </div>
