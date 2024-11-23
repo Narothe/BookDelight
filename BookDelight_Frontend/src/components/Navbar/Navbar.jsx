@@ -6,7 +6,7 @@ import MobileNavbar from "./MobileNavbar";
 function Navbar() {
     const location = useLocation();
 
-    const hiddenNavbarPaths = ['/login'];
+    const hiddenNavbarPaths = ['/login', '/register'];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
         return null;
