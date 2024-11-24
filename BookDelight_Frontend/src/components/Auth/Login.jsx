@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
+import { useAuth } from "./SessionHandling";
 import LogoLink from "../../utils/LogoLink";
 import {Link, useNavigate} from "react-router-dom";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
@@ -33,6 +34,7 @@ function LoginPage() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -44,6 +46,10 @@ function LoginPage() {
                 { identity, password },
                 { headers: { "Content-Type": "application/json" } }
             );
+
+            const { token, user } = response.data;
+
+            login({ token, user });
             toast.success("Login successful! Redirecting...", {
                 position: "top-center",
             });
@@ -51,7 +57,8 @@ function LoginPage() {
 
             setTimeout(() => {
                 navigate("/books");
-            }, 1500); // Krótkie opóźnienie przed przekierowaniem
+            }, 1500);
+
         } catch (err) {
             console.error("Login failed:", err);
             toast.error("Invalid email or password. Please try again.", {
@@ -81,7 +88,7 @@ function LoginPage() {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Email Address or Username"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -116,7 +123,7 @@ function LoginPage() {
                 </div>
                 <div className="flex flex-row mx-1 mb-2 justify-between text-center">
                     <div className="flex lg:flex-row flex-col items-center">
-                        <p className="hover:text-custom-hover-light-blue mr-2">Don't have an account?</p>
+                        <p className="mr-2">Don't have an account?</p>
                         <Link to="/register">
                             <p className="hover:text-custom-hover-light-blue">Sign up</p>
                         </Link>
