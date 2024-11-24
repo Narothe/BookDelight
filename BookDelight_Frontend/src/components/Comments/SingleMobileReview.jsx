@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadUserImage from "../../utils/LoadUserImage";
+import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 
@@ -12,7 +12,7 @@ function SingleMobileReview({reviewData}) {
                 {/*photo & username*/}
                 <div className="flex flex-row">
                     <div className="w-14 h-14">
-                        <LoadUserImage item={reviewData} photoUrl={photoUrl}/>
+                        <LoadBookUserImage item={reviewData} photoUrl={photoUrl}/>
                     </div>
                     <div className="flex items-center pl-2.5">
                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reviewData.username}</h2>

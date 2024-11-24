@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import LoadUserImage from "../../utils/LoadUserImage";
+import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import SingleDesktopReview from "./SingleDesktopReview";
 import DesktopBook from "../Book/DesktopBook";

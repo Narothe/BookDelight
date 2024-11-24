@@ -1,5 +1,5 @@
 import React from "react";
-import LoadUserImage from "../../utils/LoadUserImage";
+import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 import RepliesFetch from "./RepliesFetch";
@@ -19,11 +19,11 @@ function ReviewDesktop({review}) {
                 return (
                     <div className="flex flex-col border p-4 mb-4 rounded-md shadow-md bg-white" key={index}>
                         <div className="flex flex-row">
-                            <div className="flex flex-col justify-between w-11/12">
+                            <div className="flex flex-col justify-between w-11/12 h-14">
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
                                     <div className="w-14 h-14">
-                                        <LoadUserImage item={item} photoUrl={photoUrl}/>
+                                        <LoadBookUserImage item={item} photoUrl={photoUrl}/>
                                     </div>
                                     <div className="flex items-center pl-2.5">
                                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>

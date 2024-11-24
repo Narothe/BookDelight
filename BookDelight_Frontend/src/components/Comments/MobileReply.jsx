@@ -1,5 +1,5 @@
 import React from "react";
-import LoadUserImage from "../../utils/LoadUserImage";
+import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 
 function MobileReply({reply}) {
@@ -11,7 +11,7 @@ function MobileReply({reply}) {
                 {/*photo & username*/}
                 <div className="flex flex-row">
                     <div className="w-14 h-14">
-                        <LoadUserImage item={reply} photoUrl={photoUrl}/>
+                        <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
                     </div>
                     <div className="flex items-center pl-2.5">
                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reply.username}</h2>
