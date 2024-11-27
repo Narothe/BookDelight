@@ -4,30 +4,7 @@ import axios from "axios";
 import { useAuth } from "./SessionHandling";
 import LogoLink from "../../utils/LogoLink";
 import {Link, useNavigate} from "react-router-dom";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import { toast } from "react-hot-toast";
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#495464',
-            dark: '#E8E8E8',
-        },
-    },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    textTransform: 'none',
-                    minWidth: '5rem',
-                    '&:hover': {
-                        color: '#000000',
-                    },
-                },
-            },
-        },
-    },
-});
 
 function LoginPage() {
     const [identity, setIdentity] = useState("");
@@ -108,7 +85,6 @@ function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <div className="flex w-full mt-6">
-                            <ThemeProvider theme={theme}>
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -117,7 +93,6 @@ function LoginPage() {
                                 >
                                     {loading ? <CircularProgress size={24}/> : "Sign In"}
                                 </Button>
-                            </ThemeProvider>
                         </div>
                     </Box>
                 </div>

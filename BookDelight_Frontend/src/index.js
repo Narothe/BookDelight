@@ -9,11 +9,12 @@ import Book from "./components/Book/Book";
 import ReviewCommentSection from "./components/Comments/ReviewCommentSection";
 import Register from "./components/Auth/Register";
 import {AuthProvider} from "./components/Auth/SessionHandling";
+import AddBook from "./components/AddBook/AddBook";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <AuthProvider>
             <Router>
                 <Routes>
@@ -24,9 +25,10 @@ root.render(
                         <Route path="/register" element={<Register />} />
                         <Route path="/book/:id" element={<Book />} />
                         <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
+                        <Route path="/add-book" element={<AddBook />} />
                     </Route>
                 </Routes>
             </Router>
         </AuthProvider>
-    </React.StrictMode>,
+    // </React.StrictMode>,
 );
