@@ -7,7 +7,7 @@ function SingleDesktopReview({reviewData}) {
 
     return (
         <div className="flex flex-row">
-            <div className="flex flex-col justify-between w-11/12">
+            <div className="flex flex-col w-11/12">
                 {/*photo & username*/}
                 <div className="flex flex-row">
                     <div className="w-14 h-14">
@@ -18,7 +18,7 @@ function SingleDesktopReview({reviewData}) {
                     </div>
                 </div>
                 <div className="flex font-semibold">
-                    <p className="text-sm md:text-base lg:text-lg py-4 mb-2">{reviewData.description}</p>
+                    <p className="text-sm md:text-base lg:text-lg py-2 mb-2">{reviewData.description}</p>
                 </div>
             </div>
             {/*right panel*/}

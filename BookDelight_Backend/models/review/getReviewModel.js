@@ -13,11 +13,13 @@ const getOneReview = async (reviewId, bookId) => {
                COALESCE(vote_summary.downvotes, 0) AS downvotes,
                u.username,
                up.photo_path                       AS author_photo,
+               bp.photo_path,
                r.creation_date
         FROM bookdelight.review r
                  JOIN bookdelight.book b ON r.id_book = b.id_book
                  JOIN bookdelight.users u ON b.id_user = u.id_user
                  LEFT JOIN bookdelight.User_Photos up ON b.id_user = up.id_user
+                 LEFT JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
 
                  JOIN LATERAL (
             SELECT ARRAY_AGG(a.author_name) AS authors
@@ -56,6 +58,7 @@ const getOneReview = async (reviewId, bookId) => {
                  vote_summary.downvotes,
                  u.username,
                  up.photo_path,
+                 bp.photo_path,
                  r.creation_date;
 
     `;

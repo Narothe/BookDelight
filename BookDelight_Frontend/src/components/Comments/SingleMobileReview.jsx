@@ -22,7 +22,7 @@ function SingleMobileReview({reviewData}) {
                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{reviewData.username} rate: {reviewData.rating}/10</p>
                 </div>
             </div>
-            <div className="flex font-semibold">
+            <div className="flex font-semibold pt-1">
                 <p className="text-sm md:text-base lg:text-lg py-1 mb-2">{reviewData.description}</p>
             </div>
             {/*down panel*/}

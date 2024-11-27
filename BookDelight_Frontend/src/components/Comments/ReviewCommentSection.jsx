@@ -12,6 +12,7 @@ import MobileReply from "./MobileReply";
 import BookRatingInfo from "../Book/BookRatingInfo";
 import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
+import LoadBookImage from "../../utils/LoadBookImage";
 
 function ReviewCommentSection() {
     const {bookId, reviewId} = useParams();
@@ -21,6 +22,7 @@ function ReviewCommentSection() {
     const [error, setError] = useState(null);
 
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
+    const bookPhotoUrl = `${process.env.REACT_APP_BOOK_PHOTO_URL}`;
 
     useEffect(() => {
         const fetchReviewData = async () => {
@@ -60,15 +62,21 @@ function ReviewCommentSection() {
     if (loading) return <p>Loading review details...</p>;
     if (error) return <p>Error loading review: {error.message}</p>;
 
+    console.log("Review data.photo_path:", reviewData.photo_path);
+
     return (
         <div className="">
             <div className="hidden md:block">
                 {replyData.length > 0 ? (
                     <div className="border pt-4 p-2 mb-4 rounded-md shadow-md bg-custom-new-white">
                         <div className="flex flex-col border p-4 mb-4 rounded-md shadow-md bg-white">
-                            <h1 className="text-2xl lg:text-3xl font-bold mb-6 font-mono">Review comment section</h1>
-                            <div className="flex flex-row w-full pt-2 pb-2 border-t-2 border-b-2 justify-between">
-                                <div className="flex flex-col">
+                            {/*<h1 className="text-2xl lg:text-3xl font-bold mb-6 font-mono">Review comment section</h1>*/}
+                            {/*<div className="flex flex-row w-full pt-2 pb-2 border-t-2 border-b-2 justify-between">*/}
+                            <div className="flex flex-row w-full pb-2 border-b-2">
+                                <div className="flex w-16">
+                                    <LoadBookImage item={reviewData} photoUrl={bookPhotoUrl}/>
+                                </div>
+                                <div className="flex flex-col pl-2">
                                     <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">{reviewData.title}</h2>
                                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2"> by:{' '} {reviewData.authors.join(', ')} </p>
                                     <div className="flex flex-row">
@@ -103,9 +111,12 @@ function ReviewCommentSection() {
                 {replyData.length > 0 ? (
                     <div className="border pt-4 p-2 mb-4 rounded-md shadow-md bg-custom-new-white">
                         <div className="flex flex-col border p-4 mb-4 rounded-md shadow-md bg-white">
-                            <h1 className="text-2xl lg:text-3xl font-bold mb-6 font-mono">Review comment section</h1>
-                            <div className="flex flex-row w-full pt-2 pb-2 border-t-2 border-b-2 justify-between">
-                                <div className="flex flex-col">
+                            {/*<h1 className="text-2xl lg:text-3xl font-bold mb-6 font-mono">Review comment section</h1>*/}
+                            <div className="flex flex-row w-full pb-2 border-b-2">
+                                <div className="flex w-16">
+                                    <LoadBookImage item={reviewData} photoUrl={bookPhotoUrl}/>
+                                </div>
+                                <div className="flex flex-col pl-2">
                                     <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">{reviewData.title}</h2>
                                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2"> by:{' '} {reviewData.authors.join(', ')} </p>
                                     <div className="flex flex-col">
