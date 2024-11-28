@@ -18,7 +18,7 @@ function ReviewDesktop({review}) {
 
                 return (
                     <div className="flex flex-col border p-4 mb-4 rounded-md shadow-md bg-white" key={index}>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row lg:pb-10 pb-16">
                             <div className="flex flex-col justify-between w-11/12 h-14">
                                 {/*photo & username*/}
                                 <div className="flex flex-row">

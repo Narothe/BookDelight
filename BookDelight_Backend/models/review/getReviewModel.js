@@ -17,8 +17,8 @@ const getOneReview = async (reviewId, bookId) => {
                r.creation_date
         FROM bookdelight.review r
                  JOIN bookdelight.book b ON r.id_book = b.id_book
-                 JOIN bookdelight.users u ON b.id_user = u.id_user
-                 LEFT JOIN bookdelight.User_Photos up ON b.id_user = up.id_user
+                 JOIN bookdelight.users u ON r.id_user = u.id_user
+                 LEFT JOIN bookdelight.User_Photos up ON r.id_user = up.id_user
                  LEFT JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
 
                  JOIN LATERAL (
@@ -38,11 +38,15 @@ const getOneReview = async (reviewId, bookId) => {
                  LEFT JOIN LATERAL (
             SELECT ROUND(AVG(r.rating), 2) AS rating
             FROM bookdelight.review r
+                     JOIN bookdelight.book b ON r.id_book = b.id_book
+            WHERE b.id_book = $1
                 ) avg_rating ON true
 
                  LEFT JOIN LATERAL (
             SELECT COUNT(r.rating) AS review_count
             FROM bookdelight.review r
+                     JOIN bookdelight.book b ON r.id_book = b.id_book
+            WHERE b.id_book = $1
                 ) count_rating ON true
 
         WHERE b.id_book = $1

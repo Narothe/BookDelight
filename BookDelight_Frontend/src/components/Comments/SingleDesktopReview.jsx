@@ -5,6 +5,8 @@ import arrow from "../../assets/arrow-right.svg";
 function SingleDesktopReview({reviewData}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
 
+    console.log("Review data:", reviewData);
+
     return (
         <div className="flex flex-row">
             <div className="flex flex-col w-11/12">
