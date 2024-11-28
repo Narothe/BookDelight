@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Outlet} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import {UAParser} from "ua-parser-js";
 import {Toaster} from "react-hot-toast";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-
-console.log("App Version:", navigator.appVersion);
-console.log("App Name:", navigator.appName);
-const parser = new UAParser();
-console.log("Browser:", parser.getBrowser());
-console.log("Operating System:", parser.getOS());
-console.log("Device:", parser.getDevice());
+// import {useAuth} from "./components/Auth/SessionHandling";
 
 function App() {
+    // const {authData} = useAuth();
+
+    // useEffect(() => {
+    //     if (authData) {
+    //         console.log("App Version:", navigator.appVersion);
+    //         console.log("App Name:", navigator.appName);
+    //         const parser = new UAParser();
+    //         console.log("Browser:", parser.getBrowser());
+    //         console.log("Operating System:", parser.getOS());
+    //         console.log("Device:", parser.getDevice());
+    //     }
+    // }, [authData]);
+
+
     const theme = createTheme({
         palette: {
             primary: {

@@ -179,6 +179,21 @@ CREATE TABLE bookdelight.Read_Books (
 );
 
 
+CREATE TABLE bookdelight.Collected_User_Data (
+    id_collected_user_data SERIAL PRIMARY KEY,
+	id_user INT REFERENCES bookdelight.Users(id_user) ON DELETE CASCADE,
+    browser_name VARCHAR(50) NOT NULL,
+    browser_version VARCHAR(50),
+    os_name VARCHAR(50) NOT NULL,
+    os_version VARCHAR(50),
+    device_type VARCHAR(50),
+    device_model VARCHAR(50),
+    device_vendor VARCHAR(50),
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
 
 
 

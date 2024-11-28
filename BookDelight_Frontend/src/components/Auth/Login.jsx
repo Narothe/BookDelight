@@ -5,6 +5,7 @@ import { useAuth } from "./SessionHandling";
 import LogoLink from "../../utils/LogoLink";
 import {Link, useNavigate} from "react-router-dom";
 import { toast } from "react-hot-toast";
+import CollectUserData from "./CollectUserData";
 
 function LoginPage() {
     const [identity, setIdentity] = useState("");
@@ -27,10 +28,13 @@ function LoginPage() {
             const { token, user } = response.data;
 
             login({ token, user });
+
+            await CollectUserData(token);
+
             toast.success("Login successful! Redirecting...", {
                 position: "top-center",
             });
-            console.log("Login successful:", response.data);
+            // console.log("Login successful:", response.data);
 
             setTimeout(() => {
                 navigate("/books");

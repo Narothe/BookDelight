@@ -36,7 +36,7 @@ function DesktopNavbar() {
                     }
                 );
                 setUserData(response.data);
-                console.log("User data fetched:", response.data);
+                // console.log("User data fetched:", response.data);
             } catch (err) {
                 console.error("Error fetching user data:", err);
                 setError("Failed to fetch user data.");

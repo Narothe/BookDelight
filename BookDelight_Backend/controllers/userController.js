@@ -11,6 +11,7 @@ const {insertFavorite} = require("../services/user/addFavoriteBookService");
 const {showFavorite} = require("../services/user/getFavoriteBookService");
 const {insertUserGenrePreferences, insertUserAuthorPreferences} = require("../services/user/addUserPreferencesService");
 const {removeWishToRead, removeFavorite, removeReadBook, removeCurrentlyReading} = require("../services/user/deleteBooksBooksmarksService");
+const {insertUserData} = require("../services/user/addUserDataService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -154,6 +155,15 @@ const deleteCurrentlyReading = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const postCollectUserData = async (req, res) => {
+    const userId = req.user.userId;
+    const { browser, os, device } = req.body;
+
+    const { result, error, statusCode } = await insertUserData(userId, browser, os, device);
+
+    writeResult(res, result, error, statusCode);
+}
+
 
 module.exports = {
     postCurrentlyReading,
@@ -171,5 +181,6 @@ module.exports = {
     deleteWishToRead,
     deleteFavorite,
     deleteReadBook,
-    deleteCurrentlyReading
+    deleteCurrentlyReading,
+    postCollectUserData
 };

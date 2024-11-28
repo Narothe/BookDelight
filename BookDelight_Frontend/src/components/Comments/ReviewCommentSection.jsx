@@ -27,10 +27,10 @@ function ReviewCommentSection() {
     useEffect(() => {
         const fetchReviewData = async () => {
             const url = `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review/${reviewId}`;
-            console.log("Fetching data from:", url);
+            // console.log("Fetching data from:", url);
             try {
                 const response = await axios.get(url);
-                console.log("Response data:", response.data);
+                // console.log("Response data:", response.data);
                 setReviewData(response.data);
             } catch (err) {
                 console.error("Error fetching review data:", err);
@@ -62,7 +62,7 @@ function ReviewCommentSection() {
     if (loading) return <p>Loading review details...</p>;
     if (error) return <p>Error loading review: {error.message}</p>;
 
-    console.log("Review data.photo_path:", reviewData.photo_path);
+    // console.log("Review data.photo_path:", reviewData.photo_path);
 
     return (
         <div className="">
