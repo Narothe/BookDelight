@@ -23,8 +23,6 @@ function HomeFetchDesktop({ item, photoUrl }) {
                     <div className="text-base lg:text-lg font-semibold">
                         <p>{TruncateText(item.authors.join(', '), 20)}</p>
                     </div>
-                    <div className="block lg:hidden">
-                    </div>
                     <div>
                         <div className="hidden xl:block mt-2">
                             <p>{TruncateText(item.short_description, 60)}</p>
