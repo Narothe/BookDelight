@@ -106,8 +106,8 @@ function AddBook() {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    multiline
-                                    rows={2}
+                                    // multiline
+                                    // rows={2}
                                     id="title"
                                     label="Book Title"
                                     name="title"
