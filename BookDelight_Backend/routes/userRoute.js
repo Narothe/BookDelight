@@ -3,7 +3,7 @@ const router = express.Router();
 const {authenticateToken} = require("../middlewares/authenticateToken");
 const {postCurrentlyReading, postCurrentlyReadingPage, getCurrentlyReading, getUserPhoto, postWishToRead, getWishToRead,
     postReadBook, getReadBooks, postFavorite, getFavoriteBooks, postUserGenrePreferences, postUserAuthorPreferences,
-    deleteWishToRead, deleteFavorite, deleteReadBook, deleteCurrentlyReading, postCollectUserData
+    deleteWishToRead, deleteFavorite, deleteReadBook, deleteCurrentlyReading, postCollectUserData, getUser
 } = require("../controllers/userController");
 const {uploadPhoto} = require("../controllers/addUserPhotoController");
 
@@ -31,5 +31,7 @@ router.post('/user/:id/add-genre-preferences', authenticateToken, postUserGenreP
 router.post('/user/:id/add-author-preferences', authenticateToken, postUserAuthorPreferences);
 
 router.post('/user/collect-user-data', authenticateToken, postCollectUserData);
+
+router.get('/user/:id', getUser)
 
 module.exports = router;
