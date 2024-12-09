@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import styled from "@emotion/styled";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../utils/SimpleButtonTheme";
 import {ThemeProvider} from "@mui/material/styles";
 
@@ -32,23 +31,24 @@ function DesktopUserProfile({user}) {
     return (
         <div>
             <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-                <div className="flex border p-4 mb-2 rounded-md shadow-md w-full bg-white">
+                <div className="flex border pl-2 pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md w-full bg-white">
                     <div className="flex flex-col items-center w-36 mt-3">
                         <div className="flex w-24">
                             <LoadBookUserImage item={user} photoUrl={photoUrl}/>
                         </div>
-                        <div className="">
+                        <div className="mt-2">
                             <p>{user.username}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col w-5/6">
+                    <div className="flex flex-col w-5/6 pl-4 border-l">
                         {user.read_pages_amount &&
                             <p>Pages read in total: {user.read_pages_amount}</p>
                         }
                         {user.last_added_currently_reading_title &&
-                            <p>Last book added to Currently Reading: "{user.last_added_currently_reading_title}"</p>
+                            <p>Last book added to Currently
+                                Reading: <strong> "{user.last_added_currently_reading_title}"</strong></p>
                         }
-                        <div>
+                        <div className="mt-2">
                             <ThemeProvider theme={theme}>
                                 <Button variant="contained" onClick={handleClickOpen}>
                                     View Details
@@ -80,16 +80,25 @@ function DesktopUserProfile({user}) {
                         </BootstrapDialog>
 
                     </div>
-                    <div className="flex flex-col w-1/6 pl-2">
+                    <div className="flex flex-col w-1/6 pl-4 border-l">
                         <p>{user.first_name} {user.last_name}</p>
                         <p>Age: {user.age}</p>
                         <p>Account created: {user.account_created_days_ago} days ago</p>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-                <div className="flex border p-4 mb-2 rounded-md shadow-md bg-white">
-                    
+            <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white justify-between">
+                <div className="flex flex-row border p-4 mb-2 rounded-md shadow-md bg-white">
+                    <p>Currently reading</p>
+                </div>
+                <div className="flex flex-row border p-4 mb-2 rounded-md shadow-md bg-white">
+                    <p>Favorite books</p>
+                </div>
+                <div className="flex flex-row border p-4 mb-2 rounded-md shadow-md bg-white">
+                    <p>Read books</p>
+                </div>
+                <div className="flex flex-row border p-4 mb-2 rounded-md shadow-md bg-white">
+                    <p>Wish to read</p>
                 </div>
             </div>
         </div>
