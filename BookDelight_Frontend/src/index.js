@@ -10,6 +10,7 @@ import ReviewCommentSection from "./components/Comments/ReviewCommentSection";
 import Register from "./components/Auth/Register";
 import {AuthProvider} from "./components/Auth/SessionHandling";
 import AddBook from "./components/AddBook/AddBook";
+import UserProfile from "./components/User/UserProfile";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -26,6 +27,7 @@ root.render(
                         <Route path="/book/:id" element={<Book />} />
                         <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
                         <Route path="/add-book" element={<AddBook />} />
+                        <Route path="/user/:id" element={<UserProfile />} />
                     </Route>
                 </Routes>
             </Router>

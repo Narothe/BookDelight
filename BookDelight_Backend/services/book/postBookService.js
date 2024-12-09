@@ -16,6 +16,8 @@ const insertBook = async (userId, content) => {
         book_length
     } = content;
 
+    console.log(content);
+
     if (!title || !authors || !short_description || !long_description || !genres) {
         return { error: 'Title, authors, both descriptions, genres are required.', statusCode: 400 };
     }

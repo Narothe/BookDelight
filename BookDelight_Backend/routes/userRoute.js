@@ -27,8 +27,8 @@ router.post('/book/:id/add-favorite', authenticateToken, postFavorite);
 router.post('/book/:id/add-currently-reading', authenticateToken, postCurrentlyReading);
 router.post('/book/:id/update-currently-reading-page', authenticateToken, postCurrentlyReadingPage);
 
-router.post('/user/:id/add-genre-preferences', authenticateToken, postUserGenrePreferences);
-router.post('/user/:id/add-author-preferences', authenticateToken, postUserAuthorPreferences);
+router.post('/user/add-genre-preferences', authenticateToken, postUserGenrePreferences);
+router.post('/user/add-author-preferences', authenticateToken, postUserAuthorPreferences);
 
 router.post('/user/collect-user-data', authenticateToken, postCollectUserData);
 

@@ -103,7 +103,7 @@ const getFavoriteBooks = async (req, res) => {
 }
 
 const postUserGenrePreferences = async (req, res) => {
-    const userId = req.params.id;
+    const userId = req.user.userId;
     const { genre } = req.body;
 
     const { result, error, statusCode } = await insertUserGenrePreferences(userId, genre);
@@ -112,7 +112,7 @@ const postUserGenrePreferences = async (req, res) => {
 }
 
 const postUserAuthorPreferences = async (req, res) => {
-    const userId = req.params.id;
+    const userId = req.user.userId;
     const { author } = req.body;
 
     const { result, error, statusCode } = await insertUserAuthorPreferences(userId, author);

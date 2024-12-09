@@ -23,7 +23,8 @@ function DesktopBook({ book, review, photoUrl }) {
                     <div className="flex flex-row w-full px-6 justify-between">
                         <div className="flex flex-col">
                             <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">{book.title}</h2>
-                            <p className="text-sm md:text-base lg:text-lg font-semibold mb-2"> by:{' '} {book.authors.join(', ')} </p>
+                            <p className="text-sm md:text-base lg:text-lg font-semibold"> by:{' '} {book.authors.join(', ')} </p>
+                            <p className="text-sm md:text-base lg:text-lg font-semibold mb-2"> Genres:{' '} {book.genres.join(', ')} </p>
                         </div>
                     </div>
                     <div className="flex flex-row">
