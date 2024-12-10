@@ -19,7 +19,7 @@ function HomeFetchMobile({ item, photoUrl }) {
                 </div>
                 <div className="flex flex-col w-full px-4">
                     <h2 className="text-xl sm:text-2xl font-semibold">{item.title}</h2>
-                    <p className="text-sm sm:text-base font-semibold mb-1"> by:{' '} {item.authors.join(', ')} </p>
+                    <p className="text-sm sm:text-base text-gray-600 font-semibold mb-1"> by:{' '} {item.authors.join(', ')} </p>
                     <div className="hidden sm:block">
                         <div className="flex flex-row mb-2 text-sm sm:text-base font-semibold">
                             <p className="pr-1">Rating: </p>

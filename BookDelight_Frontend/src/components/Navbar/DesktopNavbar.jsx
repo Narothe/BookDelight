@@ -66,6 +66,11 @@ function DesktopNavbar() {
         window.location.href = "/settings";
     };
 
+    const handleProfile = () => {
+        handleMenuClose();
+        window.location.href = `/user/${authData.user.userId}`;
+    };
+
     return (
         <nav className="flex justify-between mb-9 p-2 border-y">
             <LogoLink/>
@@ -102,6 +107,7 @@ function DesktopNavbar() {
                             horizontal: "right",
                         }}
                     >
+                        <MenuItem onClick={handleProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleSettings}>Settings</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
