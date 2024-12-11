@@ -1,5 +1,6 @@
 import {createTheme} from "@mui/material/styles";
 
+// Theme for simple buttons
 
 function SimpleButtonTheme() {
 

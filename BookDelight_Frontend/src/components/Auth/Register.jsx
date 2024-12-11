@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Register page
+
 function Register() {
     return (
         <div>

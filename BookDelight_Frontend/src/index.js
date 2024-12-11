@@ -14,6 +14,9 @@ import UserProfile from "./components/User/UserProfile";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
+
+// Available website paths
+
 root.render(
     // <React.StrictMode>
         <AuthProvider>

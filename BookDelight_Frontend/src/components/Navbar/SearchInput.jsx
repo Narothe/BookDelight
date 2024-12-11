@@ -1,5 +1,7 @@
 import { TextField, Box } from '@mui/material';
 
+// Search input field for the Navbar.
+
 function SearchInput() {
     return (
         <Box

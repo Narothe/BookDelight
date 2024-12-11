@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import notExistingUserPhoto from "../assets/user.svg";
 
+// Load a user image
+// If the image does not exist, a default image is displayed
 
 function LoadBookUserImage({ item, photoUrl }) {
     const [imageError, setImageError] = useState(false);

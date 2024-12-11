@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import HomeFetchBlankDesktop from "./HomeFetchBlankDesktop";
 import HomeFetchBlankMobile from "./HomeFetchBlankMobile";
 
-import HomeSlider from "../../utils/HomeSlider";
+import HomeSlider from "./HomeSlider";
 
 function HomeFetch() {
 

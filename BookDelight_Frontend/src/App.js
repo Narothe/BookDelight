@@ -1,25 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Outlet} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import {UAParser} from "ua-parser-js";
 import {Toaster} from "react-hot-toast";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-// import {useAuth} from "./components/Auth/SessionHandling";
+
+// Viewing the main components of a website. This is a good place to start to see how the code works.
 
 function App() {
-    // const {authData} = useAuth();
-
-    // useEffect(() => {
-    //     if (authData) {
-    //         console.log("App Version:", navigator.appVersion);
-    //         console.log("App Name:", navigator.appName);
-    //         const parser = new UAParser();
-    //         console.log("Browser:", parser.getBrowser());
-    //         console.log("Operating System:", parser.getOS());
-    //         console.log("Device:", parser.getDevice());
-    //     }
-    // }, [authData]);
-
 
     const theme = createTheme({
         palette: {

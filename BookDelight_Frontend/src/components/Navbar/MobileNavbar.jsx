@@ -10,6 +10,8 @@ import LoadUserImage from "../../utils/LoadUserImage";
 import {Link} from "react-router-dom";
 import plus from "../../assets/plus.svg";
 
+// Navbar for devices with a height greater than the width.
+
 function MobileNavbar() {
     const {authData, logout} = useAuth();
 
@@ -71,8 +73,10 @@ function MobileNavbar() {
         <nav className="flex flex-col justify-between mb-9 p-2 border-y">
             <div className="flex flex-row justify-between mb-3">
                 <LogoLink/>
+                {/*If the user is logged in, display a clickable user icon. Otherwise, display a button to log in*/}
                 {authData ? (
                     <div className="flex place-content-center">
+                        {/*button to add a new book*/}
                         <div className="grid justify-items-center content-center h-auto pr-1">
                             <Link
                                 to="/add-book"
@@ -81,7 +85,7 @@ function MobileNavbar() {
 
                             </Link>
                         </div>
-
+                        {/*Below this is the user icon, where additional options open up when clicked on*/}
                         {loading && <CircularProgress size={24}/>}
                         {error && (
                             <div className="w-12">

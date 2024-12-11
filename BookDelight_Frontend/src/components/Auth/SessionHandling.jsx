@@ -3,6 +3,8 @@ import {jwtDecode} from "jwt-decode";
 import {toast} from "react-hot-toast";
 import axios from "axios";
 
+// Create a context for the session handling
+
 const SessionHandling = createContext();
 
 export const AuthProvider = ({ children }) => {

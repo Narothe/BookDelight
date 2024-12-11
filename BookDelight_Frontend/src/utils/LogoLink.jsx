@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import logo from "../assets/bookdelight_logo.png";
 
+// Logo link to the home page
+
 function LogoLink() {
     return (
         <Link to="/" className="flex items-center mr-5">

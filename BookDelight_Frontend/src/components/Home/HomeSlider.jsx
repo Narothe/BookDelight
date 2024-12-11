@@ -6,6 +6,9 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import {Link} from "react-router-dom";
 
+// Home page slider with books
+// It displays books with covers
+
 function HomeSlider({ books, photoUrl }) {
     const booksWithCovers = books.filter((book) => book.photo_path);
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Display a formatted date
+
 function FormattedDate({ date }) {
 
     const formatDate = (date) => {

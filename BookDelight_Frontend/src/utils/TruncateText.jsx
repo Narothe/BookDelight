@@ -1,3 +1,5 @@
+// Truncate text to a certain length
+
 function TruncateText(text, maxLength) {
     if (text.length > maxLength) {
         return text.slice(0, maxLength) + "...";

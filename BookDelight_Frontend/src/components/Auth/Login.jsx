@@ -7,6 +7,8 @@ import {Link, useNavigate} from "react-router-dom";
 import { toast } from "react-hot-toast";
 import CollectUserData from "./CollectUserData";
 
+// Login page
+
 function LoginPage() {
     const [identity, setIdentity] = useState("");
     const [password, setPassword] = useState("");

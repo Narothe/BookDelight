@@ -1,6 +1,8 @@
 import {UAParser} from "ua-parser-js";
 import axios from "axios";
 
+// Collects user data (browser, OS, device) and sends it to the backend.
+
 async function CollectUserData(token) {
     if (!token) {
         console.error("Token is missing. Cannot send device data.");

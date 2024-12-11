@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Display a rating value
+
 function DisplayRating({ value }) {
     if (value === null || value === undefined) {
         return (

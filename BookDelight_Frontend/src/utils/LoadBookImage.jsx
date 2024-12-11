@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import do_not_exist from '../assets/do_not_exist.png'
 
+// Load a book image
+// If the image does not exist, a default image is displayed
+
 function LoadBookImage({ item, photoUrl }) {
     const [imageError, setImageError] = useState(false);
 

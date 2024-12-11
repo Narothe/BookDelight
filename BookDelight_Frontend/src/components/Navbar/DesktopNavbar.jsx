@@ -10,6 +10,8 @@ import LoadUserBlankImage from "../../utils/LoadUserBlankImage";
 import {Link} from "react-router-dom";
 import plus from "../../assets/plus.svg";
 
+// Navbar for devices with a width greater than the height.
+
 function DesktopNavbar() {
     const {authData, logout} = useAuth();
 
@@ -79,8 +81,10 @@ function DesktopNavbar() {
             <div className="flex flex-auto items-center mr-2">
                 <SearchBar/>
             </div>
+            {/*If the user is logged in, display a clickable user icon. Otherwise, display a button to log in*/}
             {authData ? (
                 <div className="flex flex-row place-content-center items-center">
+                    {/*button to add a new book*/}
                     <div className="flex justify-items-center content-center h-auto pr-1">
                         <Link
                             to="/add-book"
@@ -89,6 +93,7 @@ function DesktopNavbar() {
 
                         </Link>
                     </div>
+                    {/*Below this is the user icon, where additional options open up when clicked on*/}
                     {loading && <CircularProgress size={24}/>}
                     {error && (
                         <div className="w-12">
