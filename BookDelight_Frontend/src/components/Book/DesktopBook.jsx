@@ -6,7 +6,6 @@ import ReviewDesktop from "../Comments/ReviewDesktop";
 
 function DesktopBook({ book, review, photoUrl }) {
 
-
     return (
         <div className="flex flex-col">
             <div className="flex border p-4 rounded-md shadow-md bg-white">
