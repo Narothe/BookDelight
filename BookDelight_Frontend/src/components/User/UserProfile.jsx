@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import DesktopUserProfile from "./DesktopUserProfile";
+import ShowUserProfile from "./ShowUserProfile";
 
 function UserProfile() {
     const {id} = useParams();
@@ -26,7 +26,7 @@ function UserProfile() {
 
     return (
         <div className="">
-            <DesktopUserProfile user={user}/>
+            <ShowUserProfile user={user}/>
         </div>
 
     )

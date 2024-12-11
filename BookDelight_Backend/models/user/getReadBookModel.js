@@ -8,13 +8,16 @@ const getReadBook = async (id_user) => {
                b.book_length,
                ROUND(AVG(r.rating), 2)                 AS rating,
                ARRAY_AGG(DISTINCT a.author_name)       AS authors,
+               ARRAY_AGG(DISTINCT g.genre_name)        AS genres,
                bp.photo_path,
                TO_CHAR(rb.creation_date, 'DD-MM-YYYY') AS creation_date
         FROM bookdelight.Book b
                  JOIN bookdelight.Read_Books rb ON b.id_book = rb.id_book
                  JOIN bookdelight.Book_Author ba ON b.id_book = ba.id_book
+                 JOIN bookdelight.Book_Genre bg ON b.id_book = bg.id_book
                  LEFT JOIN bookdelight.review r ON b.id_book = r.id_book
                  JOIN bookdelight.Author a ON ba.id_author = a.id_author
+                 JOIN bookdelight.Genre g ON bg.id_genre = g.id_genre
                  LEFT JOIN bookdelight.Book_Photos bp ON b.id_book = bp.id_book
         WHERE rb.id_user = $1
         GROUP BY b.id_book,
