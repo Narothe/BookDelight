@@ -1,19 +1,19 @@
 import React from "react";
 import LinkButton from "../../utils/LinkButton";
 
-function HomeTextForNotRegisteredOnly () {
+function HomeTextForRegisteredOnly () {
     return (
         <div>
             <div className="flex items-center">
                 <div className="flex text-base lg:text-lg leading-relaxed">
-                    Search for information about the book you are interested in or join us for more features!
+                    You can also add a book for all to see!
                 </div>
                 <div className="flex pl-4 items-center md:items-end">
-                    <LinkButton text="Log in" link="/login"/>
+                    <LinkButton text="Add book" link="/add-book"/>
                 </div>
             </div>
         </div>
     );
 }
 
-export default HomeTextForNotRegisteredOnly;
+export default HomeTextForRegisteredOnly;

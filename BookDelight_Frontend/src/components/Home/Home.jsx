@@ -1,8 +1,13 @@
 import React from 'react';
 import HomeTextForNotRegisteredOnly from "./HomeTextForNotRegisteredOnly";
 import HomeFetch from "./HomeFetch";
+import {useAuth} from "../Auth/SessionHandling";
+import HomeTextForRegisteredOnly from "./HomeTextForRegisteredOnly";
 
 function Home() {
+
+    const {authData} = useAuth();
+
 
     return (
         <div>
@@ -11,7 +16,15 @@ function Home() {
                 Browse a collection of books in an easy and simple way. Browse, add, filter, rate the books you are
                 looking for...
             </p>
-            <HomeTextForNotRegisteredOnly/>
+            {authData ? (
+                <div className="mt-4">
+                    <HomeTextForRegisteredOnly/>
+                </div>
+            ) : (
+                <div className="mt-4">
+                    <HomeTextForNotRegisteredOnly/>
+                </div>
+            )}
 
             <HomeFetch/>
         </div>

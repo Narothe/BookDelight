@@ -7,6 +7,8 @@ import {CircularProgress, Menu, MenuItem, IconButton} from "@mui/material";
 import axios from "axios";
 import LoadUserImage from "../../utils/LoadUserImage";
 import LoadUserBlankImage from "../../utils/LoadUserBlankImage";
+import {Link} from "react-router-dom";
+import plus from "../../assets/plus.svg";
 
 function DesktopNavbar() {
     const {authData, logout} = useAuth();
@@ -78,7 +80,15 @@ function DesktopNavbar() {
                 <SearchBar/>
             </div>
             {authData ? (
-                <div className="grid place-content-center">
+                <div className="flex flex-row place-content-center items-center">
+                    <div className="flex justify-items-center content-center h-auto pr-1">
+                        <Link
+                            to="/add-book"
+                            className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden hover:animate-spin border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark">
+                            <img src={plus} alt="advanced" className="w-5"/>
+
+                        </Link>
+                    </div>
                     {loading && <CircularProgress size={24}/>}
                     {error && (
                         <div className="w-12">
