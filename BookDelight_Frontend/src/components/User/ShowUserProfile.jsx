@@ -151,9 +151,6 @@ function ShowUserProfile({user}) {
                     <p>Bookshelf</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 flex-wrap gap-2 flex-row">
-
-
-
                     <div
                         className="flex flex-col border p-4 mb-2 rounded-lg shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
                         <div className="flex flex-col items-center text-center place-content-center">

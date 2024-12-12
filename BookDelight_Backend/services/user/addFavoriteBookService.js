@@ -13,7 +13,7 @@ const insertFavorite = async (bookId, userId) => {
 
         const checkExistenceOfFavoriteBook = await checkFavoriteBooks(userId, bookId);
         if (checkExistenceOfFavoriteBook) {
-            return { error: 'Book already exists in favorite.', statusCode: 400 };
+            return { error: 'Book already exists in favorite.', statusCode: 409 };
         }
 
         await addFavorite(userId, bookId);

@@ -16,7 +16,7 @@ const insertReadBook = async (bookId, userId) => {
 
         const checkExistenceOfReadBook = await checkReadBooks(userId, bookId);
         if (checkExistenceOfReadBook) {
-            return { error: 'Book already exists in read book.', statusCode: 400 };
+            return { error: 'Book already exists in read book.', statusCode: 409 };
         }
 
         const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, bookId);

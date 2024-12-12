@@ -14,7 +14,7 @@ const insertCurrentlyReading = async (id_book, userId) => {
 
         const checkExistenceOfCurrentlyReadingBook = await checkCurrentlyReading(userId, id_book);
         if (checkExistenceOfCurrentlyReadingBook) {
-            return { result: null, error: 'Currently reading book already exists.', statusCode: 400 };
+            return { result: null, error: 'Currently reading book already exists.', statusCode: 409 };
         }
 
         const checkExistenceOfWishToReadBook = await checkWishToRead(userId, id_book);

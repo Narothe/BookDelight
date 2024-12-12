@@ -15,7 +15,7 @@ const insertWishToRead = async (bookId, userId) => {
 
         const checkExistenceOfWishToReadBook = await checkWishToRead(userId, bookId);
         if (checkExistenceOfWishToReadBook) {
-            return { error: 'Book already exists in wish to read.', statusCode: 400 };
+            return { error: 'Book already exists in wish to read.', statusCode: 409 };
         }
 
         const checkExistenceOfReadBook = await checkReadBooks(userId, bookId);
