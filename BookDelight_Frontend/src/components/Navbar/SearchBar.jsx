@@ -18,7 +18,7 @@ function SearchBar() {
                 <div className="grid justify-items-center content-center h-auto mr-2 ">
 
                     <button
-                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden hover:animate-spin border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark">
+                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
                         <img src={gear} alt="advanced" className="w-5"/>
                     </button>
                 </div>
