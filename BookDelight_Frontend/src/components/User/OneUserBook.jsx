@@ -56,7 +56,7 @@ function OneUserBook({userBook, photoUrl}) {
                         <DialogContent dividers>
                             <Link to={`/book/${selectedBook.id_book}`} className="flex flex-col">
                                 <div className="flex flex-row">
-                                    <div className="w-28 sm:w-36 md:w-48">
+                                    <div className="w-28 sm:w-32 md:w-40">
                                         <LoadBookImage item={selectedBook} photoUrl={photoUrl}/>
                                     </div>
                                     <div className="flex flex-col pl-2">

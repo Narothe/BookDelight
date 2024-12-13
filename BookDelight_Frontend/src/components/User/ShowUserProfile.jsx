@@ -178,7 +178,7 @@ function ShowUserProfile({user}) {
                         <div className="flex flex-col items-center text-center place-content-center">
                             <div className="flex flex-row">
                                 <h3 className="text-lg font-bold mb-2">Read books</h3>
-                                <FaBook className="text-red-900 mt-1.5 ml-2"/>
+                                <FaBook className="text-green-500 mt-1.5 ml-2"/>
                             </div>
                             <p className="text-2xl text-blue-500 font-semibold">{user.read_books_amount}</p>
                         </div>
