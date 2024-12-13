@@ -16,6 +16,10 @@ const showCurrentlyReading = async (userId) => {
             return {error: 'Currently reading books not found', statusCode: 404};
         }
 
+        result.forEach(book => {
+            book.type = 'Currently reading';
+        });
+
         return { result, error: null, statusCode: 200 };
     } catch (err) {
         console.error('Error while getting the currently reading books:', err);

@@ -18,6 +18,10 @@ const showReadBooks = async (userId) => {
             return {error: 'Read books not found', statusCode: 404};
         }
 
+        result.forEach(book => {
+            book.type = 'Read book';
+        });
+
         return { result, statusCode: 200 };
     } catch (err) {
         console.error('Error while getting the currently reading books:', err);

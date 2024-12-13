@@ -17,6 +17,10 @@ const showFavorite = async (userId) => {
             return {error: 'Favorite books not found', statusCode: 404};
         }
 
+        result.forEach(book => {
+            book.type = 'Favorite';
+        });
+
         return { result, statusCode: 200 };
     } catch (err) {
         console.error('Error while getting the favorite books:', err);

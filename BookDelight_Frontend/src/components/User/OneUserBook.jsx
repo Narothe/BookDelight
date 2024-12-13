@@ -3,6 +3,11 @@ import styled from "@emotion/styled";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {Link} from "react-router-dom";
 import LoadBookImage from "../../utils/LoadBookImage";
+import {useAuth} from "../Auth/SessionHandling";
+import BookshelfButtonFavorite from "../Book/BookshelfButtonFavorite";
+import BookshelfButtonReadBooks from "../Book/BookshelfButtonReadBooks";
+import BookshelfButtonWishToRead from "../Book/BookshelfButtonWishToRead";
+import BookshelfButtonCurrentlyReading from "../Book/BookshelfButtonCurrentlyReading";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -14,6 +19,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 function OneUserBook({userBook, photoUrl}) {
+
+    // console.log('userbook',userBook);
+
+    const {authData} = useAuth();
 
     const [openBook, setBookOpen] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
@@ -28,7 +37,6 @@ function OneUserBook({userBook, photoUrl}) {
         setBookOpen(false);
         setSelectedBook(null);
     };
-
 
 
     return (
@@ -54,24 +62,60 @@ function OneUserBook({userBook, photoUrl}) {
                             {selectedBook.title}
                         </DialogTitle>
                         <DialogContent dividers>
-                            <Link to={`/book/${selectedBook.id_book}`} className="flex flex-col">
+                            <div className="flex flex-col">
                                 <div className="flex flex-row">
-                                    <div className="w-28 sm:w-32 md:w-40">
-                                        <LoadBookImage item={selectedBook} photoUrl={photoUrl}/>
+                                    <div className="flex flex-col">
+                                        <Link to={`/book/${selectedBook.id_book}`} className="w-28 sm:w-32 md:w-40">
+                                            <LoadBookImage item={selectedBook} photoUrl={photoUrl}/>
+                                        </Link>
+                                        <div className="flex mt-2">
+                                            {authData &&
+                                                <div>
+                                                    {selectedBook.type === 'Currently reading' &&
+                                                        <div className="flex">
+                                                            <BookshelfButtonFavorite book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonReadBooks book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonWishToRead book={selectedBook} authData={authData}/>
+                                                        </div>
+                                                    }
+                                                    {selectedBook.type === 'Favorite' &&
+                                                        <div className="flex">
+                                                            <BookshelfButtonCurrentlyReading book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonReadBooks book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonWishToRead book={selectedBook} authData={authData}/>
+                                                        </div>
+                                                    }
+                                                    {selectedBook.type === 'Read book' &&
+                                                        <div className="flex">
+                                                            <BookshelfButtonCurrentlyReading book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonFavorite book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonWishToRead book={selectedBook} authData={authData}/>
+                                                        </div>
+                                                    }
+                                                    {selectedBook.type === 'Wish to read' &&
+                                                        <div className="flex">
+                                                            <BookshelfButtonCurrentlyReading book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonFavorite book={selectedBook} authData={authData}/>
+                                                            <BookshelfButtonReadBooks book={selectedBook} authData={authData}/>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col pl-2">
+                                    <Link to={`/book/${selectedBook.id_book}`} className="flex flex-col pl-2">
                                         <p className="text-sm md:text-base lg:text-md mb-2"> by:{' '} {selectedBook.authors.join(', ')} </p>
                                         <p className="text-sm md:text-base lg:text-md">Book
-                                            length: {selectedBook.book_length}</p>
-                                        <p className="text-sm md:text-base lg:text-md mb-2">Rating: {selectedBook.rating}</p>
+                                            length: <strong> {selectedBook.book_length} </strong> </p>
+                                        <p className="text-sm md:text-base lg:text-md mb-2">Rating: <strong> {selectedBook.rating} </strong></p>
                                         <p className="text-sm md:text-base lg:text-md"> Genres:{' '} {selectedBook.genres.join(', ')} </p>
-                                    </div>
+                                    </Link>
                                 </div>
                                 <div className="grid justify-items-end">
                                     <i className="text-sm lg:text-base text-gray-400 ">Click and see
                                         more</i>
                                 </div>
-                            </Link>
+                            </div>
                         </DialogContent>
                         <DialogActions>
                             <Button autoFocus onClick={handleBookClose}>
