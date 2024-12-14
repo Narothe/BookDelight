@@ -8,6 +8,8 @@ import BookshelfButtonFavorite from "../Book/BookshelfButtonFavorite";
 import BookshelfButtonReadBooks from "../Book/BookshelfButtonReadBooks";
 import BookshelfButtonWishToRead from "../Book/BookshelfButtonWishToRead";
 import BookshelfButtonCurrentlyReading from "../Book/BookshelfButtonCurrentlyReading";
+import {FaBook, FaBookmark, FaHeart, FaStar} from "react-icons/fa";
+import DeleteBookFromBookshelf from "./DeleteBookFromBookshelf";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -58,9 +60,58 @@ function OneUserBook({userBook, photoUrl}) {
                         fullWidth
                         maxWidth="sm"
                     >
-                        <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
-                            {selectedBook.title}
-                        </DialogTitle>
+                        {selectedBook.type === 'Currently reading' &&
+                            <div className="flex justify-between items-center">
+                                <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
+                                    {selectedBook.title}
+                                </DialogTitle>
+                                <div className="flex items-center">
+                                    {authData &&
+                                        <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
+                                    }
+                                    <FaHeart className="w-5 ml-2 mr-4 text-red-500"/>
+                                </div>
+                            </div>
+                        }
+                        {selectedBook.type === 'Favorite' &&
+                            <div className="flex justify-between items-center">
+                                <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
+                                    {selectedBook.title}
+                                </DialogTitle>
+                                <div className="flex items-center">
+                                    {authData &&
+                                        <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
+                                    }
+                                <FaStar className="w-5 ml-2 text-yellow-400 mr-4"/>
+                                </div>
+                            </div>
+                        }
+                        {selectedBook.type === 'Read book' &&
+                            <div className="flex justify-between items-center">
+                                <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
+                                    {selectedBook.title}
+                                </DialogTitle>
+                                <div className="flex items-center">
+                                    {authData &&
+                                        <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
+                                    }
+                                <FaBook className="w-5 ml-2 text-green-500 mr-4"/>
+                                </div>
+                            </div>
+                        }
+                        {selectedBook.type === 'Wish to read' &&
+                            <div className="flex justify-between items-center">
+                                <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
+                                    {selectedBook.title}
+                                </DialogTitle>
+                                <div className="flex items-center">
+                                    {authData &&
+                                        <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
+                                    }
+                                <FaBookmark className="w-5 ml-2 text-blue-500 mr-4"/>
+                                </div>
+                            </div>
+                        }
                         <DialogContent dividers>
                             <div className="flex flex-col">
                                 <div className="flex flex-row">
@@ -103,12 +154,15 @@ function OneUserBook({userBook, photoUrl}) {
                                             }
                                         </div>
                                     </div>
-                                    <Link to={`/book/${selectedBook.id_book}`} className="flex flex-col pl-2">
-                                        <p className="text-sm md:text-base lg:text-md mb-2"> by:{' '} {selectedBook.authors.join(', ')} </p>
-                                        <p className="text-sm md:text-base lg:text-md">Book
-                                            length: <strong> {selectedBook.book_length} </strong> </p>
-                                        <p className="text-sm md:text-base lg:text-md mb-2">Rating: <strong> {selectedBook.rating} </strong></p>
-                                        <p className="text-sm md:text-base lg:text-md"> Genres:{' '} {selectedBook.genres.join(', ')} </p>
+                                    <Link to={`/book/${selectedBook.id_book}`} className="flex flex-col pl-2 justify-between">
+                                        <div>
+                                            <p className="text-sm md:text-base lg:text-md mb-2"> by:{' '} {selectedBook.authors.join(', ')} </p>
+                                                <p className="text-sm md:text-base lg:text-md">Book
+                                                    length: <strong> {selectedBook.book_length} </strong> </p>
+                                                <p className="text-sm md:text-base lg:text-md mb-2">Rating: <strong> {selectedBook.rating} </strong></p>
+                                            <p className="text-sm md:text-base lg:text-md"> Genres:{' '} {selectedBook.genres.join(', ')} </p>
+                                        </div>
+                                        <p className="text-sm md:text-base mb-1 lg:text-md">Added to <u> {selectedBook.type}</u>: <strong> {selectedBook.creation_date} </strong></p>
                                     </Link>
                                 </div>
                                 <div className="grid justify-items-end">

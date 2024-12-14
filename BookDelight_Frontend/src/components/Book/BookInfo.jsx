@@ -1,8 +1,11 @@
 import React from 'react';
 import FormattedDate from "../../utils/FormattedDate";
 import BookshelfButtons from "./BookshelfButtons";
+import {useAuth} from "../Auth/SessionHandling";
 
 function BookInfo({ book }) {
+
+    const {authData} = useAuth();
 
     return (
         <div className="flex flex-col">
@@ -19,7 +22,9 @@ function BookInfo({ book }) {
                 <p className="mb-3">Book length: {book.book_length}</p>
             </div>
             <div className="mt-2">
-                <BookshelfButtons book={book}/>
+                {authData &&
+                    <BookshelfButtons book={book}/>
+                }
             </div>
         </div>
     );

@@ -69,6 +69,11 @@ function MobileNavbar() {
         window.location.href = "/settings";
     };
 
+    const handleProfile = () => {
+        handleMenuClose();
+        window.location.href = `/user/${authData.user.userId}`;
+    };
+
     return (
         <nav className="flex flex-col justify-between mb-9 p-2 border-y">
             <div className="flex flex-row justify-between mb-3">
@@ -114,6 +119,7 @@ function MobileNavbar() {
                                 horizontal: "right",
                             }}
                         >
+                            <MenuItem onClick={handleProfile}>Profile</MenuItem>
                             <MenuItem onClick={handleSettings}>Settings</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>

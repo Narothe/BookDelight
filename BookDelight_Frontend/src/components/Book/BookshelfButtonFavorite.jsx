@@ -22,6 +22,8 @@ function BookshelfButtonFavorite ({book, authData}) {
                 icon: "⭐",
             });
 
+            setTimeout(() => window.location.reload(), 1000);
+
         } catch (err) {
             if (err.response && err.response.status === 409) {
                 console.error("Book already exists in Favorite:", err);

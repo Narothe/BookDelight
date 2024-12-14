@@ -16,11 +16,14 @@ function BookshelfButtonCurrentlyReading ({book, authData}) {
                     },
                 }
             );
+
             // console.log("Successfully added to currently reading.");
             toast.success("Book added successfully to Currently Reading!", {
                 position: "top-center",
                 icon: "❤️",
             });
+
+            setTimeout(() => window.location.reload(), 1000);
 
         } catch (err) {
             if (err.response && err.response.status === 409) {
