@@ -18,7 +18,7 @@ function DeleteBookFromBookshelf({book, authData}) {
     }
 
     const handleDelete = async () => {
-        console.log(url, `${process.env.REACT_APP_BACKEND_URL}${url}`);
+        // console.log(url, `${process.env.REACT_APP_BACKEND_URL}${url}`);
 
         try {
             await axios.delete(

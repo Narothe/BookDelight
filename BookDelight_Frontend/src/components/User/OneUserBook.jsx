@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from "@emotion/styled";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import LoadBookImage from "../../utils/LoadBookImage";
 import {useAuth} from "../Auth/SessionHandling";
 import BookshelfButtonFavorite from "../Book/BookshelfButtonFavorite";
@@ -24,11 +24,12 @@ function OneUserBook({userBook, photoUrl}) {
 
     // console.log('userbook',userBook);
 
+    const {id } = useParams();
+
     const {authData} = useAuth();
 
     const [openBook, setBookOpen] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
-
 
     const handleClickBookOpen = (book) => {
         setSelectedBook(book);
@@ -39,6 +40,9 @@ function OneUserBook({userBook, photoUrl}) {
         setBookOpen(false);
         setSelectedBook(null);
     };
+
+    // console.log('userId', id);
+    // console.log('authData.user.userId', authData.user.userId);
 
 
     return (
@@ -66,7 +70,7 @@ function OneUserBook({userBook, photoUrl}) {
                                     {selectedBook.title}
                                 </DialogTitle>
                                 <div className="flex items-center">
-                                    {authData &&
+                                    {authData && parseInt(id) === authData.user.userId &&
                                         <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
                                     }
                                     <FaHeart className="w-5 ml-2 mr-4 text-red-500"/>
@@ -79,7 +83,7 @@ function OneUserBook({userBook, photoUrl}) {
                                     {selectedBook.title}
                                 </DialogTitle>
                                 <div className="flex items-center">
-                                    {authData &&
+                                    {authData && parseInt(id) === authData.user.userId &&
                                         <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
                                     }
                                 <FaStar className="w-5 ml-2 text-yellow-400 mr-4"/>
@@ -92,7 +96,7 @@ function OneUserBook({userBook, photoUrl}) {
                                     {selectedBook.title}
                                 </DialogTitle>
                                 <div className="flex items-center">
-                                    {authData &&
+                                    {authData && parseInt(id) === authData.user.userId &&
                                         <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
                                     }
                                 <FaBook className="w-5 ml-2 text-green-500 mr-4"/>
@@ -105,7 +109,7 @@ function OneUserBook({userBook, photoUrl}) {
                                     {selectedBook.title}
                                 </DialogTitle>
                                 <div className="flex items-center">
-                                    {authData &&
+                                    {authData && parseInt(id) === authData.user.userId &&
                                         <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
                                     }
                                 <FaBookmark className="w-5 ml-2 text-blue-500 mr-4"/>
