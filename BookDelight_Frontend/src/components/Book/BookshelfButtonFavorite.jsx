@@ -1,9 +1,32 @@
 import axios from "axios";
 import {toast} from "react-hot-toast";
 import {FaStar} from "react-icons/fa";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 function BookshelfButtonFavorite ({book, authData}) {
+
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    useEffect(() => {
+        const fetchCurrentlyReading = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${authData.user.userId}/favorite`, {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                });
+
+                const isReading = response.data.some(
+                    (readingBook) => readingBook.id_book === book.id_book
+                );
+                setIsFavorite(isReading);
+            } catch (error) {
+                console.error("Error fetching Currently Reading books:", error);
+            }
+        };
+
+        fetchCurrentlyReading();
+    }, [book.id_book, authData.token]);
 
     const handleFavorite = async () => {
         try {
@@ -16,6 +39,9 @@ function BookshelfButtonFavorite ({book, authData}) {
                     },
                 }
             );
+
+            setIsFavorite(true);
+
             // console.log("Successfully added to currently reading.");
             toast.success("Book added successfully to Favorite!", {
                 position: "top-center",
@@ -42,13 +68,15 @@ function BookshelfButtonFavorite ({book, authData}) {
 
     return (
         <button
-            onClick={handleFavorite}
-            className="grid justify-items-center content-center ml-2 w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
+            onClick={!isFavorite ? handleFavorite : null}
+            className={`grid justify-items-center content-center ml-2 w-8 h-8 rounded-full overflow-hidden border-4 
+                ${isFavorite ? "border-yellow-400 cursor-not-allowed" : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"}`}
+            disabled={isFavorite}
+        >
             <FaStar className="w-5 text-yellow-400"/>
         </button>
     )
 }
-
 
 
 export default BookshelfButtonFavorite;
