@@ -2,7 +2,7 @@ import React from "react";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import RepliesFetch from "./RepliesFetch";
 
 function ReviewMobile({review}) {
@@ -30,7 +30,9 @@ function ReviewMobile({review}) {
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
                                     <div className="w-14 h-14">
-                                        <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                        <Link to={`/user/${item.review_author_id}`}>
+                                            <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                        </Link>
                                     </div>
                                     <div className="flex items-center pl-2.5">
                                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>

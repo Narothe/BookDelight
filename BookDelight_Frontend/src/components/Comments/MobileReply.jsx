@@ -1,6 +1,7 @@
 import React from "react";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
+import {Link} from "react-router-dom";
 
 function MobileReply({reply}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
@@ -11,7 +12,9 @@ function MobileReply({reply}) {
                 {/*photo & username*/}
                 <div className="flex flex-row">
                     <div className="w-14 h-14">
-                        <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
+                        <Link to={`/user/${reply.review_author_id}`}>
+                            <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
+                        </Link>
                     </div>
                     <div className="flex items-center pl-2.5">
                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reply.username}</h2>

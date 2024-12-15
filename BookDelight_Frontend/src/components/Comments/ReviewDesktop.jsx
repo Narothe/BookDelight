@@ -3,7 +3,7 @@ import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 import RepliesFetch from "./RepliesFetch";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 function ReviewDesktop({review}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
@@ -14,6 +14,7 @@ function ReviewDesktop({review}) {
         <div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">
             <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
             {review.map((item, index) => {
+                console.log(item)
                 const replyInfo = repliesData.find((data) => data.id_review === item.id_review);
 
                 return (
@@ -23,7 +24,9 @@ function ReviewDesktop({review}) {
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
                                     <div className="w-14 h-14">
-                                        <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                        <Link to={`/user/${item.review_author_id}`}>
+                                            <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                        </Link>
                                     </div>
                                     <div className="flex items-center pl-2.5">
                                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>

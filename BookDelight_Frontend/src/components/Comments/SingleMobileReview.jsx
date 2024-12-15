@@ -2,6 +2,7 @@ import React from 'react';
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
+import {Link} from "react-router-dom";
 
 function SingleMobileReview({reviewData}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
@@ -12,7 +13,9 @@ function SingleMobileReview({reviewData}) {
                 {/*photo & username*/}
                 <div className="flex flex-row">
                     <div className="w-14 h-14">
-                        <LoadBookUserImage item={reviewData} photoUrl={photoUrl}/>
+                        <Link to={`/user/${reviewData.review_author_id}`}>
+                            <LoadBookUserImage item={reviewData} photoUrl={photoUrl}/>
+                        </Link>
                     </div>
                     <div className="flex items-center pl-2.5">
                         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reviewData.username}</h2>
