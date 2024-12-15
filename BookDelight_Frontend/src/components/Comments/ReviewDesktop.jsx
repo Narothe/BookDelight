@@ -74,8 +74,11 @@ function ReviewDesktop({review}) {
                     </div>
                 )
             })}
-            <div className="flex justify-center mt-4">
-                <LinkButton text="Show more reviews" link={`/login`}/>
+            <div className="flex flex-col items-center justify-center mt-4">
+                <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>
+                <div>
+                    <LinkButton text="Add review" link={`/add-review`}/>
+                </div>
             </div>
         </div>
     );
