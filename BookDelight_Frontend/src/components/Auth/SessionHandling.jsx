@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import {jwtDecode} from "jwt-decode";
-import {toast} from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-hot-toast";
 import axios from "axios";
-
-// Create a context for the session handling
 
 const SessionHandling = createContext();
 
@@ -13,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     const login = (data) => {
         setAuthData(data);
         localStorage.setItem("authData", JSON.stringify(data));
+
+        setupTokenExpiryWatcher(data.token);
     };
 
     const logout = async () => {
@@ -40,41 +40,58 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // useEffect(() => {
-    //     const storedAuthData = localStorage.getItem("authData");
-    //
-    //     if (storedAuthData) {
-    //         const parsedData = JSON.parse(storedAuthData);
-    //
-    //         const decodedToken = jwtDecode(parsedData.token);
-    //         const isTokenValid = decodedToken.exp * 1000 > Date.now();
-    //
-    //         if (isTokenValid) {
-    //             setAuthData(parsedData);
-    //         } else {
-    //             toast("Your session has expired!", {
-    //                 position: "top-center",
-    //                 icon: "⏳",
-    //             });
-    //             logout();
-    //         }
-    //     }
-    // }, []);
+    const setupTokenExpiryWatcher = (token) => {
+        try {
+            const decodedToken = jwtDecode(token);
+            const currentTime = Date.now();
+            const expiryTime = decodedToken.exp * 1000;
+
+            if (expiryTime > currentTime) {
+                const timeUntilExpiry = expiryTime - currentTime;
+
+                setTimeout(() => {
+                    toast("Your session has expired!", {
+                        position: "top-center",
+                        icon: "⏳",
+                    });
+                    logout();
+                }, timeUntilExpiry);
+            } else {
+                toast("Your session has expired!", {
+                    position: "top-center",
+                    icon: "⏳",
+                });
+                logout();
+            }
+        } catch (error) {
+            console.error("Error setting up token expiry watcher:", error);
+            logout();
+        }
+    };
 
     useEffect(() => {
         const storedAuthData = localStorage.getItem("authData");
+
         if (storedAuthData) {
-            setAuthData(JSON.parse(storedAuthData));
+            const parsedData = JSON.parse(storedAuthData);
+            const decodedToken = jwtDecode(parsedData.token);
+            const isTokenValid = decodedToken.exp * 1000 > Date.now();
+
+            if (isTokenValid) {
+                setAuthData(parsedData);
+                setupTokenExpiryWatcher(parsedData.token);
+            } else {
+                toast("Your session has expired!", {
+                    position: "top-center",
+                    icon: "⏳",
+                });
+                logout();
+            }
         }
     }, []);
 
-    // toast("Your session has expired!", {
-    //     position: "top-center",
-    //     icon: "⏳",
-    // });
-
     return (
-        <SessionHandling.Provider value={{authData, login, logout}}>
+        <SessionHandling.Provider value={{ authData, login, logout }}>
             {children}
         </SessionHandling.Provider>
     );
