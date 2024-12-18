@@ -13,6 +13,7 @@ import BookRatingInfo from "../Book/BookRatingInfo";
 import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookImage from "../../utils/LoadBookImage";
+import {CircularProgress} from "@mui/material";
 
 function ReviewCommentSection() {
     const {bookId, reviewId} = useParams();
@@ -59,7 +60,11 @@ function ReviewCommentSection() {
         }
     }, [bookId, reviewId]);
 
-    if (loading) return <p>Loading review details...</p>;
+    if (loading) return (
+        <div className="flex justify-center">
+            <CircularProgress size={50}/>
+        </div>
+    );
     if (error) return <p>Error loading review: {error.message}</p>;
 
     // console.log("Review data.photo_path:", reviewData.photo_path);
@@ -102,7 +107,9 @@ function ReviewCommentSection() {
                         </div>
                     </div>
                 ) : (
-                    <p>Loading data...</p>
+                    <div className="flex justify-center">
+                        <CircularProgress size={50}/>
+                    </div>
                 )}
             </div>
 
@@ -143,7 +150,9 @@ function ReviewCommentSection() {
                         </div>
                     </div>
                 ) : (
-                    <p>Loading data...</p>
+                    <div className="flex justify-center">
+                        <CircularProgress size={50}/>
+                    </div>
                 )}
             </div>
         </div>

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import DesktopBook from "./DesktopBook";
 import MobileBook from "./MobileBook";
+import {CircularProgress} from "@mui/material";
 
 function Book() {
     const {id} = useParams();
@@ -36,11 +37,15 @@ function Book() {
         fetchReviewsDetails();
     }, [id]);
 
-    if (!book) return <p>No book data found</p>;
+    if (!book) return (
+        <div className="flex justify-center">
+            <CircularProgress size={50}/>
+        </div>
+    );
 
     return (
         <div className="pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-            <div className="hidden md:block">
+        <div className="hidden md:block">
                 <DesktopBook book={book} review={review} photoUrl={photoUrl}/>
             </div>
             <div className="block md:hidden">

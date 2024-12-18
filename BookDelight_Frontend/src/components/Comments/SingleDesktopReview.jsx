@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 function SingleDesktopReview({reviewData}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
 
-    console.log("Review data:", reviewData);
+    // console.log("Review data:", reviewData);
 
     return (
         <div className="flex flex-row">

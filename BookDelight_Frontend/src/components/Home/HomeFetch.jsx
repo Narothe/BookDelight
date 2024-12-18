@@ -7,6 +7,7 @@ import HomeFetchBlankDesktop from "./HomeFetchBlankDesktop";
 import HomeFetchBlankMobile from "./HomeFetchBlankMobile";
 
 import HomeSlider from "./HomeSlider";
+import {CircularProgress} from "@mui/material";
 
 function HomeFetch() {
 
@@ -101,7 +102,10 @@ function HomeFetch() {
                     </div>
                 </div>
             ) : (
-                <p>Loading data...</p>  // Show while fetching data /// or backend error ¯\_(ツ)_/¯
+                // <p>Loading data...</p>  // Show while fetching data /// or backend error ¯\_(ツ)_/¯
+                <div className="flex justify-center">
+                    <CircularProgress size={50}/>
+                </div>
             )}
         </div>
     );

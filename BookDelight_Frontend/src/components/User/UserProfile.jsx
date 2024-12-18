@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import ShowUserProfile from "./ShowUserProfile";
+import {CircularProgress} from "@mui/material";
 
 function UserProfile() {
     const {id} = useParams();
@@ -22,7 +23,11 @@ function UserProfile() {
         fetchBookDetails();
     }, [id]);
 
-    if (!user) return <p>No book data found</p>;
+    if (!user) return (
+        <div className="flex justify-center">
+            <CircularProgress size={50}/>
+        </div>
+    );
 
     return (
         <div className="">
