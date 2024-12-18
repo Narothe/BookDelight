@@ -13,6 +13,7 @@ import AddBook from "./components/AddBook/AddBook";
 import UserProfile from "./components/User/UserProfile";
 import Settings from "./components/Settings/Settings";
 import AddReview from "./components/Comments/AddReview";
+import ProtectedPath from "./components/Auth/ProtectedPath";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -31,10 +32,26 @@ root.render(
                         <Route path="/register" element={<Register />} />
                         <Route path="/book/:id" element={<Book />} />
                         <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
-                        <Route path="/add-book" element={<AddBook />} />
                         <Route path="/user/:id" element={<UserProfile />} />
-                        <Route path="/settings" element={<Settings/>} />
-                        <Route path="/add-review" element={<AddReview />} />
+
+                        <Route path="/settings" element={
+                            <ProtectedPath>
+                                <Settings/>
+                            </ProtectedPath>
+                        } />
+
+                        <Route path="/add-book" element={
+                            <ProtectedPath>
+                                <AddBook />
+                            </ProtectedPath>
+                        } />
+
+                        <Route path="/add-review" element={
+                            <ProtectedPath>
+                                <AddReview />
+                            </ProtectedPath>
+                            }
+                        />
                     </Route>
                 </Routes>
             </Router>

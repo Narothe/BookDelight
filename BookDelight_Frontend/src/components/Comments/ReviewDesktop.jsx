@@ -11,8 +11,9 @@ function ReviewDesktop({review}) {
     const repliesData = RepliesFetch(id, review);
 
     return (
-        <div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">
-            <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
+        <div>
+            {/*<div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">*/}
+            {/*<h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>*/}
             {review.map((item, index) => {
                 console.log(item)
                 const replyInfo = repliesData.find((data) => data.id_review === item.id_review);
@@ -74,12 +75,12 @@ function ReviewDesktop({review}) {
                     </div>
                 )
             })}
-            <div className="flex flex-col items-center justify-center mt-4">
-                <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>
-                <div>
-                    <LinkButton text="Add review" link={`/add-review`}/>
-                </div>
-            </div>
+            {/*<div className="flex flex-col items-center justify-center mt-4">*/}
+            {/*    <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>*/}
+            {/*    <div>*/}
+            {/*        <LinkButton text="Add review" link={`/add-review`}/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 }

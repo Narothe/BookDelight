@@ -3,6 +3,7 @@ import LoadBookImage from "../../utils/LoadBookImage";
 import BookInfo from "./BookInfo";
 import BookRatingInfo from "./BookRatingInfo";
 import ReviewDesktop from "../Comments/ReviewDesktop";
+import LinkButton from "../../utils/LinkButton";
 
 function DesktopBook({ book, review, photoUrl }) {
 
@@ -32,10 +33,19 @@ function DesktopBook({ book, review, photoUrl }) {
                     </div>
                 </div>
             </div>
-            {review && (
-                <ReviewDesktop review={review}/>
-            )
-            }
+            <div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">
+                <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
+                {review && (
+                    <ReviewDesktop review={review}/>
+                )
+                }
+                <div className="flex flex-col items-center justify-center mt-4">
+                    <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>
+                    <div>
+                        <LinkButton text="Add review" link={`/add-review`}/>
+                    </div>
+                </div>
+            </div>
         </div>
     )
         ;
