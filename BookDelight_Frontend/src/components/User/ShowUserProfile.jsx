@@ -89,7 +89,7 @@ function ShowUserProfile({user}) {
             <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
                 <div className="flex border pl-2 pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md w-full bg-white">
                     <div className="flex flex-col items-center w-36 mt-3">
-                        <div className="flex w-16 sm:w-20 lg:w-24">
+                        <div className="flex w-16 lg:w-20">
                             <LoadBookUserImage item={user} photoUrl={userPhotoUrl}/>
                         </div>
                         <div className="mt-2">

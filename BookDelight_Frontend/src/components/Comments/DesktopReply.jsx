@@ -11,7 +11,7 @@ function DesktopReply({reply}) {
             <div className="flex flex-col justify-between w-11/12">
                 {/*photo & username*/}
                 <div className="flex flex-row">
-                    <div className="w-14 h-14">
+                    <div className="w-12">
                         <Link to={`/user/${reply.review_author_id}`}>
                             <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
                         </Link>

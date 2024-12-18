@@ -30,7 +30,7 @@ function ReviewMobile({review}) {
                             <div className="flex flex-row justify-between">
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
-                                    <div className="w-14 h-14">
+                                    <div className="w-12">
                                         <Link to={`/user/${item.review_author_id}`}>
                                             <LoadBookUserImage item={item} photoUrl={photoUrl}/>
                                         </Link>
