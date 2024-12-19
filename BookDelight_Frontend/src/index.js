@@ -9,11 +9,11 @@ import Book from "./components/Book/Book";
 import ReviewCommentSection from "./components/Comments/ReviewCommentSection";
 import Register from "./components/Auth/Register";
 import {AuthProvider} from "./components/Auth/SessionHandling";
-import AddBook from "./components/AddBook/AddBook";
+import AddBook from "./components/AddingForms/AddBook";
 import UserProfile from "./components/User/UserProfile";
 import Settings from "./components/Settings/Settings";
-import AddReview from "./components/Comments/AddReview";
 import ProtectedPath from "./components/Auth/ProtectedPath";
+import AddReview from "./components/AddingForms/AddReview";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -46,10 +46,10 @@ root.render(
                             </ProtectedPath>
                         } />
 
-                        <Route path="/add-review" element={
-                            <ProtectedPath>
+                        <Route path="/book/:bookId/add-review" element={
+                            // <ProtectedPath>
                                 <AddReview />
-                            </ProtectedPath>
+                            /*</ProtectedPath>*/
                             }
                         />
                     </Route>

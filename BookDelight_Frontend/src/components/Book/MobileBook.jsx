@@ -60,7 +60,7 @@ function DesktopBook({ book, review, photoUrl }) {
                 <div className="flex flex-col items-center justify-center mt-4">
                     <p className="mb-2 text-md md:text-base lg:text-lg">Do you have some thoughts? Add review!</p>
                     <div>
-                        <LinkButton text="Add review" link={`/add-review`}/>
+                        <LinkButton text="Add review" link={`/book/${book.id_book}/add-review`}/>
                     </div>
                 </div>
             </div>
