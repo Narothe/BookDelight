@@ -6,6 +6,7 @@ import ReviewDesktop from "../Comments/ReviewDesktop";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import {Link} from "react-router-dom";
+import AddReview from "../AddingForms/AddReview";
 
 function DesktopBook({ book, review, photoUrl }) {
 
@@ -58,8 +59,12 @@ function DesktopBook({ book, review, photoUrl }) {
                 }
                 <div className="flex flex-col items-center justify-center mt-4">
                     <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>
-                    <div>
-                        <LinkButton text="Add review" link={`/book/${book.id_book}/add-review`}/>
+                    {/*<div>*/}
+                    {/*    <LinkButton text="Add review" link={`/book/${book.id_book}/add-review`}/>*/}
+                    {/*</div>*/}
+
+                    <div className="flex flex-row justify-center mt-2">
+                        <AddReview bookId={book.id_book} bookTitle={book.title}/>
                     </div>
                 </div>
             </div>

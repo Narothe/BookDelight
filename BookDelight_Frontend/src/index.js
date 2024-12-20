@@ -46,11 +46,11 @@ root.render(
                             </ProtectedPath>
                         } />
 
-                        <Route path="/book/:bookId/add-review" element={
-                            // <ProtectedPath>
-                                <AddReview />
-                            /*</ProtectedPath>*/
-                            }
+                        {/*<Route path="/book/:bookId/add-review" element={*/}
+                        {/*     <ProtectedPath>*/}
+                        {/*        <AddReview />*/}
+                        {/*    </ProtectedPath>*/}
+                        {/*}*/}
                         />
                     </Route>
                 </Routes>
