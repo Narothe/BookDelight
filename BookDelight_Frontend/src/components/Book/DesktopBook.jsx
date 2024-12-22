@@ -6,7 +6,7 @@ import ReviewDesktop from "../Comments/ReviewDesktop";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import {Link} from "react-router-dom";
-import AddReview from "../AddingForms/AddReview";
+import AddReview from "../Forms/AddReview";
 
 function DesktopBook({ book, review, photoUrl }) {
 
