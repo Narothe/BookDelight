@@ -6,7 +6,7 @@ import ReviewMobile from "../Comments/ReviewMobile";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import {Link} from "react-router-dom";
-import AddReview from "../AddingForms/AddReview";
+import AddReview from "../Forms/AddReview";
 
 function DesktopBook({ book, review, photoUrl }) {
 
@@ -53,8 +53,11 @@ function DesktopBook({ book, review, photoUrl }) {
                 </div>
             </div>
             <div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">
-                <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
-                {review && (
+                <div className="flex justify-between">
+                    <h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>
+                    <AddReview bookId={book.id_book} bookTitle={book.title}/>
+                </div>
+                    {review && (
                     <ReviewMobile review={review}/>
                 )
                 }

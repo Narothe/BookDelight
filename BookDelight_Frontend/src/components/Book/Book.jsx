@@ -45,7 +45,7 @@ function Book() {
 
     return (
         <div className="pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-        <div className="hidden md:block">
+            <div className="hidden md:block">
                 <DesktopBook book={book} review={review} photoUrl={photoUrl}/>
             </div>
             <div className="block md:hidden">
