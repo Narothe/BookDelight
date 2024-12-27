@@ -1,7 +1,6 @@
 import React from 'react';
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
-import LinkButton from "../../utils/LinkButton";
 import {Link} from "react-router-dom";
 
 function SingleMobileReview({reviewData}) {

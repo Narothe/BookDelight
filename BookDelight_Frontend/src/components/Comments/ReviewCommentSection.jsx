@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import LoadBookUserImage from "../../utils/LoadBookUserImage";
-import arrow from "../../assets/arrow-right.svg";
 import SingleDesktopReview from "./SingleDesktopReview";
-import DesktopBook from "../Book/DesktopBook";
-import MobileBook from "../Book/MobileBook";
 import SingleMobileReview from "./SingleMobileReview";
 import DesktopReply from "./DesktopReply";
 import MobileReply from "./MobileReply";
-import BookRatingInfo from "../Book/BookRatingInfo";
 import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookImage from "../../utils/LoadBookImage";

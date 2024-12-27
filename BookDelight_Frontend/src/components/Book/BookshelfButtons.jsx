@@ -1,6 +1,3 @@
-import axios from "axios";
-import {toast} from "react-hot-toast";
-import {FaBook, FaBookmark, FaHeart, FaStar} from "react-icons/fa";
 import React from "react";
 import {useAuth} from "../Auth/SessionHandling";
 import BookshelfButtonFavorite from "./BookshelfButtonFavorite";

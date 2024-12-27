@@ -1,7 +1,6 @@
 import React from "react";
 import DisplayRating from "../../utils/DisplayRating";
 import LoadBookImage from "../../utils/LoadBookImage";
-import LinkButton from "../../utils/LinkButton";
 import TruncateText from "../../utils/TruncateText";
 
 function HomeFetchDesktop({ item, photoUrl }) {

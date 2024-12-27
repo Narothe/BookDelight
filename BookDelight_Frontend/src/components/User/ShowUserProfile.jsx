@@ -6,7 +6,7 @@ import theme from "../../utils/SimpleButtonTheme";
 import {ThemeProvider} from "@mui/material/styles";
 import { FaHeart, FaStar, FaBook, FaBookmark } from "react-icons/fa";
 import axios from "axios";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TruncateText from "../../utils/TruncateText";
 import OneUserBook from "./OneUserBook";
 

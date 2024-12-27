@@ -9,7 +9,7 @@ import BookshelfButtonReadBooks from "../Book/BookshelfButtonReadBooks";
 import BookshelfButtonWishToRead from "../Book/BookshelfButtonWishToRead";
 import BookshelfButtonCurrentlyReading from "../Book/BookshelfButtonCurrentlyReading";
 import {FaBook, FaBookmark, FaHeart, FaStar} from "react-icons/fa";
-import DeleteBookFromBookshelf from "./DeleteBookFromBookshelf";
+// import DeleteBookFromBookshelf from "./DeleteBookFromBookshelf";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {

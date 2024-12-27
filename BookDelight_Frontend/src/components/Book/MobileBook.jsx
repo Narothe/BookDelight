@@ -3,7 +3,6 @@ import LoadBookImage from "../../utils/LoadBookImage";
 import BookInfo from "./BookInfo";
 import BookRatingInfo from "./BookRatingInfo";
 import ReviewMobile from "../Comments/ReviewMobile";
-import LinkButton from "../../utils/LinkButton";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import {Link} from "react-router-dom";
 import AddReview from "../Forms/AddReview";

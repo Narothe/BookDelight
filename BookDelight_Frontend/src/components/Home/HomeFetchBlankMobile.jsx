@@ -1,5 +1,4 @@
 import React from "react";
-import TruncateText from "../../utils/TruncateText";
 import DisplayRating from "../../utils/DisplayRating";
 import blank_book from "../../assets/blank_book.png";
 
