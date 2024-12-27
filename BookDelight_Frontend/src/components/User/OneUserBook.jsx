@@ -72,9 +72,9 @@ function OneUserBook({userBook, photoUrl}) {
                                 </DialogTitle>
                             </div>
                             <div className="flex items-center">
-                                {authData && parseInt(id) === authData.user.userId &&
-                                    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
-                                }
+                                {/*{authData && parseInt(id) === authData.user.userId &&*/}
+                                {/*    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>*/}
+                                {/*}*/}
                                 <FaHeart className="w-5 ml-2 mr-4 text-red-500"/>
                             </div>
                         </div>
@@ -87,9 +87,9 @@ function OneUserBook({userBook, photoUrl}) {
                                 </DialogTitle>
                             </div>
                             <div className="flex items-center">
-                                {authData && parseInt(id) === authData.user.userId &&
-                                    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
-                                }
+                                {/*{authData && parseInt(id) === authData.user.userId &&*/}
+                                {/*    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>*/}
+                                {/*}*/}
                                 <FaStar className="w-5 ml-2 text-yellow-400 mr-4"/>
                             </div>
                         </div>
@@ -102,9 +102,9 @@ function OneUserBook({userBook, photoUrl}) {
                                 </DialogTitle>
                             </div>
                             <div className="flex items-center">
-                                {authData && parseInt(id) === authData.user.userId &&
-                                    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>
-                                }
+                                {/*{authData && parseInt(id) === authData.user.userId &&*/}
+                                {/*    <DeleteBookFromBookshelf book={selectedBook} authData={authData}/>*/}
+                                {/*}*/}
                                 <FaBook className="w-5 ml-2 text-green-500 mr-4"/>
                             </div>
                         </div>
@@ -117,10 +117,10 @@ function OneUserBook({userBook, photoUrl}) {
                                 </DialogTitle>
                             </div>
                             <div className="flex items-center">
-                                {authData && parseInt(id) === authData.user.userId &&
-                                    <DeleteBookFromBookshelf book={selectedBook}
-                                                             authData={authData}/>
-                                }
+                                {/*{authData && parseInt(id) === authData.user.userId &&*/}
+                                {/*    <DeleteBookFromBookshelf book={selectedBook}*/}
+                                {/*                             authData={authData}/>*/}
+                                {/*}*/}
                                 <FaBookmark className="w-5 ml-2 text-blue-500 mr-4"/>
                             </div>
                         </div>
@@ -130,7 +130,7 @@ function OneUserBook({userBook, photoUrl}) {
                             <div className="flex flex-row">
                                 <div className="flex flex-col">
                                     <Link to={`/book/${selectedBook.id_book}`}
-                                          className="w-28 sm:w-32 md:w-40">
+                                          className="w-36 md:w-40">
                                         <LoadBookImage item={selectedBook} photoUrl={photoUrl}/>
                                     </Link>
                                     <div className="flex mt-2">
@@ -138,6 +138,9 @@ function OneUserBook({userBook, photoUrl}) {
                                             <div>
                                                 {selectedBook.type === 'Currently reading' &&
                                                     <div className="flex">
+                                                        <BookshelfButtonCurrentlyReading
+                                                            book={selectedBook}
+                                                            authData={authData}/>
                                                         <BookshelfButtonFavorite
                                                             book={selectedBook}
                                                             authData={authData}/>
@@ -152,6 +155,9 @@ function OneUserBook({userBook, photoUrl}) {
                                                 {selectedBook.type === 'Favorite' &&
                                                     <div className="flex">
                                                         <BookshelfButtonCurrentlyReading
+                                                            book={selectedBook}
+                                                            authData={authData}/>
+                                                        <BookshelfButtonFavorite
                                                             book={selectedBook}
                                                             authData={authData}/>
                                                         <BookshelfButtonReadBooks
@@ -170,6 +176,9 @@ function OneUserBook({userBook, photoUrl}) {
                                                         <BookshelfButtonFavorite
                                                             book={selectedBook}
                                                             authData={authData}/>
+                                                        <BookshelfButtonReadBooks
+                                                            book={selectedBook}
+                                                            authData={authData}/>
                                                         <BookshelfButtonWishToRead
                                                             book={selectedBook}
                                                             authData={authData}/>
@@ -186,6 +195,9 @@ function OneUserBook({userBook, photoUrl}) {
                                                         <BookshelfButtonReadBooks
                                                             book={selectedBook}
                                                             authData={authData}/>
+                                                        <BookshelfButtonWishToRead
+                                                            book={selectedBook}
+                                                            authData={authData}/>
                                                     </div>
                                                 }
                                             </div>
@@ -193,7 +205,7 @@ function OneUserBook({userBook, photoUrl}) {
                                     </div>
                                 </div>
                                 <Link to={`/book/${selectedBook.id_book}`}
-                                      className="flex flex-col pl-2 justify-between">
+                                      className="flex flex-col pl-2 justify-between w-full">
                                     <div>
                                         <p className="text-sm md:text-base lg:text-md mb-2"> by:{' '} {selectedBook.authors.join(', ')} </p>
                                         <p className="text-sm md:text-base lg:text-md">Book
@@ -208,10 +220,12 @@ function OneUserBook({userBook, photoUrl}) {
                                     </p>
                                 </Link>
                             </div>
-                            <div className="grid justify-items-end">
-                                <i className="text-sm lg:text-base text-gray-400 ">Click and see
-                                    more</i>
-                            </div>
+                            <Link to={`/book/${selectedBook.id_book}`}>
+                                <div className="grid justify-items-end">
+                                    <i className="text-sm lg:text-base text-gray-400 ">Click and see
+                                        more</i>
+                                </div>
+                            </Link>
                         </div>
                     </DialogContent>
                     <DialogActions>

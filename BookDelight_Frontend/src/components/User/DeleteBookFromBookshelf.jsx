@@ -33,13 +33,13 @@ function DeleteBookFromBookshelf({book, authData}) {
             // console.log("Successfully added to currently reading.");
             toast.success(`Book deleted successfully from ${book.type}!`, {
                 position: "top-center",
-                icon: "❤️",
+                icon: "🗑️",
             });
 
             setTimeout(() => window.location.reload(), 1000);
 
         } catch (err) {
-            console.error("Error deleting from Currently Reading:", err);
+            console.error(`Error deleting from ${book.type}:`, err);
             toast.error("Something went wrong. Please try again.", {
                 position: "top-center",
             });

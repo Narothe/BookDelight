@@ -8,7 +8,7 @@ function BookshelfButtonWishToRead ({book, authData}) {
     const [isWishToRead, setIsWishToRead] = useState(false);
 
     useEffect(() => {
-        const fetchCurrentlyReading = async () => {
+        const fetchWishToRead = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${authData.user.userId}/wish-to-read`, {
                     headers: {
@@ -25,10 +25,10 @@ function BookshelfButtonWishToRead ({book, authData}) {
             }
         };
 
-        fetchCurrentlyReading();
+        fetchWishToRead();
     }, [book.id_book, authData.token]);
 
-    const handleWishToRead = async () => {
+    const handleAddWishToRead = async () => {
         try {
             await axios.post
             (`${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/add-wish-to-read`,
@@ -66,13 +66,52 @@ function BookshelfButtonWishToRead ({book, authData}) {
         }
     }
 
+    const handleRemoveWishToRead = async () => {
+        try {
+            await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/delete-wish-to-read`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
+
+            setIsWishToRead(false);
+            toast.success("Book removed successfully from Wish To Read!", {
+                position: "top-center",
+                icon: "🗑️",
+            });
+
+            setTimeout(() => window.location.reload(), 1000);
+
+        } catch (err) {
+            console.error("Error removing from Wish To Read:", err);
+            toast.error("Something went wrong. Please try again.", {
+                position: "top-center",
+            });
+        }
+    };
+
+    const handleClick = () => {
+        if (isWishToRead) {
+            handleRemoveWishToRead();
+        } else {
+            handleAddWishToRead();
+        }
+    };
+
     return (
         <button
-            onClick={!isWishToRead ? handleWishToRead : null}
+            onClick={handleClick}
             className={`grid justify-items-center content-center ml-2 w-8 h-8 rounded-full overflow-hidden border-4 
-                ${isWishToRead ? "border-blue-500 cursor-not-allowed" : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"}`}
-            disabled={isWishToRead}
-        ><FaBookmark className="w-5 text-blue-500"/>
+        ${
+                isWishToRead
+                    ? "border-blue-500 hover:border-blue-700"
+                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"
+            }`}
+        >
+            <FaBookmark className="w-5 text-blue-500"/>
         </button>
     )
 }

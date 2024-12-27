@@ -8,7 +8,7 @@ function BookshelfButtonFavorite ({book, authData}) {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        const fetchCurrentlyReading = async () => {
+        const fetchFavorite = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${authData.user.userId}/favorite`, {
                     headers: {
@@ -25,10 +25,10 @@ function BookshelfButtonFavorite ({book, authData}) {
             }
         };
 
-        fetchCurrentlyReading();
+        fetchFavorite();
     }, [book.id_book, authData.token]);
 
-    const handleFavorite = async () => {
+    const handleAddFavorite = async () => {
         try {
             await axios.post
             (`${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/add-favorite`,
@@ -66,12 +66,50 @@ function BookshelfButtonFavorite ({book, authData}) {
         }
     }
 
+    const handleRemoveFavorite = async () => {
+        try {
+            await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/delete-favorite`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
+
+            setIsFavorite(false);
+            toast.success("Book removed successfully from Favorite!", {
+                position: "top-center",
+                icon: "🗑️",
+            });
+
+            setTimeout(() => window.location.reload(), 1000);
+
+        } catch (err) {
+            console.error("Error removing from Favorite:", err);
+            toast.error("Something went wrong. Please try again.", {
+                position: "top-center",
+            });
+        }
+    };
+
+    const handleClick = () => {
+        if (isFavorite) {
+            handleRemoveFavorite();
+        } else {
+            handleAddFavorite();
+        }
+    };
+
     return (
         <button
-            onClick={!isFavorite ? handleFavorite : null}
+            onClick={handleClick}
             className={`grid justify-items-center content-center ml-2 w-8 h-8 rounded-full overflow-hidden border-4 
-                ${isFavorite ? "border-yellow-400 cursor-not-allowed" : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"}`}
-            disabled={isFavorite}
+        ${
+                isFavorite
+                    ? "border-yellow-400 hover:border-yellow-600"
+                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"
+            }`}
         >
             <FaStar className="w-5 text-yellow-400"/>
         </button>

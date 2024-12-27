@@ -8,7 +8,7 @@ function BookshelfButtonReadBooks ({book, authData}) {
     const [isReadBooks, setIsReadBooks] = useState(false);
 
     useEffect(() => {
-        const fetchCurrentlyReading = async () => {
+        const fetchReadBooks = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${authData.user.userId}/read-book`, {
                     headers: {
@@ -25,10 +25,10 @@ function BookshelfButtonReadBooks ({book, authData}) {
             }
         };
 
-        fetchCurrentlyReading();
+        fetchReadBooks();
     }, [book.id_book, authData.token]);
 
-    const handleReadBooks = async () => {
+    const handleAddReadBooks = async () => {
         try {
             await axios.post
             (`${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/add-read-book`,
@@ -66,12 +66,50 @@ function BookshelfButtonReadBooks ({book, authData}) {
         }
     }
 
+    const handleRemoveReadBooks = async () => {
+        try {
+            await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${book.id_book}/delete-read-book`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
+
+            setIsReadBooks(false);
+            toast.success("Book removed successfully from Read Books!", {
+                position: "top-center",
+                icon: "🗑️",
+            });
+
+            setTimeout(() => window.location.reload(), 1000);
+
+        } catch (err) {
+            console.error("Error removing from Read Books:", err);
+            toast.error("Something went wrong. Please try again.", {
+                position: "top-center",
+            });
+        }
+    };
+
+    const handleClick = () => {
+        if (isReadBooks) {
+            handleRemoveReadBooks();
+        } else {
+            handleAddReadBooks();
+        }
+    };
+
     return (
         <button
-            onClick={!isReadBooks ? handleReadBooks : null}
+            onClick={handleClick}
             className={`grid justify-items-center content-center ml-2 w-8 h-8 rounded-full overflow-hidden border-4 
-                ${isReadBooks ? "border-green-500 cursor-not-allowed" : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"}`}
-            disabled={isReadBooks}
+        ${
+                isReadBooks
+                    ? "border-green-500 hover:border-green-700"
+                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"
+            }`}
         >
             <FaBook className="w-5 text-green-500"/>
         </button>
