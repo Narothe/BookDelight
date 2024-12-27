@@ -67,7 +67,7 @@ const getOneReview = async (reviewId, bookId) => {
 
     `;
 
-    const values = [reviewId, bookId];
+    const values = [bookId, reviewId];
 
     try {
         const result = await view.query(query, values);

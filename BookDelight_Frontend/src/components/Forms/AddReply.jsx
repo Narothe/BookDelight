@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import {useAuth} from "../Auth/SessionHandling";
 import LinkButton from "../../utils/LinkButton";
+import LoadBookUserImage from "../../utils/LoadBookUserImage";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -20,11 +21,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const AddReview = ({ bookId, bookTitle }) => {
+const AddReview = ({ bookId, reviewId, reviewUser, post }) => {
+    const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
+
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         description: "",
-        rating: "",
     });
 
     const {authData} = useAuth();
@@ -40,7 +42,7 @@ const AddReview = ({ bookId, bookTitle }) => {
     const handleSubmit = async () => {
         try {
             await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/add-review`,
+                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review/${reviewId}/add-reply`,
                 formData,
                 {
                     headers: {
@@ -65,10 +67,10 @@ const AddReview = ({ bookId, bookTitle }) => {
                     onClick={() => setOpen(true)}
                     className="w-full"
                 >
-                    Add Review
+                    Add Reply
                 </Button>
             ) : (
-                <LinkButton text={"Add Review"} link={"/login"}/>
+                <LinkButton text={"Add Reply"} link={"/login"}/>
             )}
 
             <BootstrapDialog
@@ -77,8 +79,14 @@ const AddReview = ({ bookId, bookTitle }) => {
                 fullWidth
                 maxWidth="sm"
             >
-                <DialogTitle>Add a Review to book <i> {bookTitle} </i> </DialogTitle>
-
+                <div className="flex flex-row items-center justify-between">
+                    <DialogTitle>
+                        Add a Reply to Review created by user <i> {reviewUser} </i>
+                    </DialogTitle>
+                    <div className="flex w-8 mr-4">
+                        <LoadBookUserImage item={post} photoUrl={photoUrl}/>
+                    </div>
+                </div>
                 <DialogContent dividers>
                     <TextField
                         fullWidth
@@ -89,16 +97,6 @@ const AddReview = ({ bookId, bookTitle }) => {
                         multiline
                         rows={4}
                         margin="normal"
-                    />
-                    <TextField
-                        fullWidth
-                        label="Rating 1-10"
-                        name="rating"
-                        type="number"
-                        value={formData.rating}
-                        onChange={handleInputChange}
-                        margin="normal"
-                        inputProps={{ min: 1, max: 10 }}
                     />
                 </DialogContent>
                 <DialogActions>

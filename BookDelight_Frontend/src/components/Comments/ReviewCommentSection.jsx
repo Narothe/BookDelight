@@ -9,6 +9,7 @@ import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookImage from "../../utils/LoadBookImage";
 import {CircularProgress} from "@mui/material";
+import AddReply from "../Forms/AddReply";
 
 function ReviewCommentSection() {
     const {bookId, reviewId} = useParams();
@@ -63,6 +64,7 @@ function ReviewCommentSection() {
     if (error) return <p>Error loading review: {error.message}</p>;
 
     // console.log("Review data.photo_path:", reviewData.photo_path);
+    console.log("Review data:", reviewData);
 
     return (
         <div className="">
@@ -98,6 +100,9 @@ function ReviewCommentSection() {
                             </div>
                         ))}
                         <div className="flex flex-row justify-center mt-2">
+                            <div className="flex flex-row justify-center mr-2">
+                                <AddReply bookId={bookId} reviewId={reviewId} reviewUser={reviewData.username} post={reviewData}/>
+                            </div>
                             <LinkButton text={`Return`} link={`/book/${reviewData.id_book}`}/>
                         </div>
                     </div>
@@ -141,6 +146,10 @@ function ReviewCommentSection() {
                             </div>
                         ))}
                         <div className="flex flex-row justify-center mt-2">
+                            <div className="flex flex-row justify-center mr-2">
+                                <AddReply bookId={bookId} reviewId={reviewId} reviewUser={reviewData.username}
+                                          post={reviewData}/>
+                            </div>
                             <LinkButton text={`Return`} link={`/book/${reviewData.id_book}`}/>
                         </div>
                     </div>

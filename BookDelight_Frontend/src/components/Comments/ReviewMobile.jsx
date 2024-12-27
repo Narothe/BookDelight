@@ -4,6 +4,7 @@ import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 import {Link, useParams} from "react-router-dom";
 import RepliesFetch from "./RepliesFetch";
+import AddReply from "../Forms/AddReply";
 
 function ReviewMobile({review}) {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
@@ -50,12 +51,17 @@ function ReviewMobile({review}) {
                             <div className="flex flex-row pt-2 border-t justify-between">
                                 <div className="">
                                     {/*<p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>*/}
-                                    {replyInfo?.hasReplies && (
-                                        <div className="flex flex-row justify-center mt-2">
+                                    {replyInfo?.hasReplies ? (
+                                        <div className="flex flex-row justify-center ">
                                             <LinkButton text={`${replyInfo.replyCount} replies`}
                                                         link={`/book/${id}/review/${item.id_review}/all-reply`}/>
-                                        </div>)
-                                    }
+                                        </div>
+                                        ) : (
+                                    <div className="flex flex-row justify-center mr-2">
+                                        <AddReply bookId={id} reviewId={item.id_review} reviewUser={item.username}
+                                                  post={item}/>
+                                    </div>
+                            )}
                                 </div>
                                 <div className="flex flex-row">
                                     <div className="flex flex-row border-r pr-3 items-center">
