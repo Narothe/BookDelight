@@ -9,16 +9,17 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import TruncateText from "../../utils/TruncateText";
 import OneUserBook from "./OneUserBook";
+import BootstrapDialog from "../../utils/BootstrapDialog";
 
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    "& .MuiDialogContent-root": {
-        padding: theme.spacing(2),
-    },
-    "& .MuiDialogActions-root": {
-        padding: theme.spacing(1),
-    },
-}));
+// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+//     "& .MuiDialogContent-root": {
+//         padding: theme.spacing(2),
+//     },
+//     "& .MuiDialogActions-root": {
+//         padding: theme.spacing(1),
+//     },
+// }));
 
 function ShowUserProfile({user}) {
 
