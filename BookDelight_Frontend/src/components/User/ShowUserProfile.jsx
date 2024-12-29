@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
-import styled from "@emotion/styled";
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from "@mui/material";
+import {Button, DialogActions, DialogContent, DialogTitle, Typography} from "@mui/material";
 import theme from "../../utils/SimpleButtonTheme";
 import {ThemeProvider} from "@mui/material/styles";
 import { FaHeart, FaStar, FaBook, FaBookmark } from "react-icons/fa";
@@ -10,16 +9,6 @@ import {useParams} from "react-router-dom";
 import TruncateText from "../../utils/TruncateText";
 import OneUserBook from "./OneUserBook";
 import BootstrapDialog from "../../utils/BootstrapDialog";
-
-
-// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//     "& .MuiDialogContent-root": {
-//         padding: theme.spacing(2),
-//     },
-//     "& .MuiDialogActions-root": {
-//         padding: theme.spacing(1),
-//     },
-// }));
 
 function ShowUserProfile({user}) {
 

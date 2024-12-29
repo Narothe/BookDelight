@@ -13,6 +13,7 @@ import AddBook from "./components/Forms/AddBook";
 import UserProfile from "./components/User/UserProfile";
 import Settings from "./components/Settings/Settings";
 import ProtectedPath from "./components/Auth/ProtectedPath";
+import ChangeProfilePicture from "./components/User/ChangeProfilePicture";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -34,15 +35,21 @@ root.render(
                         <Route path="/user/:id" element={<UserProfile />} />
 
                         <Route path="/settings" element={
-                            <ProtectedPath>
+                            // <ProtectedPath>
                                 <Settings/>
-                            </ProtectedPath>
+                            // </ProtectedPath>
                         } />
 
                         <Route path="/add-book" element={
                             <ProtectedPath>
                                 <AddBook />
                             </ProtectedPath>
+                        } />
+
+                        <Route path="/user/change-photo" element={
+                            // <ProtectedPath>
+                                <ChangeProfilePicture />
+                            // </ProtectedPath>
                         } />
 
                         {/*<Route path="/book/:bookId/add-review" element={*/}

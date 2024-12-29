@@ -4,6 +4,8 @@ const {addPhoto, setNewFileName} = require("../models/user/addUserPhotoModel");
 const fs = require("node:fs");
 const sharp = require("sharp");
 const fileFilter = require("../utils/fileFilter");
+const {getUserPhotoById} = require("../models/user/getUserPhotoModel");
+const {deleteOldPhoto} = require("../models/user/deleteOldPhotoModel");
 
 const filePath = "uploads/user_photos/";
 
@@ -53,6 +55,16 @@ const uploadPhoto = async (req, res) => {
                 return res.status(400).json({ error: 'The image width must be between 1000 and 300 pixels' });
             }
 
+            // Remove previous photo
+            const currentPhoto = await getUserPhotoById(userId);
+            if (currentPhoto && currentPhoto.photo_path) {
+                const currentPhotoPath = path.join(filePath, currentPhoto.photo_path);
+                if (fs.existsSync(currentPhotoPath)) {
+                    fs.unlinkSync(currentPhotoPath); // Remove old photo file
+                }
+                await deleteOldPhoto(currentPhoto.id_photo); // Remove old photo record from database
+            }
+
             const photoData = await addPhoto(userId, req.file.filename);
 
             // change the file name
@@ -68,7 +80,7 @@ const uploadPhoto = async (req, res) => {
 
             await setNewFileName(newFileName, photoData.id_photo);
 
-            res.status(201).json({ message: 'User photo uploaded successfully', id_photo: photoData.id_photo, photo_path: newFileName });
+            res.status(201).json({ message: 'User photo uploaded successfully', id_photo: photoData.id_photo, photo_path: newFileName});
         } catch (error) {
             console.error('Error while uploading user photo:', error);
             res.status(500).json({ error: 'An error occurred while uploading the user photo' });

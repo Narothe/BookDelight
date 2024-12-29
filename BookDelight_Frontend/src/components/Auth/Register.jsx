@@ -120,7 +120,7 @@ function Register() {
             login({ token, user });
 
             setTimeout(() => {
-                navigate("/books");
+                navigate("/user/change-photo");
             }, 1500);
 
         } catch (err) {

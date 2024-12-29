@@ -5,6 +5,7 @@ const getUserPhotoById = async (userId) => {
         SELECT id_photo, id_user, photo_path
         FROM bookdelight.User_Photos
         WHERE id_user = $1
+        ORDER BY creation_date DESC
             LIMIT 1;
     `;
 
