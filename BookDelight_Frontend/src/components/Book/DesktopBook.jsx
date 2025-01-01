@@ -11,7 +11,6 @@ function DesktopBook({ book, review, photoUrl }) {
 
     const userPhotoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
 
-
     return (
         <div className="flex flex-col">
             <div className="flex border p-4 rounded-md shadow-md bg-white">

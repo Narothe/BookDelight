@@ -15,6 +15,7 @@ import Settings from "./components/Settings/Settings";
 import ProtectedPath from "./components/Auth/ProtectedPath";
 import ChangeProfilePicture from "./components/User/ChangeProfilePicture";
 import UserVerify from "./components/Auth/UserVerify";
+import ChangeBookCover from "./components/Book/ChangeBookCover";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -51,6 +52,12 @@ root.render(
                         <Route path="/user/change-photo" element={
                             // <ProtectedPath>
                                 <ChangeProfilePicture />
+                            // </ProtectedPath>
+                        } />
+
+                        <Route path="/book/:id/add-photo" element={
+                            // <ProtectedPath>
+                            <ChangeBookCover />
                             // </ProtectedPath>
                         } />
 
