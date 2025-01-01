@@ -9,7 +9,7 @@ function Navbar() {
     const location = useLocation();
 
     // Here you can enter the paths on which you do not wish to see the navbar.
-    const hiddenNavbarPaths = ['/login', '/register', '/user/change-photo'];
+    const hiddenNavbarPaths = ['/login', '/register', '/user/change-photo', '/user/verify'];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
         return null;

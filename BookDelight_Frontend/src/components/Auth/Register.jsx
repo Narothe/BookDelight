@@ -120,7 +120,7 @@ function Register() {
             login({ token, user });
 
             setTimeout(() => {
-                navigate("/user/change-photo");
+                navigate("/user/verify");
             }, 1500);
 
         } catch (err) {

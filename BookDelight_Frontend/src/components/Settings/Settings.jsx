@@ -1,14 +1,12 @@
 import React from "react";
-import {useAuth} from "../Auth/SessionHandling";
 import LinkButton from "../../utils/LinkButton";
 
 function Settings() {
-    const {authData} = useAuth();
-
 
     return (
-        <div>
+        <div className="flex flex-col">
             <LinkButton text="Change profile picture" link="/user/change-photo" />
+            <LinkButton text="Verify user" link="/user/verify" />
         </div>
     );
 }
