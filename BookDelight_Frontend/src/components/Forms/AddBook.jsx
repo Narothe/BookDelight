@@ -27,14 +27,21 @@ function AddBook() {
         event.preventDefault();
         setLoading(true);
 
-        console.log(authors);
-        console.log(genres);
+        // console.log(authors);
+        // console.log(genres);
 
         authors = authors.split(",").map((author) => author.trim());
         genres = genres.split(",").map((genre) => genre.trim());
 
-        console.log(authors);
-        console.log(genres);
+        // console.log('title:', title);
+        // console.log('publisher:', publisher);
+        // console.log('publication_date:', publication_date);
+        // console.log('isbn:', isbn);
+        // console.log('book_length:', book_length);
+        // console.log('authors:', authors);
+        // console.log('short_description:', short_description);
+        // console.log('long_description:', long_description);
+        // console.log('genres:', genres);
 
         try {
             await axios.post(
