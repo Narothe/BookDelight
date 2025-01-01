@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -27,34 +27,66 @@ const AddReview = ({ bookId, bookTitle }) => {
         rating: "",
     });
 
+    const [userReviewExists, setUserReviewExists] = useState(false);
+
     const {authData} = useAuth();
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData,
             [name]: value,
         });
     };
 
-    const handleSubmit = async () => {
-        try {
-            await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/add-review`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${authData.token}`
-                    },
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                if (!authData) {
+                    return;
                 }
-            );
-            toast.success("Review added successfully!");
-            setOpen(false);
-            setTimeout(() => window.location.reload(), 1000);
-        } catch (err) {
-            console.error("Error adding review:", err);
-            toast.error("Something went wrong. Please try again.");
+
+                const response = await axios.get(
+                    `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/reviews`
+                );
+
+                const userHasReview = response.data.some(
+                    (review) => review.review_author_id === authData.user.userId
+                );
+                setUserReviewExists(userHasReview);
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+            }
+
+        };
+        fetchReviews();
+
+    }, []);
+
+    const handleSubmit = async () => {
+        if (!userReviewExists) {
+            try {
+                await axios.post(
+                    `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/add-review`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authData.token}`
+                        },
+                    }
+                );
+                toast.success("Review added successfully!");
+                setOpen(false);
+                setTimeout(() => window.location.reload(), 1000);
+            } catch (err) {
+                console.error("Error adding review:", err);
+                toast.error("Something went wrong. Please try again.");
+            }
+        } else {
+            console.error("User already added a review to this book!");
+            toast.error("You already added a review to this review!");
         }
+
     };
 
     return (
@@ -64,8 +96,9 @@ const AddReview = ({ bookId, bookTitle }) => {
                     variant="contained"
                     onClick={() => setOpen(true)}
                     className="w-full"
+                    disabled={userReviewExists}
                 >
-                    Add Review
+                    {userReviewExists ? "Review Already Added" : "Add Review"}
                 </Button>
             ) : (
                 <LinkButton text={"Add Review"} link={"/login"}/>
@@ -98,7 +131,7 @@ const AddReview = ({ bookId, bookTitle }) => {
                         value={formData.rating}
                         onChange={handleInputChange}
                         margin="normal"
-                        inputProps={{ min: 1, max: 10 }}
+                        inputProps={{min: 1, max: 10}}
                     />
                 </DialogContent>
                 <DialogActions>
