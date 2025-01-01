@@ -1,6 +1,8 @@
 const { verifyUser, checkIfUserIsVerified, getUserEmail} = require('../../models/auth/verifyUserModel');
 const jwt = require('jsonwebtoken');
 const {transporter} = require("../../config/mailConfig");
+const {checkExistenceOfUser} = require("../../models/user/checkVariousUserBookmarks");
+const {getUserProfile} = require("../../models/user/getUserModel");
 
 const sendEmailWithRetries = async (mail, maxAttempt = 5) => {
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
@@ -81,4 +83,30 @@ const verifyToken = async (token) => {
     }
 }
 
-module.exports = { sendVerify, verifyToken };
+const isVerified = async (userId) => {
+
+    try {
+        const checkUser = await checkExistenceOfUser(userId);
+
+        if (!checkUser) {
+            return {error: 'User not found', statusCode: 404};
+        }
+
+        const result = await checkIfUserIsVerified(userId);
+
+        if (result.length === 0) {
+            return {error: 'Verify not found', statusCode: 404};
+        }
+
+        return { result, statusCode: 200 };
+    } catch (err) {
+        console.error('Error while getting the user:', err);
+        return { error: 'An error occurred while getting the user.', statusCode: 500 };
+    }
+}
+
+module.exports = {
+    sendVerify,
+    verifyToken,
+    isVerified
+};

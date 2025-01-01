@@ -8,7 +8,8 @@ const checkIfUserIsVerified = async (userId) => {
         const result = await pool.query(query, values);
 
         if (result.rows[0].verify === true) {
-            return { error: 'An error occurred while checking if the user is verified.' };
+            // return { error: 'An error occurred while checking if the user is verified.' };
+            return true;
         } else if (result.rows[0].verify === false) {
             return false;
         }

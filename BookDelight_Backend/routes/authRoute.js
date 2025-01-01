@@ -1,6 +1,6 @@
 const express = require('express');
 const {authenticateToken} = require("../middlewares/authenticateToken");
-const {postLogin, postLogout, postRegister, postVerify, getVerifyToken} = require("../controllers/authController");
+const {postLogin, postLogout, postRegister, postVerify, getVerifyToken, getVerified} = require("../controllers/authController");
 const router = express.Router();
 
 
@@ -9,6 +9,7 @@ router.post('/logout', authenticateToken, postLogout);
 router.post('/register', postRegister);
 router.post('/user/verify', authenticateToken, postVerify);
 router.get('/verify-email', getVerifyToken);
+router.get('/user/is-verified', authenticateToken, getVerified);
 
 module.exports = router;
 
