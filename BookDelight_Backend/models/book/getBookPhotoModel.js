@@ -4,7 +4,9 @@ const getPhotosByBookId = async (bookId) => {
     const query = `
         SELECT id_photo, photo_path 
         FROM bookdelight.Book_Photos
-        WHERE id_book = $1;
+        WHERE id_book = $1
+        ORDER BY creation_date DESC
+            LIMIT 1;
     `;
 
     const values = [bookId];

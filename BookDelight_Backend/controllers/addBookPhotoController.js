@@ -4,6 +4,8 @@ const {addPhoto, setNewFileName, getPhotoOwner, checkBookOwner} = require("../mo
 const fs = require("node:fs");
 const fileFilter = require("../utils/fileFilter");
 const sharp = require("sharp");
+const {getPhotosByBookId} = require("../models/book/getBookPhotoModel");
+const {deleteOldBookCover} = require("../models/book/deleteOldBookCoverModel");
 
 const filePath = "uploads/book_photos/";
 
@@ -23,22 +25,23 @@ const uploadPhoto = async (req, res) => {
     const id_book = req.params.id;
     const userId = req.user.userId;
 
-    try {
-        const bookOwner = await checkBookOwner(id_book, userId);
-
-        if (!bookOwner) {
-            return res.status(403).json({ error: 'You are not allowed to upload photos for this book' });
-        }
-
-        const photoOwner = await getPhotoOwner(id_book, userId);
-
-        if (photoOwner) {
-            return res.status(403).json({ error: 'You are not allowed to upload photos for this book anymore' });
-        }
-    } catch (error) {
-        console.error('Error while checking the photo owner:', error);
-        return res.status(500).json({ error: 'An error occurred while checking the photo owner' });
-    }
+    // Check if the user is the owner of the book
+    // try {
+    //     const bookOwner = await checkBookOwner(id_book, userId);
+    //
+    //     if (!bookOwner) {
+    //         return res.status(403).json({ error: 'You are not allowed to upload photos for this book' });
+    //     }
+    //
+    //     const photoOwner = await getPhotoOwner(id_book, userId);
+    //
+    //     if (photoOwner) {
+    //         return res.status(403).json({ error: 'You are not allowed to upload photos for this book anymore' });
+    //     }
+    // } catch (error) {
+    //     console.error('Error while checking the photo owner:', error);
+    //     return res.status(500).json({ error: 'An error occurred while checking the photo owner' });
+    // }
 
     upload(req, res, async (err) => {
         if (err instanceof multer.MulterError) {
@@ -65,6 +68,15 @@ const uploadPhoto = async (req, res) => {
                 return res.status(400).json({ error: 'The image width and height must be less than 2000 and 2500 pixels' });
             }
 
+            // Remove previous photo
+            const currentPhoto = await getPhotosByBookId(id_book);
+            if (currentPhoto && currentPhoto.photo_path) {
+                const currentPhotoPath = path.join(filePath, currentPhoto.photo_path);
+                if (fs.existsSync(currentPhotoPath)) {
+                    fs.unlinkSync(currentPhotoPath); // Remove old photo file
+                }
+                await deleteOldBookCover(currentPhoto.id_photo); // Remove old photo record from database
+            }
 
             const photoData = await addPhoto(id_book, userId, req.file.filename);
 
@@ -72,7 +84,7 @@ const uploadPhoto = async (req, res) => {
             const newFileName = photoData.id_photo + path.extname(req.file.originalname);
             const newFilePath = path.join(filePath, newFileName);
 
-            fs.rename(req.file.path, newFilePath, (err) => {
+            fs.rename(req.file.path, newFilePath, async(err) => {
                 if (err) {
                     console.error('Error renaming the file:', err);
                     return res.status(500).json({ error: 'File renaming failed' });
