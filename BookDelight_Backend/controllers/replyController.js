@@ -3,6 +3,8 @@ const {insertReply} = require("../services/reply/postReplyService");
 const {getReply} = require("../services/reply/getReplyService");
 const {addVote} = require("../services/reply/addReplyVotesService");
 const {getManyReply} = require("../services/reply/getAllReplyService");
+const {getVoteType} = require("../services/review/getVoteTypeService");
+const {getReplyVote} = require("../services/reply/getReplyVoteTypeService");
 
 
 const postReply = async (req, res) => {
@@ -48,10 +50,19 @@ const getAllReply = async (req, res) => {
     writeResult(res, result, error, statusCode);
 };
 
+const getReplyVoteType = async (req, res) => {
+    const userId = req.user.userId;
+    const replyId = req.params.replyId;
+
+    const { result, error, statusCode } = await getReplyVote(userId, replyId);
+
+    writeResult(res, result, error, statusCode);
+};
 
 module.exports = {
     postReply,
     getReplyById,
     postReplyVote,
-    getAllReply
+    getAllReply,
+    getReplyVoteType
 };

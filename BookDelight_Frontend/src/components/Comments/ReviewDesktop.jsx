@@ -47,7 +47,7 @@ function ReviewDesktop({review}) {
         fetchVotes();
     }, [review, authData]);
 
-    const handleVote = async (idReview, voteType) => {
+    const handleReviewVote = async (idReview, voteType) => {
         setLoading(true);
 
         try {
@@ -124,10 +124,10 @@ function ReviewDesktop({review}) {
                             <div className="flex flex-col">
                                 <div className="flex flex-row mb-2.5">
                                     <button
-                                        onClick={() => handleVote(item.id_review, "upvote")}
+                                        onClick={() => handleReviewVote(item.id_review, "upvote")}
                                         className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
                                             userVote === "upvote"
-                                                ? "border-green-500 bg-green-200" // Podświetlenie dla upvote
+                                                ? "border-green-500 bg-green-200"
                                                 : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
                                         }`}
                                         disabled={loading}
@@ -140,10 +140,10 @@ function ReviewDesktop({review}) {
                                 </div>
                                 <div className="flex flex-row">
                                     <button
-                                        onClick={() => handleVote(item.id_review, "downvote")}
+                                        onClick={() => handleReviewVote(item.id_review, "downvote")}
                                         className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
                                             userVote === "downvote"
-                                                ? "border-red-500 bg-red-200" // Podświetlenie dla downvote
+                                                ? "border-red-500 bg-red-200"
                                                 : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
                                         }`}
                                         disabled={loading}
