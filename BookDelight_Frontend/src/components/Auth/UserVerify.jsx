@@ -110,7 +110,7 @@ function UserVerify() {
                                 </Button>
 
                                 <ThemeProvider theme={theme}>
-                                    <LinkButton text="Cancel" link="/user/change-photo"/>
+                                    <LinkButton text="Cancel" link="/books"/>
                                 </ThemeProvider>
                             </div>
                         </div>

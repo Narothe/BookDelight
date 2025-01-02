@@ -1,23 +1,88 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
 import LinkButton from "../../utils/LinkButton";
 import RepliesFetch from "./RepliesFetch";
 import {Link, useParams} from "react-router-dom";
 import AddReply from "../Forms/AddReply";
+import axios from "axios";
+import {toast} from "react-hot-toast";
+import {useAuth} from "../Auth/SessionHandling";
 
 function ReviewDesktop({review}) {
+    const {authData} = useAuth();
+
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
     const {id} = useParams();
     const repliesData = RepliesFetch(id, review);
 
+    const [loading, setLoading] = useState(false);
+    const [votes, setVotes] = useState({});
+
+    useEffect(() => {
+        const fetchVotes = async () => {
+            const initialVotes = {};
+
+            for (const item of review) {
+                try {
+                    const response = await axios.get(
+                        `${process.env.REACT_APP_BACKEND_URL}/review/${item.id_review}/vote-type`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${authData.token}`,
+                            },
+                        }
+                    );
+
+                    initialVotes[item.id_review] = response.data.vote_type;
+                } catch (err) {
+                    console.error("Failed to fetch vote type:", err);
+                    initialVotes[item.id_review] = null;
+                }
+            }
+
+            setVotes(initialVotes);
+        };
+
+        fetchVotes();
+    }, [review, authData]);
+
+    const handleVote = async (idReview, voteType) => {
+        setLoading(true);
+
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
+                {vote_type: voteType},
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
+
+            toast.success("Vote successful!", {
+                position: "top-center",
+            });
+
+            setTimeout(() => window.location.reload(), 1000);
+
+        } catch (err) {
+            console.error("Verify failed:", err);
+            toast.error("Verify failed. Please try again later.", {
+                position: "top-center",
+            });
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div>
-            {/*<div className="flex flex-col border mt-4 p-4 rounded-md shadow-md bg-white">*/}
-            {/*<h1 className="text-2xl lg:text-3xl font-bold mb-4 font-mono">Reviews</h1>*/}
             {review.map((item, index) => {
                 // console.log(item)
                 const replyInfo = repliesData.find((data) => data.id_review === item.id_review);
+                const userVote = votes[item.id_review];
 
                 return (
                     <div className="flex flex-row border p-4 mb-4 rounded-md shadow-md bg-white" key={index}>
@@ -47,7 +112,8 @@ function ReviewDesktop({review}) {
                                     </div>)
                                 }
                                 <div className="flex flex-row justify-center mr-2">
-                                    <AddReply bookId={id} reviewId={item.id_review} reviewUser={item.username} post={item}/>
+                                    <AddReply bookId={id} reviewId={item.id_review} reviewUser={item.username}
+                                              post={item}/>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +124,15 @@ function ReviewDesktop({review}) {
                             <div className="flex flex-col">
                                 <div className="flex flex-row mb-2.5">
                                     <button
-                                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark">
-                                        <img src={arrow} alt="advanced" className="w-5 rotate-180"/>
+                                        onClick={() => handleVote(item.id_review, "upvote")}
+                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                            userVote === "upvote"
+                                                ? "border-green-500 bg-green-200" // Podświetlenie dla upvote
+                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                        }`}
+                                        disabled={loading}
+                                    >
+                                        <img src={arrow} alt="Upvote" className="w-5 rotate-180"/>
                                     </button>
                                     <div className="flex pl-2">
                                         <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.upvotes}</p>
@@ -67,8 +140,15 @@ function ReviewDesktop({review}) {
                                 </div>
                                 <div className="flex flex-row">
                                     <button
-                                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark">
-                                        <img src={arrow} alt="advanced" className="w-5"/>
+                                        onClick={() => handleVote(item.id_review, "downvote")}
+                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                            userVote === "downvote"
+                                                ? "border-red-500 bg-red-200" // Podświetlenie dla downvote
+                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                        }`}
+                                        disabled={loading}
+                                    >
+                                        <img src={arrow} alt="Downvote" className="w-5"/>
                                     </button>
                                     <div className="flex pl-2">
                                         <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.downvotes}</p>
@@ -79,12 +159,6 @@ function ReviewDesktop({review}) {
                     </div>
                 )
             })}
-            {/*<div className="flex flex-col items-center justify-center mt-4">*/}
-            {/*    <p className="mb-2 text-base md:text-lg lg:text-xl">Do you have some thoughts? Add review!</p>*/}
-            {/*    <div>*/}
-            {/*        <LinkButton text="Add review" link={`/add-review`}/>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
     );
 }

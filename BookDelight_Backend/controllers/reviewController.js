@@ -3,6 +3,7 @@ const {insertReview} = require("../services/review/postReviewService");
 const {addReviewVote} = require("../services/review/addReviewVotesService");
 const {getReview} = require("../services/review/getReviewService");
 const {getReviews} = require("../services/review/getAllReviewsService");
+const {getVoteType} = require("../services/review/getVoteTypeService");
 
 
 const postReview = async (req, res) => {
@@ -43,10 +44,20 @@ const getAllReviews = async (req, res) => {
     writeResult(res, result, error, statusCode);
 };
 
+const getReviewVoteType = async (req, res) => {
+    const { reviewId } = req.params;
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await getVoteType(reviewId, userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
 
 module.exports = {
     postReview,
     getReviewById,
     postReviewVote,
-    getAllReviews
+    getAllReviews,
+    getReviewVoteType
 };
