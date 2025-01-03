@@ -3,8 +3,8 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import SingleDesktopReview from "./SingleDesktopReview";
 import SingleMobileReview from "./SingleMobileReview";
-import DesktopReply from "./DesktopReply";
-import MobileReply from "./MobileReply";
+import ReplyDesktop from "./ReplyDesktop";
+import ReplyMobile from "./ReplyMobile";
 import DisplayRating from "../../utils/DisplayRating";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookImage from "../../utils/LoadBookImage";
@@ -96,7 +96,7 @@ function ReviewCommentSection() {
                         </div>
                         {replyData.map((reply, index) => (
                             <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">
-                                <DesktopReply reply={reply}/>
+                                <ReplyDesktop reply={reply}/>
                             </div>
                         ))}
                         <div className="flex flex-row justify-center mt-2">
@@ -142,7 +142,7 @@ function ReviewCommentSection() {
 
                         {replyData.map((reply, index) => (
                             <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">
-                                <MobileReply reply={reply}/>
+                                <ReplyMobile reply={reply}/>
                             </div>
                         ))}
                         <div className="flex flex-row justify-center mt-2">
