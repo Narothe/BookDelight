@@ -94,11 +94,12 @@ function ReviewCommentSection() {
                                 <SingleDesktopReview reviewData={reviewData} photoUrl={photoUrl}/>
                             </div>
                         </div>
-                        {replyData.map((reply, index) => (
-                            <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">
-                                <ReplyDesktop reply={reply}/>
-                            </div>
-                        ))}
+                        {/*{replyData.map((reply, index) => (*/}
+                        {/*    <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">*/}
+                        {/*        <ReplyDesktop reply={reply}/>*/}
+                        {/*    </div>*/}
+                        {/*))}*/}
+                        <ReplyDesktop replyData={replyData}/>
                         <div className="flex flex-row justify-center mt-2">
                             <div className="flex flex-row justify-center mr-2">
                                 <AddReply bookId={bookId} reviewId={reviewId} reviewUser={reviewData.username} post={reviewData}/>
@@ -140,11 +141,12 @@ function ReviewCommentSection() {
                             </div>
                         </div>
 
-                        {replyData.map((reply, index) => (
-                            <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">
-                                <ReplyMobile reply={reply}/>
-                            </div>
-                        ))}
+                        {/*{replyData.map((reply, index) => (*/}
+                        {/*    <div key={index} className="border p-4 mb-4 rounded-md shadow-md bg-white">*/}
+                        {/*        <ReplyMobile reply={reply}/>*/}
+                        {/*    </div>*/}
+                        {/*))}*/}
+                        <ReplyMobile replyData={replyData}/>
                         <div className="flex flex-row justify-center mt-2">
                             <div className="flex flex-row justify-center mr-2">
                                 <AddReply bookId={bookId} reviewId={reviewId} reviewUser={reviewData.username}

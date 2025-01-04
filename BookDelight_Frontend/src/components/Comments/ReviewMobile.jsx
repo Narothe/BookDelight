@@ -50,30 +50,38 @@ function ReviewMobile({review}) {
     const handleReviewVote = async (idReview, voteType) => {
         setLoading(true);
 
-        try {
-            await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
-                {vote_type: voteType},
-                {
-                    headers: {
-                        Authorization: `Bearer ${authData.token}`,
-                    },
-                }
-            );
+        for (const item of review) {
 
-            toast.success("Vote successful!", {
-                position: "top-center",
-            });
+            if (authData?.user?.userId === item.review_author_id) {
+                toast.error("You cannot vote on your own reply.");
+                return;
+            }
 
-            setTimeout(() => window.location.reload(), 1000);
+            try {
+                await axios.post(
+                    `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
+                    {vote_type: voteType},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authData.token}`,
+                        },
+                    }
+                );
 
-        } catch (err) {
-            console.error("Verify failed:", err);
-            toast.error("Verify failed. Please try again later.", {
-                position: "top-center",
-            });
-        } finally {
-            setLoading(false);
+                toast.success("Vote successful!", {
+                    position: "top-center",
+                });
+
+                setTimeout(() => window.location.reload(), 1000);
+
+            } catch (err) {
+                console.error("Verify failed:", err);
+                toast.error("Verify failed. Please try again later.", {
+                    position: "top-center",
+                });
+            } finally {
+                setLoading(false);
+            }
         }
     }
 
