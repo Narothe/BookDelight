@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getBook, getPhoto, getBooks, postBook, getAllBookAuthors, getAllBookGenres, searchBookGenre, searchBookAuthor} = require('../controllers/bookController');
+const { getBook, getPhoto, getBooks, postBook, getAllBookAuthors, getAllBookGenres, searchBookGenre, searchBookAuthor,
+    searchBook
+} = require('../controllers/bookController');
 const {authenticateToken} = require("../middlewares/authenticateToken");
 
 const {uploadPhoto} = require("../controllers/addBookPhotoController");
@@ -14,9 +16,10 @@ router.post('/book/:id/add-photo', authenticateToken, uploadPhoto);
 router.get('/authors', getAllBookAuthors);
 router.get('/genres', getAllBookGenres);
 
-router.post('/genre', searchBookGenre);
-router.post('/author', searchBookAuthor);
+router.post('/search-genre', searchBookGenre);
+router.post('/search-author', searchBookAuthor);
 
+router.post('/book/search', searchBook);
 
 module.exports = router;
 

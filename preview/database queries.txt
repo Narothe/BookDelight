@@ -34,7 +34,7 @@ CREATE TABLE bookdelight.Book (
     title VARCHAR(255) NOT NULL,
     publisher VARCHAR(255),
     publication_date DATE,
-    isbn BIGINT,
+    isbn VARCHAR(13),
     book_length INT,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
