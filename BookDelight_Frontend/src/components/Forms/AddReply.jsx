@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,15 +9,7 @@ import { toast } from "react-hot-toast";
 import {useAuth} from "../Auth/SessionHandling";
 import LinkButton from "../../utils/LinkButton";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    "& .MuiDialogContent-root": {
-        padding: theme.spacing(2),
-    },
-    "& .MuiDialogActions-root": {
-        padding: theme.spacing(1),
-    },
-}));
+import BootstrapDialog from "../../utils/BootstrapDialog";
 
 const AddReview = ({ bookId, reviewId, reviewUser, post }) => {
     const photoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;

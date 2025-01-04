@@ -72,16 +72,16 @@ function SingleMobileReview({reviewData}) {
         <div className="flex flex-col w-full justify-between">
             <div className="flex flex-row justify-between">
                 {/*photo & username*/}
-                <div className="flex flex-row">
-                    <div className="w-14 h-14">
-                        <Link to={`/user/${reviewData.review_author_id}`}>
-                            <LoadBookUserImage item={reviewData} photoUrl={photoUrl}/>
-                        </Link>
+                <Link to={`/user/${reviewData.review_author_id}`}>
+                    <div className="flex flex-row">
+                        <div className="w-14 h-14">
+                                <LoadBookUserImage item={reviewData} photoUrl={photoUrl}/>
+                        </div>
+                        <div className="flex items-center pl-2.5">
+                            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reviewData.username}</h2>
+                        </div>
                     </div>
-                    <div className="flex items-center pl-2.5">
-                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reviewData.username}</h2>
-                    </div>
-                </div>
+                </Link>
                 <div className="flex items-center">
                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{reviewData.username} rate: {reviewData.rating}/10</p>
                 </div>

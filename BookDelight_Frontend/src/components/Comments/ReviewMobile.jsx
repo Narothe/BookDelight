@@ -97,14 +97,16 @@ function ReviewMobile({review}) {
                             <div className="flex flex-row justify-between">
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
-                                    <div className="w-12">
-                                        <Link to={`/user/${item.review_author_id}`}>
-                                            <LoadBookUserImage item={item} photoUrl={photoUrl}/>
-                                        </Link>
-                                    </div>
-                                    <div className="flex items-center pl-2.5">
-                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
-                                    </div>
+                                    <Link to={`/user/${item.review_author_id}`}>
+                                        <div className="flex flex-row">
+                                            <div className="w-12">
+                                                <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                            </div>
+                                            <div className="flex items-center pl-2.5">
+                                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 </div>
                                 <div className="flex items-center">
                                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>

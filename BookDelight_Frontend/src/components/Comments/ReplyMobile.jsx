@@ -89,16 +89,16 @@ function ReplyMobile({replyData}) {
                     <div className="flex flex-col w-full justify-between">
                         <div className="flex flex-row justify-between">
                             {/*photo & username*/}
-                            <div className="flex flex-row">
-                                <div className="w-12">
-                                    <Link to={`/user/${reply.review_author_id}`}>
-                                        <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
-                                    </Link>
+                            <Link to={`/user/${reply.review_author_id}`}>
+                                <div className="flex flex-row">
+                                    <div className="w-12">
+                                            <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
+                                    </div>
+                                    <div className="flex items-center pl-2.5">
+                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reply.username}</h2>
+                                    </div>
                                 </div>
-                                <div className="flex items-center pl-2.5">
-                                    <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{reply.username}</h2>
-                                </div>
-                            </div>
+                            </Link>
                         </div>
                         <div className="flex font-semibold">
                             <p className="text-sm md:text-base lg:text-lg py-1 mb-2">{reply.description}</p>

@@ -90,65 +90,67 @@ function ReplyDesktop({ replyData }) {
                         <div className="flex flex-col justify-between w-11/12">
                             {/* Photo & Username */}
                             <div className="flex flex-row">
-                                <div className="w-12">
-                                    <Link to={`/user/${reply.review_author_id}`}>
-                                        <LoadBookUserImage item={reply} photoUrl={photoUrl} />
-                                    </Link>
-                                </div>
-                                <div className="flex items-center pl-2.5">
-                                    <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden">
-                                        {reply.username}
-                                    </h2>
-                                </div>
-                            </div>
-                            <div className="flex font-semibold">
-                                <p className="text-sm md:text-base lg:text-lg py-4 mb-2">{reply.description}</p>
-                            </div>
-                        </div>
-                        {/* Right Panel */}
-                        <div className="flex flex-col border-l w-1/12 pl-2 justify-center">
-                            <div className="flex flex-col">
-                                <div className="flex flex-row mb-2.5">
-                                    <button
-                                        onClick={() => handleVote(reply.id_reply, "upvote")}
-                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
-                                            votes[reply.id_reply] === "upvote"
-                                                ? "border-green-500 bg-green-200"
-                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
-                                        }`}
-                                        disabled={loading}
-                                    >
-                                        <img src={arrow} alt="Upvote" className="w-5 rotate-180" />
-                                    </button>
-                                    <div className="flex pl-2">
-                                        <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">
-                                            {reply.upvotes}
-                                        </p>
+                                <Link to={`/user/${reply.review_author_id}`}>
+                                    <div className="flex flex-row">
+                                        <div className="w-12">
+                                            <LoadBookUserImage item={reply} photoUrl={photoUrl}/>
+                                        </div>
+                                        <div className="flex items-center pl-2.5">
+                                            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden">
+                                                {reply.username}
+                                            </h2>
+                                        </div>
                                     </div>
+                                </Link>
+                            </div>
+                                <div className="flex font-semibold">
+                                    <p className="text-sm md:text-base lg:text-lg py-4 mb-2">{reply.description}</p>
                                 </div>
-                                <div className="flex flex-row">
-                                    <button
-                                        onClick={() => handleVote(reply.id_reply, "downvote")}
-                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
-                                            votes[reply.id_reply] === "downvote"
-                                                ? "border-red-500 bg-red-200"
-                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
-                                        }`}
-                                        disabled={loading}
-                                    >
-                                        <img src={arrow} alt="Downvote" className="w-5 rotate-0" />
-                                    </button>
-                                    <div className="flex pl-2">
-                                        <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">
-                                            {reply.downvotes}
-                                        </p>
+                            </div>
+                            {/* Right Panel */}
+                            <div className="flex flex-col border-l w-1/12 pl-2 justify-center">
+                                <div className="flex flex-col">
+                                    <div className="flex flex-row mb-2.5">
+                                        <button
+                                            onClick={() => handleVote(reply.id_reply, "upvote")}
+                                            className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                                votes[reply.id_reply] === "upvote"
+                                                    ? "border-green-500 bg-green-200"
+                                                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                            }`}
+                                            disabled={loading}
+                                        >
+                                            <img src={arrow} alt="Upvote" className="w-5 rotate-180"/>
+                                        </button>
+                                        <div className="flex pl-2">
+                                            <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">
+                                                {reply.upvotes}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-row">
+                                        <button
+                                            onClick={() => handleVote(reply.id_reply, "downvote")}
+                                            className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                                votes[reply.id_reply] === "downvote"
+                                                    ? "border-red-500 bg-red-200"
+                                                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                            }`}
+                                            disabled={loading}
+                                        >
+                                            <img src={arrow} alt="Downvote" className="w-5 rotate-0"/>
+                                        </button>
+                                        <div className="flex pl-2">
+                                            <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">
+                                                {reply.downvotes}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                    ))}
         </div>
     );
 }

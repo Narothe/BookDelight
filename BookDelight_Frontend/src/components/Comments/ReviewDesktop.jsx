@@ -101,14 +101,16 @@ function ReviewDesktop({review}) {
                             <div className="flex flex-col justify-between">
                                 {/*photo & username*/}
                                 <div className="flex flex-row">
-                                    <div className="w-14">
-                                        <Link to={`/user/${item.review_author_id}`}>
-                                            <LoadBookUserImage item={item} photoUrl={photoUrl}/>
-                                        </Link>
-                                    </div>
-                                    <div className="flex items-center pl-2.5">
-                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
-                                    </div>
+                                    <Link to={`/user/${item.review_author_id}`}>
+                                        <div className="flex flex-row">
+                                            <div className="w-14">
+                                                <LoadBookUserImage item={item} photoUrl={photoUrl}/>
+                                            </div>
+                                            <div className="flex items-center pl-2.5">
+                                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-clip overflow-hidden ...">{item.username}</h2>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 </div>
                                 <div className="flex font-semibold">
                                     <p className="text-sm md:text-base lg:text-lg pt-4 pr-2">{item.description}</p>
