@@ -1,40 +1,40 @@
-import { TextField, Box } from '@mui/material';
+import { TextField, Box } from "@mui/material";
 
-// Search input field for the Navbar.
-
-function SearchInput() {
+function SearchInput({ value, onChange, onFocus }) {
     return (
         <Box
             component="form"
             noValidate
             autoComplete="off"
             sx={{
-                pr: 1,
-                fontSize: '0.5rem',
-                justifyContent: 'center',
-                maxWidth: '100%',
-            '& .MuiOutlinedInput-root': {
-                borderColor: '#BBBFCA',
-                '&:hover fieldset': {
-                    borderColor: '#BBBFCA',
+                fontSize: "0.5rem",
+                justifyContent: "center",
+                maxWidth: "100%",
+                "& .MuiOutlinedInput-root": {
+                    borderColor: "#BBBFCA",
+                    "&:hover fieldset": {
+                        borderColor: "#BBBFCA",
+                    },
+                    "&.Mui-focused fieldset": {
+                        borderColor: "#BBBFCA",
+                    },
                 },
-                '&.Mui-focused fieldset': {
-                    borderColor: '#BBBFCA',
-                },
-            },
-        }}>
+            }}
+        >
             <TextField
                 fullWidth
                 label="Search for books"
                 id="search-books"
                 variant="outlined"
                 size="small"
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                onFocus={onFocus}
                 sx={{
-                    input: { fontSize: { xs: '0.875rem', md: '1rem' } },
+                    input: { fontSize: { xs: "0.875rem", md: "1rem" } },
                 }}
             />
         </Box>
-
     );
 }
 
