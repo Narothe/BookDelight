@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import gear from "../../assets/gear.svg";
 import SearchInput from "./SearchInput";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import LoadBookImage from "../../utils/LoadBookImage";
+import {TextField} from "@mui/material";
 
 function SearchBar() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -11,9 +11,14 @@ function SearchBar() {
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const resultsRef = useRef(null);
-    const searchTimeout = useRef(null);
     const photoUrl = `${process.env.REACT_APP_BOOK_PHOTO_URL}`;
 
+    const [advancedSearchValues, setAdvancedSearchValues] = useState({
+        minLength: "",
+        maxLength: "",
+        minRating: "",
+        maxRating: "",
+    });
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -28,22 +33,17 @@ function SearchBar() {
         };
     }, []);
 
-    const handleDynamicSearch = async (query) => {
-        if (!query.trim()) {
-            setSearchResults([]);
-            return;
-        }
-
+    const fetchResults = async (query, advancedValues) => {
         setLoading(true);
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/book/search`,
                 {
-                    payload: query,
-                    minLength: null,
-                    maxLength: null,
-                    minRating: null,
-                    maxRating: null,
+                    payload: query || null,
+                    minLength: advancedValues.minLength || null,
+                    maxLength: advancedValues.maxLength || null,
+                    minRating: advancedValues.minRating || null,
+                    maxRating: advancedValues.maxRating || null,
                 }
             );
             setSearchResults(response.data);
@@ -57,8 +57,24 @@ function SearchBar() {
     const handleSearchChange = (query) => {
         setSearchQuery(query);
 
-        if (searchTimeout.current) clearTimeout(searchTimeout.current);
-        searchTimeout.current = setTimeout(() => handleDynamicSearch(query), 300);
+        // Delayed fetch with searchQuery
+        setTimeout(() => {
+            fetchResults(query, advancedSearchValues);
+        }, 300);
+    };
+
+    const handleAdvancedSearchChange = (key, value) => {
+        setAdvancedSearchValues((prevValues) => {
+            const updatedValues = {
+                ...prevValues,
+                [key]: value,
+            };
+
+            // Immediate fetch with updated advanced values
+            fetchResults(searchQuery, updatedValues);
+
+            return updatedValues;
+        });
     };
 
     return (
@@ -69,27 +85,49 @@ function SearchBar() {
                         <SearchInput
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            onFocus={() => setShowResults(true)} // Otwórz warstwę wyników po kliknięciu
+                            onFocus={() => setShowResults(true)}
                         />
                     </div>
                 </div>
             </div>
             <div
                 ref={resultsRef}
-                className={`absolute top-full left-0 w-full bg-white border border-gray-300 shadow-md z-50 
+                className={`absolute top-full left-0 w-full bg-white border border-gray-300 shadow-md z-30 
           ${showResults ? "transition-opacity opacity-100 duration-300" : "transition-opacity opacity-0 duration-300 pointer-events-none"}`}
                 style={{
-                    maxHeight: "300px",
+                    minHeight: "350px",
                     overflowY: "auto",
                 }}
             >
                 <div className="static">
-                    <div className="absolute top-0 right-0 mr-2 mt-2">
-                    <button
-                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce"
+                    <div
+                        className="absolute top-0 right-0 bg-white border border-gray-300 shadow-lg z-50 p-4 rounded-md"
+                        style={{width: "90%", maxWidth: "200px"}}
                     >
-                        <img src={gear} alt="advanced" className="w-5" />
-                    </button>
+                        <h2 className="text-lg text-center font-semibold">Advanced Search</h2>
+                        <div className="flex flex-col">
+                            {["minLength", "maxLength", "minRating", "maxRating"].map((field) => (
+                                <TextField
+                                    key={field}
+                                    margin="normal"
+                                    fullWidth
+                                    size="small"
+                                    id={field}
+                                    type="number"
+                                    label={field
+                                        .replace("min", "Min ")
+                                        .replace("max", "Max ")
+                                        .replace(/([A-Z])/g, " $1")}
+                                    value={advancedSearchValues[field]}
+                                    onChange={(e) =>
+                                        handleAdvancedSearchChange(field, e.target.value)
+                                    }
+                                    sx={{
+                                        input: { fontSize: { xs: "0.875rem", md: "1rem" } },
+                                    }}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 {loading ? (

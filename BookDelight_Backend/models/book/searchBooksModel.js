@@ -25,11 +25,11 @@ const search = async (payload, minLength, maxLength, minRating, maxRating) => {
                 JOIN bookdelight.Author a ON ba.id_author = a.id_author
         WHERE
             (
-                b.title ILIKE '%' || $1 || '%' OR
-        b.isbn::TEXT ILIKE '%' || $1 || '%' OR
-        b.publisher ILIKE '%' || $1 || '%' OR
-        g.genre_name ILIKE '%' || $1 || '%' OR
-        a.author_name ILIKE '%' || $1 || '%'
+                ($1::TEXT IS NULL OR b.title       ILIKE '%' || $1 || '%') OR
+                ($1::TEXT IS NULL OR b.isbn        ILIKE '%' || $1 || '%') OR
+                ($1::TEXT IS NULL OR b.publisher   ILIKE '%' || $1 || '%') OR
+                ($1::TEXT IS NULL OR g.genre_name  ILIKE '%' || $1 || '%') OR
+                ($1::TEXT IS NULL OR a.author_name ILIKE '%' || $1 || '%')
                 )
           AND ($2::INT IS NULL OR b.book_length >= $2)
           AND ($3::INT IS NULL OR b.book_length <= $3)
