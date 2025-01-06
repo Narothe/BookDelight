@@ -27,24 +27,11 @@ function AddBook() {
         event.preventDefault();
         setLoading(true);
 
-        // console.log(authors);
-        // console.log(genres);
-
         authors = authors.split(",").map((author) => author.trim());
         genres = genres.split(",").map((genre) => genre.trim());
 
-        // console.log('title:', title);
-        // console.log('publisher:', publisher);
-        // console.log('publication_date:', publication_date);
-        // console.log('isbn:', isbn);
-        // console.log('book_length:', book_length);
-        // console.log('authors:', authors);
-        // console.log('short_description:', short_description);
-        // console.log('long_description:', long_description);
-        // console.log('genres:', genres);
-
         try {
-            await axios.post(
+            const response = await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/add-book`,
                 {
                     title,
@@ -64,12 +51,16 @@ function AddBook() {
                 }
                 );
 
+            const bookId = response.data.bookId;
+            // console.log('response', response)
+
             toast.success("Book added successfully! Redirecting...", {
                 position: "top-center",
             });
 
             setTimeout(() => {
-                navigate("/books");
+                navigate(`/book/${bookId}/add-photo`);
+                // navigate('/books')
             }, 1500);
 
         } catch (err) {
