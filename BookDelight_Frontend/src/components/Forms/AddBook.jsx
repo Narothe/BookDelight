@@ -27,6 +27,25 @@ function AddBook() {
         event.preventDefault();
         setLoading(true);
 
+        const requiredFields = {
+            title,
+            publisher,
+            publication_date,
+            isbn,
+            book_length,
+            authors,
+            genres,
+            short_description,
+            long_description
+        };
+        for (const [key, value] of Object.entries(requiredFields)) {
+            if (!value.trim()) {
+                toast.error(`${key.replace("_", " ")} is required.`, { position: "top-center" });
+                setLoading(false);
+                return;
+            }
+        }
+
         authors = authors.split(",").map((author) => author.trim());
         genres = genres.split(",").map((genre) => genre.trim());
 

@@ -13,12 +13,16 @@ import TruncateText from "../../utils/TruncateText";
 function HomeSlider({ books, photoUrl }) {
     const booksWithCovers = books.filter((book) => book.photo_path);
 
+    const topBooks = booksWithCovers
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 10);
+
     console.log('books' , books);
 
     return (
         <div className="w-full border rounded-md shadow-md bg-custom-new-white p-4">
             <h2 className="text-2xl font-semibold mb-4 text-center">Perhaps this is what you are looking for?</h2>
-            {booksWithCovers.length > 0 ? (
+            {topBooks.length > 0 ? (
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
                     spaceBetween={20}
@@ -34,7 +38,7 @@ function HomeSlider({ books, photoUrl }) {
                         1600: { slidesPerView: 5 },
                     }}
                 >
-                    {booksWithCovers.map((book) => (
+                    {topBooks.map((book) => (
                         <SwiperSlide key={book.id} className="flex justify-center">
                             <Link to={`/book/${book.id_book}`}>
                                 <div className="bg-white shadow-md rounded-md p-4 mb-4 w-72 h-72">
