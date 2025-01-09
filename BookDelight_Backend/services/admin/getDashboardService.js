@@ -1,17 +1,17 @@
+const {getAdminCountStats} = require("../../models/statistics/getAdminStatsCountModel");
 
-const adminDashboard = async() => {
+const adminDashboard = async(userId) => {
     try {
-        // const result = await getAllBooks();
-        const result = 'you can access to dashboard';
+        const result = await getAdminCountStats(userId);
 
-        // if (result.length === 0) {
-        //     return { error: 'Books not found', statusCode: 404 };
-        // }
+        if (result.length === 0) {
+            return { error: 'Count stats not found', statusCode: 404 };
+        }
 
         return { result: result, statusCode: 200 };
     } catch (err) {
-        console.error('Error while getting the books:', err);
-        return { error: 'An error occurred while getting the books.', statusCode: 500 };
+        console.error('Error while getting the count stats:', err);
+        return { error: 'An error occurred while getting the count stats.', statusCode: 500 };
     }
 }
 
