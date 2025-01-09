@@ -75,6 +75,13 @@ function DesktopNavbar() {
         window.location.href = `/user/${authData.user.userId}`;
     };
 
+    const handleAdmin = () => {
+        if (authData && authData.user.isAdmin === true) {
+            handleMenuClose();
+            window.location.href = "/admin/dashboard";
+        }
+    }
+
     return (
         <nav className="flex justify-between mb-9 p-2 border-y">
             <LogoLink/>
@@ -124,6 +131,12 @@ function DesktopNavbar() {
                     >
                         <MenuItem onClick={handleProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleSettings}>Settings</MenuItem>
+
+                        {authData.user.isAdmin === true &&
+                            <div className="bg-blue-400">
+                                <MenuItem onClick={handleAdmin}>Dashboard</MenuItem>
+                            </div>
+                        }
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
 

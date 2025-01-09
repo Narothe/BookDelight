@@ -16,6 +16,7 @@ import ProtectedPath from "./components/Auth/ProtectedPath";
 import ChangeProfilePicture from "./components/User/ChangeProfilePicture";
 import UserVerify from "./components/Auth/UserVerify";
 import ChangeBookCover from "./components/Book/ChangeBookCover";
+import AdminDashboard from "./components/Admin/AdminDashboard";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -36,6 +37,8 @@ root.render(
                         <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
                         <Route path="/user/:id" element={<UserProfile />} />
                         <Route path="/user/verify" element={<UserVerify />} />
+
+                        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
                         <Route path="/settings" element={
                             // <ProtectedPath>
