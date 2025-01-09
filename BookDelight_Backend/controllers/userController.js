@@ -160,6 +160,8 @@ const postCollectUserData = async (req, res) => {
     const userId = req.user.userId;
     const { browser, os, device } = req.body;
 
+    console.log("Device data:", browser, os, device);
+
     const { result, error, statusCode } = await insertUserData(userId, browser, os, device);
 
     writeResult(res, result, error, statusCode);
