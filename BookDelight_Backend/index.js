@@ -12,10 +12,12 @@ const authRoute = require('./routes/authRoute');
 const reviewRoute = require('./routes/reviewRoute');
 const replyRoute = require('./routes/replyRoute');
 const userRoute = require('./routes/userRoute');
+const adminRoute = require('./routes/adminRoute');
 
 const swagger = require('./swagger');
 
 const app = express();
+app.use(express.json());
 const port = process.env.SERVER_PORT;
 
 app.use((req, res, next) => {
@@ -34,6 +36,7 @@ app.use('/', replyRoute);
 app.use('/', bookRoute)
 app.use('/', authRoute)
 app.use('/', userRoute)
+app.use('/', adminRoute)
 
 app.use('/book-photo', express.static('uploads/book_photos'));
 app.use('/user-photo', express.static('uploads/user_photos'));
@@ -60,3 +63,7 @@ app.get('/get-ip', (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   res.send({ ip });
 });
+
+
+
+module.exports = app;

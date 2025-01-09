@@ -8,6 +8,7 @@ CREATE TABLE bookdelight.Users (
     last_name VARCHAR(100) NOT NULL,
     birthday DATE,
 	verify BOOLEAN DEFAULT FALSE,
+	is_admin BOOLEAN DEFAULT FALSE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -1,4 +1,4 @@
-const {loginUser, loginPassword, checkIfUserHavePassword} = require("../../models/auth/loginModel");
+const {loginUser, loginPassword} = require("../../models/auth/loginModel");
 const jwt = require('jsonwebtoken');
 const {createSession} = require("../../models/auth/sessionControlModel");
 require('dotenv').config();
@@ -19,6 +19,8 @@ const login = async (content) => {
             return { error: 'Invalid email or username.', message: result.error, statusCode: 401 };
         }
 
+        // console.log(result);
+
         const userId = result.id_user;
 
         const checkUserPassword = await loginPassword(userId, password);
@@ -27,7 +29,9 @@ const login = async (content) => {
             return { error: 'Invalid password.', message: checkUserPassword.error, statusCode: 401 };
         }
 
-        const token = jwt.sign({ userId: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_TOKEN_EXPIRATION });
+        const isAdmin = result.is_admin;
+
+        const token = jwt.sign({ userId: userId, isAdmin: isAdmin }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_TOKEN_EXPIRATION });
 
         const session = await createSession(userId, token, new Date(Date.now() + 3 * 24 * 60 * 60 * 1000));
 
@@ -41,7 +45,8 @@ const login = async (content) => {
             user: {
                 userId: result.id_user,
                 email: result.email,
-                username: result.username
+                username: result.username,
+                isAdmin: result.is_admin
             }
         }, statusCode: 200 };
     } catch (err) {
