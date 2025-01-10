@@ -2,44 +2,38 @@ const book = require("../../config/db");
 
 const getAdminCountStats = async (userId) => {
     const query = `
-        SELECT admin_data.admin_email          AS admin_email,
-               admin_data.admin_username       AS admin_username,
-               admin_data.admin_first_name     AS admin_first_name,
-               admin_data.admin_last_name      AS admin_last_name,
+        SELECT admin_data.admin_email                            AS admin_email,
+               admin_data.admin_username                         AS admin_username,
+               admin_data.admin_first_name                       AS admin_first_name,
+               admin_data.admin_last_name                        AS admin_last_name,
                DATE_PART('year', AGE(admin_data.admin_birthday)) AS admin_age,
-               admin_data.admin_verify         AS admin_verify,
-               CURRENT_DATE - DATE (admin_data.admin_creation) AS admin_creation_days_ago,
-               COUNT(b.id_book)                AS book_count,
-               book_photos_count.photos        AS book_photos_count,
-               users_count.users               AS users_count,
-               user_photos_count.photos        AS user_photos_count,
-               review_count.review             AS review_count,
-               reply_count.reply               AS reply_count,
-               review_votes_count.review_votes AS review_votes_count,
-               reply_votes_count.reply_votes   AS reply_votes_count,
-               genres_count.genres             AS genres_count,
-               authors_count.authors           AS authors_count,
-               currently_count.currently       AS currently_count,
-               read_count.readed               AS read_count,
-               wish_count.wished               AS wish_count,
-               favorite_count.favorite         AS favorite_count,
-               logged_now_users.sessions       AS logged_now_users
+               admin_data.admin_verify                           AS admin_verify,
+               CURRENT_DATE - DATE (admin_data.admin_creation) AS admin_creation_days_ago, 
+            COUNT (b.id_book) AS book_count, 
+            book_photos_count.photos AS book_photos_count, 
+            users_count.users AS users_count, 
+            user_photos_count.photos AS user_photos_count, 
+            review_count.review AS review_count, 
+            reply_count.reply AS reply_count, 
+            review_votes_count.review_votes AS review_votes_count, 
+            reply_votes_count.reply_votes AS reply_votes_count, 
+            genres_count.genres AS genres_count, 
+            authors_count.authors AS authors_count, 
+            currently_count.currently AS currently_count, 
+            read_count.readed AS read_count, 
+            wish_count.wished AS wish_count, 
+            favorite_count.favorite AS favorite_count, 
+            logged_now_users.sessions AS logged_now_users, 
+            COALESCE (total_pages_read.amount) AS read_pages_amount
 
 
         FROM bookdelight.book b
-
-                 LEFT JOIN LATERAL (
-            SELECT u.email         AS admin_email,
-                   u.username      AS admin_username,
-                   u.first_name    AS admin_first_name,
-                   u.last_name     AS admin_last_name,
-                   u.birthday      AS admin_birthday,
-                   u.verify        AS admin_verify,
-                   u.creation_date AS admin_creation
+            LEFT JOIN LATERAL (
+            SELECT u.email AS admin_email, u.username AS admin_username, u.first_name AS admin_first_name, u.last_name AS admin_last_name, u.birthday AS admin_birthday, u.verify AS admin_verify, u.creation_date AS admin_creation
             FROM bookdelight.users u
             WHERE u.id_user = $1
-                LIMIT 1
-) admin_data
+            LIMIT 1
+            ) admin_data
         ON true
             LEFT JOIN LATERAL (
             SELECT COUNT (bp.id_photo) AS photos
@@ -98,6 +92,19 @@ const getAdminCountStats = async (userId) => {
             FROM bookdelight.sessions s
             WHERE s.expires_at > CURRENT_TIMESTAMP
             ) logged_now_users ON true
+            LEFT JOIN LATERAL (
+            SELECT
+            COALESCE (SUM (CASE
+            WHEN r.id_book IS NOT NULL THEN b.book_length
+            WHEN rg.id_book IS NOT NULL THEN rg.current_page
+            ELSE 0
+            END), 0) AS amount
+            FROM
+            bookdelight.Users u
+            LEFT JOIN bookdelight.Read_Books r ON u.id_user = r.id_user
+            LEFT JOIN bookdelight.Book b ON r.id_book = b.id_book
+            LEFT JOIN bookdelight.Currently_Reading rg ON u.id_user = rg.id_user
+            ) total_pages_read ON true
 
         GROUP BY
             admin_data.admin_email,
@@ -120,7 +127,8 @@ const getAdminCountStats = async (userId) => {
             read_count.readed,
             wish_count.wished,
             favorite_count.favorite,
-            logged_now_users.sessions
+            logged_now_users.sessions,
+            total_pages_read.amount
         ;
     `;
 

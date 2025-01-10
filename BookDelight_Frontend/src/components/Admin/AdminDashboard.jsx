@@ -65,8 +65,8 @@ function AdminDashboard() {
 
     return (
         <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-            <div className="flex border pl-2 pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md w-full bg-white">
-                <div className="flex flex-col items-center w-36 mt-3">
+            <div className="flex border pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md w-full bg-white">
+                <div className="flex flex-col items-center w-28 mt-3">
                     <div className="flex w-16 lg:w-20">
                         <LoadUserImage item={userPhoto} photoUrl={userPhotoUrl}/>
                     </div>
@@ -74,16 +74,15 @@ function AdminDashboard() {
                         <p>{userData.admin_username}</p>
                     </div>
                 </div>
-                {/*<div className="flex flex-col w-5/6 pl-4 border-l">*/}
-                {/*    {user.read_pages_amount &&*/}
-                {/*        <p>Pages read in total: <strong> {user.read_pages_amount} </strong></p>*/}
-                {/*    }*/}
-                {/*    {user.last_added_currently_reading_title &&*/}
-                {/*        <p>Last book added to Currently*/}
-                {/*            Reading: <strong> "{user.last_added_currently_reading_title}"</strong></p>*/}
-                {/*    }*/}
+                <div className="flex flex-col w-5/6 pl-4 border-l items-center text-lg place-content-center">
+                    {userData.read_pages_amount &&
+                        <p>Pages read by all users in total: <strong> {userData.read_pages_amount} </strong></p>
+                    }
+                    {userData.logged_now_users &&
+                        <p className="mt-2">Logged all users right now: <strong> {userData.logged_now_users} </strong></p>
+                    }
 
-                {/*</div>*/}
+                </div>
                 <div className="flex flex-col w-1/4 pl-2.5 border-l">
                     <div className="hidden sm:block">
                         <p>{userData.admin_first_name} {userData.admin_last_name}</p>
