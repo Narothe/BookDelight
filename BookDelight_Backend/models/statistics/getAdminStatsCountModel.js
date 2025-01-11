@@ -23,7 +23,7 @@ const getAdminCountStats = async (userId) => {
             read_count.readed AS read_count, 
             wish_count.wished AS wish_count, 
             favorite_count.favorite AS favorite_count, 
-            logged_now_users.sessions AS logged_now_users, 
+            logged_ever_users.sessions AS logged_ever_users, 
             COALESCE (total_pages_read.amount) AS read_pages_amount
 
 
@@ -90,8 +90,7 @@ const getAdminCountStats = async (userId) => {
             LEFT JOIN LATERAL (
             SELECT COUNT (s.id_sessions) AS sessions
             FROM bookdelight.sessions s
-            WHERE s.expires_at > CURRENT_TIMESTAMP
-            ) logged_now_users ON true
+            ) logged_ever_users ON true
             LEFT JOIN LATERAL (
             SELECT
             COALESCE (SUM (CASE
@@ -127,7 +126,7 @@ const getAdminCountStats = async (userId) => {
             read_count.readed,
             wish_count.wished,
             favorite_count.favorite,
-            logged_now_users.sessions,
+            logged_ever_users.sessions,
             total_pages_read.amount
         ;
     `;

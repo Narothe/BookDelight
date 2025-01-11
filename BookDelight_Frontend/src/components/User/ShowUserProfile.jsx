@@ -137,7 +137,7 @@ function ShowUserProfile({user}) {
                 </div>
             </div>
             <div className="flex flex-col pt-4 w-full border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-                <div className="text-2xl lg:text-3xl font-bold mb-4 font-mono pb-2 pl-2">
+                <div className="text-2xl lg:text-3xl font-bold mb-1 font-mono pb-2 pl-2">
                     <p>Bookshelf</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 flex-wrap gap-2 flex-row">
