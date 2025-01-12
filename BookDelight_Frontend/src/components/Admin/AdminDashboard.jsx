@@ -116,8 +116,8 @@ function AdminDashboard() {
                         {text: "All given votes to replies", userData: userData.reply_votes_count},
                     ]}/>
                     <ListElement cardTitle="Additional books info provided" items={[
-                        {text: "All added book genres", userData: userData.genres_count},
-                        {text: "All added book authors", userData: userData.authors_count},
+                        {text: "All book genres", userData: userData.genres_count},
+                        {text: "All book authors", userData: userData.authors_count},
                     ]}/>
                     <ListElement cardTitle="Users bookshelf" items={[
                         {text: "All books in Currently Reading", userData: userData.currently_count},

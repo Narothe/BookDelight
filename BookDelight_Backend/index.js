@@ -13,6 +13,7 @@ const reviewRoute = require('./routes/reviewRoute');
 const replyRoute = require('./routes/replyRoute');
 const userRoute = require('./routes/userRoute');
 const adminRoute = require('./routes/adminRoute');
+const statisticsRoute = require('./routes/statisticsRoute');
 
 const swagger = require('./swagger');
 
@@ -37,11 +38,10 @@ app.use('/', bookRoute)
 app.use('/', authRoute)
 app.use('/', userRoute)
 app.use('/', adminRoute)
+app.use('/', statisticsRoute)
 
 app.use('/book-photo', express.static('uploads/book_photos'));
 app.use('/user-photo', express.static('uploads/user_photos'));
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 
 swagger(app);
 
