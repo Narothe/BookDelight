@@ -9,6 +9,7 @@ import LoadUserBlankImage from "../../utils/LoadUserBlankImage";
 import LoadUserImage from "../../utils/LoadUserImage";
 import {Link} from "react-router-dom";
 import plus from "../../assets/plus.svg";
+import chart from "../../assets/chart-simple.svg";
 
 // Navbar for devices with a height greater than the width.
 
@@ -82,6 +83,14 @@ function MobileNavbar() {
                 {authData ? (
                     <div className="flex place-content-center">
                         {/*button to add a new book*/}
+                        <div className="grid justify-items-center content-center h-auto pr-1">
+                            <Link
+                                to="/statistics"
+                                className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
+                                <img src={chart} alt="chart" className="w-5"/>
+
+                            </Link>
+                        </div>
                         <div className="grid justify-items-center content-center h-auto pr-1">
                             <Link
                                 to="/add-book"

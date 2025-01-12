@@ -18,6 +18,7 @@ import UserVerify from "./components/Auth/UserVerify";
 import ChangeBookCover from "./components/Book/ChangeBookCover";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import StatisticsChart from "./components/Statistics/StatisticsChart";
+import Statistics from "./components/Statistics/Statistics";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -38,7 +39,7 @@ root.render(
                         <Route path="/book/:bookId/review/:reviewId/all-reply" element={<ReviewCommentSection />} />
                         <Route path="/user/:id" element={<UserProfile />} />
                         <Route path="/user/verify" element={<UserVerify />} />
-                        <Route path="/statistics" element={<StatisticsChart />} />
+                        <Route path="/statistics" element={<Statistics />} />
 
                         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 

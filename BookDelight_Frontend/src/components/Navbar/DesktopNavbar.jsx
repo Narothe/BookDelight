@@ -9,6 +9,7 @@ import LoadUserImage from "../../utils/LoadUserImage";
 import LoadUserBlankImage from "../../utils/LoadUserBlankImage";
 import {Link} from "react-router-dom";
 import plus from "../../assets/plus.svg";
+import chart from "../../assets/chart-simple.svg";
 
 // Navbar for devices with a width greater than the height.
 
@@ -94,9 +95,17 @@ function DesktopNavbar() {
                     {/*button to add a new book*/}
                     <div className="flex justify-items-center content-center h-auto pr-1">
                         <Link
+                            to="/statistics"
+                            className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
+                            <img src={chart} alt="chart" className="w-5"/>
+
+                        </Link>
+                    </div>
+                    <div className="flex justify-items-center content-center h-auto pr-1">
+                        <Link
                             to="/add-book"
                             className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
-                            <img src={plus} alt="advanced" className="w-5" />
+                            <img src={plus} alt="advanced" className="w-5"/>
 
                         </Link>
                     </div>

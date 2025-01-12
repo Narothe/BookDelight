@@ -3,8 +3,8 @@ import {useAuth} from "../Auth/SessionHandling";
 import axios from "axios";
 import TruncateText from "../../utils/TruncateText";
 import LoadUserImage from "../../utils/LoadUserImage";
-import ListElement from "./ListElement";
-import StatisticsChart from "../Statistics/StatisticsChart";
+import ListElement from "../Statistics/ListElement";
+import StatisticsChartForAdmins from "../Statistics/StatisticsChartForAdmins";
 
 function AdminDashboard() {
     const {authData} = useAuth();
@@ -128,7 +128,7 @@ function AdminDashboard() {
                     ]}/>
                 </div>
             </div>
-            <StatisticsChart />
+            <StatisticsChartForAdmins />
         </div>
     );
 }
