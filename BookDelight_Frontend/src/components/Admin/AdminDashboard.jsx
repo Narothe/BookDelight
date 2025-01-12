@@ -4,6 +4,7 @@ import axios from "axios";
 import TruncateText from "../../utils/TruncateText";
 import LoadUserImage from "../../utils/LoadUserImage";
 import ListElement from "./ListElement";
+import StatisticsChart from "../Statistics/StatisticsChart";
 
 function AdminDashboard() {
     const {authData} = useAuth();
@@ -127,6 +128,7 @@ function AdminDashboard() {
                     ]}/>
                 </div>
             </div>
+            <StatisticsChart />
         </div>
     );
 }

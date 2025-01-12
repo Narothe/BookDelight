@@ -3,6 +3,9 @@ const {getCreatedBooksStats} = require("../../models/statistics/getCreatedBooksS
 const {getCreatedReviewsStats} = require("../../models/statistics/getCreatedReviewsStatsModel");
 const {getCreatedRepliesStats} = require("../../models/statistics/getCreatedRepliesStatsModel");
 const {getAddToCurrentlyStatsModel} = require("../../models/statistics/getAddToCurrentlyStatsModel");
+const {getWishToReadBooksStats} = require("../../models/statistics/getAddToWishToReadStatsModel");
+const {getReadBooksStats} = require("../../models/statistics/getAddToReadStatsModel");
+const {getFavoriteBooksStats} = require("../../models/statistics/getAddFavoriteStatsModel");
 
 const showStatsWithRange = async (dateRange) => {
 
@@ -16,26 +19,9 @@ const showStatsWithRange = async (dateRange) => {
         const createdReviewsStats = await getCreatedReviewsStats(dateRange);
         const createdRepliesStats = await getCreatedRepliesStats(dateRange);
         const createdCurrentlyStats = await getAddToCurrentlyStatsModel(dateRange);
-
-        if (!createdBooksStats[0]?.created_books) {
-            return { error: "No book statistics found", statusCode: 404 };
-        }
-
-        if (!createdUsersStats[0]?.created_users) {
-            return { error: "No user statistics found", statusCode: 404 };
-        }
-
-        if (!createdReviewsStats[0]?.created_reviews) {
-            return { error: "No review statistics found", statusCode: 404 };
-        }
-
-        if (!createdRepliesStats[0]?.created_replies) {
-            return { error: "No reply statistics found", statusCode: 404 };
-        }
-
-        if (!createdCurrentlyStats[0]?.added_to_currently) {
-            return { error: "No add to currently statistics found", statusCode: 404 };
-        }
+        const createdWishToReadStats = await getWishToReadBooksStats(dateRange);
+        const createdReadBooksStats = await getReadBooksStats(dateRange);
+        const createdFavoritesStats = await getFavoriteBooksStats(dateRange);
 
         return {
             result: {
@@ -44,7 +30,10 @@ const showStatsWithRange = async (dateRange) => {
                     created_users: createdUsersStats[0].created_users,
                     created_reviews: createdReviewsStats[0].created_reviews,
                     created_replies: createdRepliesStats[0].created_replies,
-                    added_to_currently: createdCurrentlyStats[0].added_to_currently
+                    added_to_currently: createdCurrentlyStats[0].added_to_currently,
+                    added_to_wish_to_read: createdWishToReadStats[0].added_to_wish_to_read,
+                    added_to_read_books: createdReadBooksStats[0].added_to_read_books,
+                    added_to_favorites: createdFavoritesStats[0].added_to_favorites
                 },
             },
             statusCode: 200,
