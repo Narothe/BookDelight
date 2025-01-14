@@ -83,7 +83,7 @@ function SingleMobileReview({reviewData}) {
                     </div>
                 </Link>
                 <div className="flex items-center">
-                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{reviewData.username} rate: {reviewData.rating}/10</p>
+                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{reviewData.username} rate: {reviewData.user_rating}/10</p>
                 </div>
             </div>
             <div className="flex font-semibold pt-1">

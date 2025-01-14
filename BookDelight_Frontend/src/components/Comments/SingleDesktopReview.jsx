@@ -92,7 +92,7 @@ function SingleDesktopReview({reviewData}) {
                 {/*right panel*/}
                 <div className="flex flex-col border-l w-1/12 pl-2">
                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center text-clip overflow-hidden ...">{reviewData.username} rate:</p>
-                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-4 text-center">{reviewData.rating}/10</p>
+                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-4 text-center">{reviewData.user_rating}/10</p>
                     <div className="flex flex-col">
                         <div className="flex flex-row mb-2.5">
                             <button

@@ -64,7 +64,7 @@ function ReviewCommentSection() {
     if (error) return <p>Error loading review: {error.message}</p>;
 
     // console.log("Review data.photo_path:", reviewData.photo_path);
-    console.log("Review data:", reviewData);
+    console.log("Review data REVIEWCOMMENTSECTION:", reviewData);
 
     return (
         <div className="">

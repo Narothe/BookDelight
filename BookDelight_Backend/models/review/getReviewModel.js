@@ -9,6 +9,7 @@ const getOneReview = async (reviewId, bookId) => {
                r.description,
                avg_rating.rating,
                count_rating.review_count,
+               review_user_rating.user_rating,
                COALESCE(vote_summary.upvotes, 0)   AS upvotes,
                COALESCE(vote_summary.downvotes, 0) AS downvotes,
                u.username,
@@ -43,6 +44,12 @@ const getOneReview = async (reviewId, bookId) => {
                 ) avg_rating ON true
 
                  LEFT JOIN LATERAL (
+            select rating AS user_rating
+            from bookdelight.review
+            where id_review = $2
+                ) review_user_rating ON true
+
+                 LEFT JOIN LATERAL (
             SELECT COUNT(r.rating) AS review_count
             FROM bookdelight.review r
                      JOIN bookdelight.book b ON r.id_book = b.id_book
@@ -57,6 +64,7 @@ const getOneReview = async (reviewId, bookId) => {
                  r.description,
                  avg_rating.rating,
                  count_rating.review_count,
+                 review_user_rating.user_rating,
                  authors_array.authors,
                  vote_summary.upvotes,
                  vote_summary.downvotes,
@@ -64,6 +72,9 @@ const getOneReview = async (reviewId, bookId) => {
                  up.photo_path,
                  bp.photo_path,
                  r.creation_date;
+
+
+
 
     `;
 

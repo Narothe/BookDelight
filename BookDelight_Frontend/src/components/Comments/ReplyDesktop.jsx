@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
 import arrow from "../../assets/arrow-right.svg";
+import trash from "../../assets/trash-can.svg";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../Auth/SessionHandling";
 import axios from "axios";
@@ -82,6 +83,33 @@ function ReplyDesktop({ replyData }) {
         }
     };
 
+    const handleDeleteForAdmins = async (replyId) => {
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+            const response = await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review/${reviewId}/reply`,
+                {
+                    headers: { Authorization: `Bearer ${authData?.token}` },
+                    data: { replyId: replyId },
+                }
+            );
+
+
+            if (response.status === 200) {
+                toast.success("Reply deleted successfully.");
+                setTimeout(() => window.location.reload(), 1000);
+            }
+        } catch (err) {
+            console.error("Error deleting reply:", err);
+            toast.error("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div className="flex flex-col">
             {replyData.map((reply) => (
@@ -89,7 +117,7 @@ function ReplyDesktop({ replyData }) {
                     <div className="flex flex-row">
                         <div className="flex flex-col justify-between w-11/12">
                             {/* Photo & Username */}
-                            <div className="flex flex-row">
+                            <div className="flex flex-row justify-between">
                                 <Link to={`/user/${reply.review_author_id}`}>
                                     <div className="flex flex-row">
                                         <div className="w-12">
@@ -102,18 +130,33 @@ function ReplyDesktop({ replyData }) {
                                         </div>
                                     </div>
                                 </Link>
-                            </div>
-                                <div className="flex font-semibold">
-                                    <p className="text-sm md:text-base lg:text-lg py-4 mb-2">{reply.description}</p>
+                                {  (authData?.user?.isAdmin) &&
+                                <div className="flex items-center mr-2">
+                                    <button
+                                        onClick={() => handleDeleteForAdmins(reply.id_reply)}
+                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                            votes[reply.id_reply] === "upvote"
+                                                ? "border-green-500 bg-green-200"
+                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                        }`}
+                                        disabled={loading}
+                                    >
+                                        <img src={trash} alt="delete" className="w-4"/>
+                                    </button>
                                 </div>
+                                }
                             </div>
-                            {/* Right Panel */}
-                            <div className="flex flex-col border-l w-1/12 pl-2 justify-center">
-                                <div className="flex flex-col">
-                                    <div className="flex flex-row mb-2.5">
-                                        <button
-                                            onClick={() => handleVote(reply.id_reply, "upvote")}
-                                            className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                            <div className="flex font-semibold">
+                                <p className="text-sm md:text-base lg:text-lg py-4 mb-2">{reply.description}</p>
+                            </div>
+                        </div>
+                        {/* Right Panel */}
+                        <div className="flex flex-col border-l w-1/12 pl-2 justify-center">
+                            <div className="flex flex-col">
+                                <div className="flex flex-row mb-2.5">
+                                    <button
+                                        onClick={() => handleVote(reply.id_reply, "upvote")}
+                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
                                                 votes[reply.id_reply] === "upvote"
                                                     ? "border-green-500 bg-green-200"
                                                     : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"

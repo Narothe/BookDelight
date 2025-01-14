@@ -5,6 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import {useAuth} from "../Auth/SessionHandling";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import trash from "../../assets/trash-can.svg";
 
 function ReplyMobile({replyData}) {
     const { authData } = useAuth();
@@ -82,6 +83,33 @@ function ReplyMobile({replyData}) {
         }
     };
 
+    const handleDeleteForAdmins = async (replyId) => {
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+            const response = await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review/${reviewId}/reply`,
+                {
+                    headers: { Authorization: `Bearer ${authData?.token}` },
+                    data: { replyId: replyId },
+                }
+            );
+
+
+            if (response.status === 200) {
+                toast.success("Reply deleted successfully.");
+                setTimeout(() => window.location.reload(), 1000);
+            }
+        } catch (err) {
+            console.error("Error deleting reply:", err);
+            toast.error("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div className="flex flex-col">
             {replyData.map((reply) => (
@@ -99,6 +127,21 @@ function ReplyMobile({replyData}) {
                                     </div>
                                 </div>
                             </Link>
+                            {  (authData?.user?.isAdmin) &&
+                                <div className="flex items-center mr-2">
+                                    <button
+                                        onClick={() => handleDeleteForAdmins(reply.id_reply)}
+                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
+                                            votes[reply.id_reply] === "upvote"
+                                                ? "border-green-500 bg-green-200"
+                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
+                                        }`}
+                                        disabled={loading}
+                                    >
+                                        <img src={trash} alt="delete" className="w-4"/>
+                                    </button>
+                                </div>
+                            }
                         </div>
                         <div className="flex font-semibold">
                             <p className="text-sm md:text-base lg:text-lg py-1 mb-2">{reply.description}</p>
