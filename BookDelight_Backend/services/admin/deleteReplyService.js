@@ -3,15 +3,12 @@ const {deleteReply} = require("../../models/reply/deleteReplyModel");
 
 const adminDeleteReply = async(id, reviewId, replyId) => {
 
-    console.log('replyId:', replyId);
-
     try {
         const checkReplyExisting = await getOneReply(id, reviewId, replyId);
 
         if (!checkReplyExisting) {
             return { error: 'Reply not found', statusCode: 404 };
         }
-
 
         const result = await deleteReply(replyId);
 

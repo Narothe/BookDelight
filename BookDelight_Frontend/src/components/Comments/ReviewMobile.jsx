@@ -8,6 +8,7 @@ import AddReply from "../Forms/AddReply";
 import {useAuth} from "../Auth/SessionHandling";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import trash from "../../assets/trash-can.svg";
 
 function ReviewMobile({review}) {
     const {authData} = useAuth();
@@ -85,6 +86,33 @@ function ReviewMobile({review}) {
         }
     }
 
+    const handleDeleteForAdmins = async (bookId, reviewId) => {
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+            const response = await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review`,
+                {
+                    headers: { Authorization: `Bearer ${authData?.token}` },
+                    data: { reviewId: reviewId },
+                }
+            );
+
+
+            if (response.status === 200) {
+                toast.success("Reply deleted successfully.");
+                setTimeout(() => window.location.reload(), 1000);
+            }
+        } catch (err) {
+            console.error("Error deleting reply:", err);
+            toast.error("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div>
             {review.map((item, index) => {
@@ -96,7 +124,7 @@ function ReviewMobile({review}) {
                         <div className="flex flex-col w-full justify-between">
                             <div className="flex flex-row justify-between">
                                 {/*photo & username*/}
-                                <div className="flex flex-row">
+                                <div className="flex flex-row w-full justify-between">
                                     <Link to={`/user/${item.review_author_id}`}>
                                         <div className="flex flex-row">
                                             <div className="w-12">
@@ -107,6 +135,17 @@ function ReviewMobile({review}) {
                                             </div>
                                         </div>
                                     </Link>
+                                    {  (authData?.user?.isAdmin) &&
+                                        <div className="flex items-center mr-2">
+                                            <button
+                                                onClick={() => handleDeleteForAdmins(item.id_book, item.id_review)}
+                                                className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4"
+                                                disabled={loading}
+                                            >
+                                                <img src={trash} alt="delete" className="w-4"/>
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="flex items-center">
                                     <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>

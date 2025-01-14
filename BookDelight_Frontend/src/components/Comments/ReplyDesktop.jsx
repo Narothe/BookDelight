@@ -156,12 +156,8 @@ function ReplyDesktop({ replyData }) {
                                 <div className="flex flex-row mb-2.5">
                                     <button
                                         onClick={() => handleVote(reply.id_reply, "upvote")}
-                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
-                                                votes[reply.id_reply] === "upvote"
-                                                    ? "border-green-500 bg-green-200"
-                                                    : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
-                                            }`}
-                                            disabled={loading}
+                                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4"
+                                        disabled={loading}
                                         >
                                             <img src={arrow} alt="Upvote" className="w-5 rotate-180"/>
                                         </button>

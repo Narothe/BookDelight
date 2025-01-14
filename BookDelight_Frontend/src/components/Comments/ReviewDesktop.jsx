@@ -8,6 +8,7 @@ import AddReply from "../Forms/AddReply";
 import axios from "axios";
 import {toast} from "react-hot-toast";
 import {useAuth} from "../Auth/SessionHandling";
+import trash from "../../assets/trash-can.svg";
 
 function ReviewDesktop({review}) {
     const {authData} = useAuth();
@@ -19,8 +20,8 @@ function ReviewDesktop({review}) {
     const [loading, setLoading] = useState(false);
     const [votes, setVotes] = useState({});
 
-    console.log(review);
-    console.log(review.review_author_id);
+    // console.log(review);
+    // console.log(review.review_author_id);
 
     useEffect(() => {
         const fetchVotes = async () => {
@@ -88,10 +89,38 @@ function ReviewDesktop({review}) {
         }
     }
 
+    const handleDeleteForAdmins = async (bookId, reviewId) => {
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+            const response = await axios.delete(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${bookId}/review`,
+                {
+                    headers: { Authorization: `Bearer ${authData?.token}` },
+                    data: { reviewId: reviewId },
+                }
+            );
+
+
+            if (response.status === 200) {
+                toast.success("Reply deleted successfully.");
+                setTimeout(() => window.location.reload(), 1000);
+            }
+        } catch (err) {
+            console.error("Error deleting reply:", err);
+            toast.error("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <div>
             {review.map((item, index) => {
-                // console.log(item)
+                console.log(item.id_review)
+                console.log(item)
                 const replyInfo = repliesData.find((data) => data.id_review === item.id_review);
                 const userVote = votes[item.id_review];
 
@@ -100,7 +129,7 @@ function ReviewDesktop({review}) {
                         <div className="flex flex-col w-11/12">
                             <div className="flex flex-col justify-between">
                                 {/*photo & username*/}
-                                <div className="flex flex-row">
+                                <div className="flex flex-row justify-between">
                                     <Link to={`/user/${item.review_author_id}`}>
                                         <div className="flex flex-row">
                                             <div className="w-14">
@@ -111,6 +140,17 @@ function ReviewDesktop({review}) {
                                             </div>
                                         </div>
                                     </Link>
+                                    {  (authData?.user?.isAdmin) &&
+                                        <div className="flex items-center mr-2">
+                                            <button
+                                                onClick={() => handleDeleteForAdmins(item.id_book, item.id_review)}
+                                                className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4"
+                                                disabled={loading}
+                                            >
+                                                <img src={trash} alt="delete" className="w-4"/>
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="flex font-semibold">
                                     <p className="text-sm md:text-base lg:text-lg pt-4 pr-2">{item.description}</p>

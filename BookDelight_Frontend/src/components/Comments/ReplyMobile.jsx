@@ -131,11 +131,7 @@ function ReplyMobile({replyData}) {
                                 <div className="flex items-center mr-2">
                                     <button
                                         onClick={() => handleDeleteForAdmins(reply.id_reply)}
-                                        className={`grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 ${
-                                            votes[reply.id_reply] === "upvote"
-                                                ? "border-green-500 bg-green-200"
-                                                : "border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
-                                        }`}
+                                        className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4"
                                         disabled={loading}
                                     >
                                         <img src={trash} alt="delete" className="w-4"/>
