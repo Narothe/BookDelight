@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LoadBookUserImage from "../../utils/LoadBookUserImage";
-import {Button, DialogActions, DialogContent, DialogTitle, Typography} from "@mui/material";
+import {Button, DialogActions, DialogContent, DialogTitle, MenuItem, Select, Typography} from "@mui/material";
 import theme from "../../utils/SimpleButtonTheme";
 import {ThemeProvider} from "@mui/material/styles";
 import { FaHeart, FaStar, FaBook, FaBookmark } from "react-icons/fa";
@@ -9,16 +9,65 @@ import {useParams} from "react-router-dom";
 import TruncateText from "../../utils/TruncateText";
 import OneUserBook from "./OneUserBook";
 import BootstrapDialog from "../../utils/BootstrapDialog";
+import {useAuth} from "../Auth/SessionHandling";
 
 function ShowUserProfile({user}) {
+    const { authData } = useAuth();
 
     const userPhotoUrl = `${process.env.REACT_APP_USER_PHOTO_URL}`;
     const photoUrl = `${process.env.REACT_APP_BOOK_PHOTO_URL}`;
 
+    const {id} = useParams();
 
+    const [userCurrentlyReading, setUserCurrentlyReading] = useState(null);
+    const [userWishRead, setUserWishRead] = useState(null);
+    const [userFavorite, setUserFavorite] = useState(null);
+    const [userRead, setUserRead] = useState(null);
     const [openView, setViewOpen] = useState(false);
-    // const [openBook, setBookOpen] = useState(false);
 
+    const [selectedGenre, setSelectedGenre] = useState('');
+    const [selectedAuthor, setSelectedAuthor] = useState('');
+    const [genres, setGenres] = useState([]);
+    const [authors, setAuthors] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const handleAddGenre = async () => {
+        if (!selectedGenre) return;
+        setLoading(true);
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/user/add-genre-preferences`,
+                { genre: selectedGenre },
+                { headers: { Authorization: `Bearer ${authData?.token}` } }
+            );
+            setGenres((prev) => prev.filter((g) => g !== selectedGenre));
+            user.genres.push(selectedGenre);
+            setSelectedGenre('');
+        } catch (error) {
+            console.error('Error adding genre:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleAddAuthor = async () => {
+        if (!selectedAuthor) return;
+        setLoading(true);
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/user/add-author-preferences`,
+                { author: selectedAuthor },
+                { headers: { Authorization: `Bearer ${authData?.token}` } }
+            );
+            setAuthors((prev) => prev.filter((a) => a !== selectedAuthor));
+            user.authors.push(selectedAuthor);
+            setSelectedAuthor('');
+        } catch (error) {
+            console.error('Error adding author:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleClickViewOpen = () => {
         setViewOpen(true);
@@ -27,21 +76,6 @@ function ShowUserProfile({user}) {
     const handleViewClose = () => {
         setViewOpen(false);
     };
-
-    // const handleClickBookOpen = () => {
-    //     setBookOpen(true);
-    // };
-    //
-    // const handleBookClose = () => {
-    //     setBookOpen(false);
-    // };
-
-    const {id} = useParams();
-
-    const [userCurrentlyReading, setUserCurrentlyReading] = useState(null);
-    const [userWishRead, setUserWishRead] = useState(null);
-    const [userFavorite, setUserFavorite] = useState(null);
-    const [userRead, setUserRead] = useState(null);
 
     useEffect(() => {
         const fetchBookNested = async () => {
@@ -71,7 +105,22 @@ function ShowUserProfile({user}) {
             }
         };
 
+        const fetchPreferencesData = async () => {
+            try {
+                const [genresResponse, authorsResponse] = await Promise.all([
+                    axios.get(`${process.env.REACT_APP_BACKEND_URL}/genres`),
+                    axios.get(`${process.env.REACT_APP_BACKEND_URL}/authors`),
+                ]);
+
+                setGenres(genresResponse.data);
+                setAuthors(authorsResponse.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         fetchBookNested();
+        fetchPreferencesData();
     }, [id]);
 
     return (
@@ -117,6 +166,57 @@ function ShowUserProfile({user}) {
                                     <strong>Favorites authors:</strong> {user.authors.join(', ') || "Not provided"}
                                 </Typography>
                             </DialogContent>
+                            {authData.user.userId ===  user.id_user && (
+                                <div className="px-4 pb-4 pt-2">
+                                    <Typography variant="h6">Add Preferences:</Typography>
+                                    <div>
+                                        <Typography>Genres:</Typography>
+                                        <Select
+                                            value={selectedGenre}
+                                            onChange={(e) => setSelectedGenre(e.target.value)}
+                                            fullWidth
+                                        >
+                                            {genres.map((genre) => (
+                                                <MenuItem key={genre} value={genre}>
+                                                    {genre}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                        <div className="mt-1.5">
+                                            <Button
+                                                onClick={handleAddGenre}
+                                                variant="contained"
+                                                disabled={loading || !selectedGenre}
+                                            >
+                                                Add Genre
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Typography>Authors:</Typography>
+                                        <Select
+                                            value={selectedAuthor}
+                                            onChange={(e) => setSelectedAuthor(e.target.value)}
+                                            fullWidth
+                                        >
+                                            {authors.map((author) => (
+                                                <MenuItem key={author} value={author}>
+                                                    {author}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                        <div className="mt-1.5">
+                                            <Button
+                                                onClick={handleAddAuthor}
+                                                variant="contained"
+                                                disabled={loading || !selectedAuthor}
+                                            >
+                                                Add Author
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                             <DialogActions>
                                 <Button autoFocus onClick={handleViewClose}>
                                     Close
