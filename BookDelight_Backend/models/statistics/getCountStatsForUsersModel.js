@@ -15,7 +15,9 @@ const getCountStatsForUsers = async () => {
             read_count.readed AS read_count, 
             wish_count.wished AS wish_count, 
             favorite_count.favorite AS favorite_count, 
-            COALESCE (total_pages_read.amount) AS read_pages_amount
+            COALESCE (total_pages_read.amount) AS read_pages_amount,
+            logged_ever_users.sessions AS logged_ever_users
+
 
         FROM bookdelight.book b
             LEFT JOIN LATERAL (
@@ -75,6 +77,10 @@ const getCountStatsForUsers = async () => {
             LEFT JOIN bookdelight.Book b ON r.id_book = b.id_book
             LEFT JOIN bookdelight.Currently_Reading rg ON u.id_user = rg.id_user
             ) total_pages_read ON true
+            LEFT JOIN LATERAL (
+            SELECT COUNT (s.id_sessions) AS sessions
+            FROM bookdelight.sessions s
+                ) logged_ever_users ON true
 
         GROUP BY
             users_count.users,
@@ -88,7 +94,8 @@ const getCountStatsForUsers = async () => {
             read_count.readed,
             wish_count.wished,
             favorite_count.favorite,
-            total_pages_read.amount
+            total_pages_read.amount,
+            logged_ever_users.sessions
         ;
     `;
 

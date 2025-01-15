@@ -97,7 +97,7 @@ function DesktopNavbar() {
                         <Link
                             to="/statistics"
                             className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
-                            <img src={chart} alt="chart" className="w-5"/>
+                            <img src={chart} alt="chart" className="w-4"/>
 
                         </Link>
                     </div>

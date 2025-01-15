@@ -144,7 +144,7 @@ function ReviewDesktop({review}) {
                                         <div className="flex items-center mr-2">
                                             <button
                                                 onClick={() => handleDeleteForAdmins(item.id_book, item.id_review)}
-                                                className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4"
+                                                className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark"
                                                 disabled={loading}
                                             >
                                                 <img src={trash} alt="delete" className="w-4"/>

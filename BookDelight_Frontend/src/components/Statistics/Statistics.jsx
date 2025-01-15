@@ -31,6 +31,9 @@ function Statistics() {
         return <div>Loading...</div>;
     }
 
+    console.log(userData);
+
+
     return (
         <div>
             <div className="flex flex-col pt-4 w-full border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
