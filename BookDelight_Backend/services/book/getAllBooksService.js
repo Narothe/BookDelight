@@ -1,12 +1,15 @@
 const { getAllBooks } = require("../../models/book/getAllBooksModel");
+const shuffleArray = require("../../utils/shuffleArray");
 
 const findBooks = async() => {
     try {
-        const result = await getAllBooks();
+        let result = await getAllBooks();
 
         if (result.length === 0) {
             return { error: 'Books not found', statusCode: 404 };
         }
+
+        result = shuffleArray(result);
 
         return { result: result, statusCode: 200 };
     } catch (err) {

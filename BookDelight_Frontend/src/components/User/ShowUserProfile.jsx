@@ -10,6 +10,7 @@ import TruncateText from "../../utils/TruncateText";
 import OneUserBook from "./OneUserBook";
 import BootstrapDialog from "../../utils/BootstrapDialog";
 import {useAuth} from "../Auth/SessionHandling";
+import {toast} from "react-hot-toast";
 
 function ShowUserProfile({user}) {
     const { authData } = useAuth();
@@ -35,6 +36,11 @@ function ShowUserProfile({user}) {
         if (!selectedGenre) return;
         setLoading(true);
         try {
+            if (user.genres.includes(selectedGenre)) {
+                toast.error("Genre already added!");
+                return;
+            }
+
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/user/add-genre-preferences`,
                 { genre: selectedGenre },
@@ -43,6 +49,8 @@ function ShowUserProfile({user}) {
             setGenres((prev) => prev.filter((g) => g !== selectedGenre));
             user.genres.push(selectedGenre);
             setSelectedGenre('');
+
+            toast.success("Genre added successfully!");
         } catch (error) {
             console.error('Error adding genre:', error);
         } finally {
@@ -54,6 +62,11 @@ function ShowUserProfile({user}) {
         if (!selectedAuthor) return;
         setLoading(true);
         try {
+            if (user.authors.includes(selectedAuthor)) {
+                toast.error("Author already added!");
+                return;
+            }
+
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/user/add-author-preferences`,
                 { author: selectedAuthor },
@@ -62,6 +75,8 @@ function ShowUserProfile({user}) {
             setAuthors((prev) => prev.filter((a) => a !== selectedAuthor));
             user.authors.push(selectedAuthor);
             setSelectedAuthor('');
+
+            toast.success("Author added successfully!");
         } catch (error) {
             console.error('Error adding author:', error);
         } finally {
