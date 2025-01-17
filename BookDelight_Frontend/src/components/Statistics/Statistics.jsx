@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useAuth} from "../Auth/SessionHandling";
 import axios from "axios";
 import ListElement from "../Statistics/ListElement";
 import StatisticsChart from "./StatisticsChart";
 
 function Statistics() {
-    const {authData} = useAuth();
 
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!authData) return;
-
             try {
                 const response = await axios.get(
                     `${process.env.REACT_APP_BACKEND_URL}/statistics/dashboard`,
@@ -24,7 +20,7 @@ function Statistics() {
         };
 
         fetchData();
-    }, [authData]);
+    }, []);
 
 
     if (!userData) {

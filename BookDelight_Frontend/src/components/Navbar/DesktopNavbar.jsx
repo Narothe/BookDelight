@@ -151,8 +151,18 @@ function DesktopNavbar() {
 
                 </div>
             ) : (
-                <div className="grid place-content-center">
-                    <LinkButton text="Log in" link="/login"/>
+                <div className="flex flex-row">
+                    <div className="grid pr-1 place-content-center">
+                        <Link
+                            to="/statistics"
+                            className="grid justify-items-center content-center w-8 h-8 rounded-full overflow-hidden border-4 border-custom-new-light-dark hover:border-custom-new-dark-hover active:border-custom-new-dark hover:animate-spinOnce">
+                            <img src={chart} alt="chart" className="w-4"/>
+
+                        </Link>
+                    </div>
+                    <div className="grid place-content-center">
+                        <LinkButton text="Log in" link="/login"/>
+                    </div>
                 </div>
             )}
         </nav>

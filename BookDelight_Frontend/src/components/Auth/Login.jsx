@@ -109,11 +109,11 @@ function LoginPage() {
                             <p className="hover:text-custom-hover-light-blue">Sign up</p>
                         </Link>
                     </div>
-                    <div className="flex items-center ">
-                        <Link to="/register">
-                        <p className="hover:text-custom-hover-light-blue">Forgot password?</p>
-                        </Link>
-                    </div>
+                    {/*<div className="flex items-center ">*/}
+                    {/*    <Link to="/register">*/}
+                    {/*    <p className="hover:text-custom-hover-light-blue">Forgot password?</p>*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>
