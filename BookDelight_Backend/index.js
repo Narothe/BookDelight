@@ -59,10 +59,10 @@ verifySMTPConnection(transporter).catch((err) => console.error(err.message));
 
 // this is just a test endpoint to get the IP address of the client
 // in the final version, this should be removed/reworked
-app.get('/get-ip', (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  res.send({ ip });
-});
+// app.get('/get-ip', (req, res) => {
+//   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+//   res.send({ ip });
+// });
 
 
 

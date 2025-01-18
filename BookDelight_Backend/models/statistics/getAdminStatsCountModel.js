@@ -8,23 +8,7 @@ const getAdminCountStats = async (userId) => {
                admin_data.admin_last_name                        AS admin_last_name,
                DATE_PART('year', AGE(admin_data.admin_birthday)) AS admin_age,
                admin_data.admin_verify                           AS admin_verify,
-               CURRENT_DATE - DATE (admin_data.admin_creation) AS admin_creation_days_ago, 
-            COUNT (b.id_book) AS book_count, 
-            book_photos_count.photos AS book_photos_count, 
-            users_count.users AS users_count, 
-            user_photos_count.photos AS user_photos_count, 
-            review_count.review AS review_count, 
-            reply_count.reply AS reply_count, 
-            review_votes_count.review_votes AS review_votes_count, 
-            reply_votes_count.reply_votes AS reply_votes_count, 
-            genres_count.genres AS genres_count, 
-            authors_count.authors AS authors_count, 
-            currently_count.currently AS currently_count, 
-            read_count.readed AS read_count, 
-            wish_count.wished AS wish_count, 
-            favorite_count.favorite AS favorite_count, 
-            logged_ever_users.sessions AS logged_ever_users, 
-            COALESCE (total_pages_read.amount) AS read_pages_amount
+               CURRENT_DATE - DATE (admin_data.admin_creation) AS admin_creation_days_ago, COUNT (b.id_book) AS book_count, book_photos_count.photos AS book_photos_count, users_count.users AS users_count, user_photos_count.photos AS user_photos_count, review_count.review AS review_count, reply_count.reply AS reply_count, review_votes_count.review_votes AS review_votes_count, reply_votes_count.reply_votes AS reply_votes_count, genres_count.genres AS genres_count, authors_count.authors AS authors_count, currently_count.currently AS currently_count, read_count.readed AS read_count, wish_count.wished AS wish_count, favorite_count.favorite AS favorite_count, last_logged_user.last_logged_id_user, last_logged_user.last_logged_username, logged_ever_users.sessions AS logged_ever_users, COALESCE (total_pages_read.amount) AS read_pages_amount
 
 
         FROM bookdelight.book b
@@ -92,6 +76,13 @@ const getAdminCountStats = async (userId) => {
             FROM bookdelight.sessions s
             ) logged_ever_users ON true
             LEFT JOIN LATERAL (
+            select u.id_user AS last_logged_id_user, u.username AS last_logged_username
+            from bookdelight.sessions s
+            join bookdelight.users u ON s.id_user = u.id_user
+            order by created_at desc
+            LIMIT 1
+            ) last_logged_user ON true
+            LEFT JOIN LATERAL (
             SELECT
             COALESCE (SUM (CASE
             WHEN r.id_book IS NOT NULL THEN b.book_length
@@ -126,6 +117,8 @@ const getAdminCountStats = async (userId) => {
             read_count.readed,
             wish_count.wished,
             favorite_count.favorite,
+            last_logged_user.last_logged_id_user,
+            last_logged_user.last_logged_username,
             logged_ever_users.sessions,
             total_pages_read.amount
         ;

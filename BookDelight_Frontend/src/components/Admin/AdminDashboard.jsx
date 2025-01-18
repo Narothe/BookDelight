@@ -5,6 +5,7 @@ import TruncateText from "../../utils/TruncateText";
 import LoadUserImage from "../../utils/LoadUserImage";
 import ListElement from "../Statistics/ListElement";
 import StatisticsChartForAdmins from "../Statistics/StatisticsChartForAdmins";
+import {Link} from "react-router-dom";
 
 function AdminDashboard() {
     const {authData} = useAuth();
@@ -77,8 +78,11 @@ function AdminDashboard() {
                             <p>{userData.admin_username}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col w-5/6 pl-4 border-l items-center text-lg place-content-center">
-
+                    <div className="flex flex-col w-5/6 pl-4 border-l items-center text-lg">
+                        <p>Last logged user:</p>
+                        <div className="text-xl text-blue-500 font-semibold">
+                            <Link to={`/user/${userData.last_logged_id_user}`}>{userData.last_logged_username}</Link>
+                        </div>
                     </div>
                     <div className="flex flex-col w-1/4 pl-2.5 border-l">
                         <div className="hidden sm:block">
