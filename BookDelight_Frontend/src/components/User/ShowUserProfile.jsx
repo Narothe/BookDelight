@@ -181,7 +181,7 @@ function ShowUserProfile({user}) {
                                     <strong>Favorites authors:</strong> {user.authors.join(', ') || "Not provided"}
                                 </Typography>
                             </DialogContent>
-                            {authData.user.userId ===  user.id_user && (
+                            {authData && authData.user.userId === user.id_user && (
                                 <div className="px-4 pb-4 pt-2">
                                     <Typography variant="h6">Add Preferences:</Typography>
                                     <div>
