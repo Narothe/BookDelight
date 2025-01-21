@@ -52,42 +52,48 @@ function ReviewDesktop({review}) {
     }, [review, authData]);
 
     const handleReviewVote = async (idReview, voteType) => {
+        console.log('handleReviewVote');
+
+        const currentReview = review.find((item) => item.id_review === idReview);
+
+        if (!currentReview) {
+            toast.error("Review not found.");
+            return;
+        }
+
+        if (authData?.user?.userId === currentReview.review_author_id) {
+            toast.error("You cannot vote on your own review.");
+            return;
+        }
+
         setLoading(true);
 
-        for (const item of review) {
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
+                { vote_type: voteType },
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
 
-            if (authData?.user?.userId === item.review_author_id) {
-                toast.error("You cannot vote on your own reply.");
-                return;
-            }
+            toast.success("Vote successful!", {
+                position: "top-center",
+            });
 
-            try {
-                await axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
-                    {vote_type: voteType},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${authData.token}`,
-                        },
-                    }
-                );
+            setTimeout(() => window.location.reload(), 1000);
 
-                toast.success("Vote successful!", {
-                    position: "top-center",
-                });
-
-                setTimeout(() => window.location.reload(), 1000);
-
-            } catch (err) {
-                console.error("Verify failed:", err);
-                toast.error("Verify failed. Please try again later.", {
-                    position: "top-center",
-                });
-            } finally {
-                setLoading(false);
-            }
+        } catch (err) {
+            console.error("Verify failed:", err);
+            toast.error("Verify failed. Please try again later.", {
+                position: "top-center",
+            });
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     const handleDeleteForAdmins = async (bookId, reviewId) => {
         if (loading) return;
@@ -119,8 +125,8 @@ function ReviewDesktop({review}) {
     return (
         <div>
             {review.map((item, index) => {
-                console.log(item.id_review)
-                console.log(item)
+                // console.log(item.id_review)
+                // console.log(item)
                 const replyInfo = repliesData.find((data) => data.id_review === item.id_review);
                 const userVote = votes[item.id_review];
 

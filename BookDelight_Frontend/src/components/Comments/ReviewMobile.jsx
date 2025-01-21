@@ -49,42 +49,48 @@ function ReviewMobile({review}) {
     }, [review, authData]);
 
     const handleReviewVote = async (idReview, voteType) => {
+        console.log('handleReviewVote');
+
+        const currentReview = review.find((item) => item.id_review === idReview);
+
+        if (!currentReview) {
+            toast.error("Review not found.");
+            return;
+        }
+
+        if (authData?.user?.userId === currentReview.review_author_id) {
+            toast.error("You cannot vote on your own review.");
+            return;
+        }
+
         setLoading(true);
 
-        for (const item of review) {
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
+                { vote_type: voteType },
+                {
+                    headers: {
+                        Authorization: `Bearer ${authData.token}`,
+                    },
+                }
+            );
 
-            if (authData?.user?.userId === item.review_author_id) {
-                toast.error("You cannot vote on your own reply.");
-                return;
-            }
+            toast.success("Vote successful!", {
+                position: "top-center",
+            });
 
-            try {
-                await axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/book/${id}/review/${idReview}/vote`,
-                    {vote_type: voteType},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${authData.token}`,
-                        },
-                    }
-                );
+            setTimeout(() => window.location.reload(), 1000);
 
-                toast.success("Vote successful!", {
-                    position: "top-center",
-                });
-
-                setTimeout(() => window.location.reload(), 1000);
-
-            } catch (err) {
-                console.error("Verify failed:", err);
-                toast.error("Verify failed. Please try again later.", {
-                    position: "top-center",
-                });
-            } finally {
-                setLoading(false);
-            }
+        } catch (err) {
+            console.error("Verify failed:", err);
+            toast.error("Verify failed. Please try again later.", {
+                position: "top-center",
+            });
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     const handleDeleteForAdmins = async (bookId, reviewId) => {
         if (loading) return;
@@ -135,6 +141,31 @@ function ReviewMobile({review}) {
                                             </div>
                                         </div>
                                     </Link>
+
+                                </div>
+                                <div className="flex items-center">
+                                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>
+                                </div>
+                            </div>
+                            <div className="flex font-semibold">
+                                <p className="text-sm md:text-base lg:text-lg py-1 mb-2">{item.description}</p>
+                            </div>
+                            {/*down panel*/}
+                            <div className="flex flex-row pt-2 border-t justify-between">
+                                <div className="flex flex-row">
+                                    {/*<p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>*/}
+                                    {replyInfo?.hasReplies ? (
+                                        <div className="flex flex-row justify-center mr-2">
+                                            <LinkButton text={`${replyInfo.replyCount} replies`}
+                                                        link={`/book/${id}/review/${item.id_review}/all-reply`}/>
+                                        </div>
+                                        ) : (
+                                    <div className="flex flex-row justify-center mr-2">
+                                        <AddReply bookId={id} reviewId={item.id_review} reviewUser={item.username}
+                                                  post={item}/>
+                                    </div>
+
+                            )}
                                     {  (authData?.user?.isAdmin) &&
                                         <div className="flex items-center mr-2">
                                             <button
@@ -147,29 +178,7 @@ function ReviewMobile({review}) {
                                         </div>
                                     }
                                 </div>
-                                <div className="flex items-center">
-                                    <p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>
-                                </div>
-                            </div>
-                            <div className="flex font-semibold">
-                                <p className="text-sm md:text-base lg:text-lg py-1 mb-2">{item.description}</p>
-                            </div>
-                            {/*down panel*/}
-                            <div className="flex flex-row pt-2 border-t justify-between">
-                                <div className="">
-                                    {/*<p className="text-sm md:text-base lg:text-lg font-semibold mb-2 text-center">{item.username} rate: {item.rating}/10</p>*/}
-                                    {replyInfo?.hasReplies ? (
-                                        <div className="flex flex-row justify-center ">
-                                            <LinkButton text={`${replyInfo.replyCount} replies`}
-                                                        link={`/book/${id}/review/${item.id_review}/all-reply`}/>
-                                        </div>
-                                        ) : (
-                                    <div className="flex flex-row justify-center mr-2">
-                                        <AddReply bookId={id} reviewId={item.id_review} reviewUser={item.username}
-                                                  post={item}/>
-                                    </div>
-                            )}
-                                </div>
+
                                 <div className="flex flex-row">
                                     <div className="flex flex-row border-r pr-3 items-center">
                                         <button

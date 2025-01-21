@@ -88,7 +88,7 @@ const AddReview = ({ bookId, bookTitle }) => {
                     className="w-full"
                     disabled={userReviewExists}
                 >
-                    {userReviewExists ? "Review Already Added" : "Add Review"}
+                    {userReviewExists ? "Review Added" : "Add Review"}
                 </Button>
             ) : (
                 <LinkButton text={"Add Review"} link={"/login"}/>
