@@ -13,7 +13,7 @@ const getPreferences = async (userId) => {
 
         let result;
         result = await getUserPreferences(userId);
-        result = shuffleArray(result);
+        // result = shuffleArray(result);
 
         return { result, statusCode: 200 };
     } catch (err) {
