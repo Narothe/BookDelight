@@ -3,24 +3,9 @@ const jwt = require('jsonwebtoken');
 const {transporter} = require("../../config/mailConfig");
 const {checkExistenceOfUser} = require("../../models/user/checkVariousUserBookmarks");
 const {getUserProfile} = require("../../models/user/getUserModel");
+const {sendEmailWithRetries} = require("../../utils/sendEmailWithRetries");
 
-const sendEmailWithRetries = async (mail, maxAttempt = 5) => {
-    for (let attempt = 1; attempt <= maxAttempt; attempt++) {
-        console.warn(`Attempt ${attempt} to send email...`);
-        try {
-            await transporter.sendMail(mail);
-            console.log('Email sent successfully');
-            return;
-        } catch (error) {
-            console.error(`Attempt ${attempt} failed: ${error.message}`);
-            if (attempt === maxAttempt) {
-                console.error('Max retries reached. Failed to send email.');
-                throw new Error('Could not send email after multiple attempts');
-            }
-            await new Promise(resolve => setTimeout(resolve, 2000));
-        }
-    }
-};
+
 
 const sendVerify = async (userId) => {
     const token = jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '1h'});
@@ -43,12 +28,85 @@ const sendVerify = async (userId) => {
     const mail = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Verify your email',
+        subject: 'Verify Your Email Address',
         html: `
-<p>Click this link to verify your email: </p>
-<a href="${verifyUrl}">Verify</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 150px;
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #555;
+        }
+        .content {
+            text-align: center;
+        }
+        .content p {
+            margin-bottom: 20px;
+        }
+        .verify-button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bookdelight</h1>
+            <h2>Verify Your Email Address</h2>
+        </div>
+        <div class="content">
+            <p>Thank you for verify your account! Please click the button below to verify your email address:</p>
+            <a href="${verifyUrl}" class="verify-button">Verify Email</a>
+            <p>If you didn't sign up, you can safely ignore this email.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; ${new Date().getFullYear()} Bookdelight. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
 `
-    }
+    };
+
 
     try {
         const isVerified = await checkIfUserIsVerified(userId);

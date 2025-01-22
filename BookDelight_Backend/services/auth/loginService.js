@@ -1,10 +1,11 @@
-const {loginUser, loginPassword} = require("../../models/auth/loginModel");
+const { loginUser, loginPassword } = require("../../models/auth/loginModel");
+const { checkUserLoginModel, saveDevice } = require("../../models/auth/checkUserLoginModel");
 const jwt = require('jsonwebtoken');
-const {createSession} = require("../../models/auth/sessionControlModel");
+const { createSession } = require("../../models/auth/sessionControlModel");
+const {sendEmailWithRetries} = require('../../utils/sendEmailWithRetries');
 require('dotenv').config();
 
-
-const login = async (content) => {
+const login = async (content, deviceData) => {
     const { identity, password } = content;
 
     if (!identity || !password) {
@@ -18,8 +19,6 @@ const login = async (content) => {
         if (result.error) {
             return { error: 'Invalid email or username.', message: result.error, statusCode: 401 };
         }
-
-        // console.log(result);
 
         const userId = result.id_user;
 
@@ -39,20 +38,46 @@ const login = async (content) => {
             return { error: 'An error occurred during adding the session.', statusCode: 500 };
         }
 
-        return { result: {
-            message: 'User logged in successfully',
-            token,
-            user: {
-                userId: result.id_user,
-                email: result.email,
-                username: result.username,
-                isAdmin: result.is_admin
-            }
-        }, statusCode: 200 };
+        const existingDevice = await checkUserLoginModel(userId, deviceData);
+
+        if (!existingDevice) {
+            const mail = {
+                from: process.env.EMAIL_USER,
+                to: result.email,
+                subject: 'New Device Login Detected',
+                html: `
+                    <p>Hello ${result.username},</p>
+                    <p>We've detected a login to your account from a new device:</p>
+                    <ul>
+                        <li><strong>Browser:</strong> ${deviceData.browser_name} ${deviceData.browser_version}</li>
+                        <li><strong>Operating System:</strong> ${deviceData.os_name} ${deviceData.os_version}</li>
+                        <li><strong>Device:</strong> ${deviceData.device_type || 'Unknown'} ${deviceData.device_model || 'Unknown'} (${deviceData.device_vendor || 'Unknown'})</li>
+                    </ul>
+                    <p>If this wasn't you, please secure your account immediately.</p>
+                `,
+            };
+            await sendEmailWithRetries(mail);
+
+            await saveDevice(userId, deviceData);
+        }
+
+        return {
+            result: {
+                message: 'User logged in successfully',
+                token,
+                user: {
+                    userId: result.id_user,
+                    email: result.email,
+                    username: result.username,
+                    isAdmin: result.is_admin,
+                },
+            },
+            statusCode: 200,
+        };
     } catch (err) {
         console.error(err);
         return { error: 'An error occurred during logging in the user.', statusCode: 500 };
     }
-}
+};
 
 module.exports = { login };

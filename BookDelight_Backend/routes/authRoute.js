@@ -1,10 +1,11 @@
 const express = require('express');
 const {authenticateToken} = require("../middlewares/authenticateToken");
 const {postLogin, postLogout, postRegister, postVerify, getVerifyToken, getVerified} = require("../controllers/authController");
+const collectDeviceData  = require("../middlewares/collectDeviceData");
 const router = express.Router();
 
 
-router.post('/login', postLogin);
+router.post('/login', collectDeviceData , postLogin);
 router.post('/logout', authenticateToken, postLogout);
 router.post('/register', postRegister);
 router.post('/user/verify', authenticateToken, postVerify);

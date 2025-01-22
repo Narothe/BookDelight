@@ -7,8 +7,11 @@ const {sendVerify, verifyToken, isVerified} = require("../services/auth/verifyUs
 
 const postLogin = async (req, res) => {
     const content = { identity, password } = req.body;
+    const deviceData = req.deviceData;
 
-    const { result, error, statusCode } = await login(content);
+    // console.log(content, deviceData);
+
+    const { result, error, statusCode } = await login(content, deviceData);
 
     writeResult(res, result, error, statusCode);
 };

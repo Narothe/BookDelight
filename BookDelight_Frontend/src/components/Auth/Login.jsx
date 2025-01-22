@@ -31,7 +31,7 @@ function LoginPage() {
 
             login({ token, user });
 
-            await CollectUserData(token);
+            // await CollectUserData(token);
 
             toast.success("Login successful! Redirecting...", {
                 position: "top-center",
