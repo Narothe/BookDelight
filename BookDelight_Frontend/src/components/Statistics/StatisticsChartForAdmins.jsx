@@ -47,7 +47,7 @@ function StatisticsChart() {
                         {
                             label: "Created Books",
                             data: dates.map((date) => {
-                                const entry = results.created_books.find((item) => item.date === date);
+                                const entry = results.created_books?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(75, 192, 192, 0.6)",
@@ -55,7 +55,7 @@ function StatisticsChart() {
                         {
                             label: "Created Users",
                             data: dates.map((date) => {
-                                const entry = results.created_users.find((item) => item.date === date);
+                                const entry = results.created_users?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(54, 162, 235, 0.6)",
@@ -68,7 +68,7 @@ function StatisticsChart() {
                         {
                             label: "Created Reviews",
                             data: dates.map((date) => {
-                                const entry = results.created_reviews.find((item) => item.date === date);
+                                const entry = results.created_reviews?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(255, 206, 86, 0.6)",
@@ -76,7 +76,7 @@ function StatisticsChart() {
                         {
                             label: "Created Replies",
                             data: dates.map((date) => {
-                                const entry = results.created_replies.find((item) => item.date === date);
+                                const entry = results.created_replies?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(153, 102, 255, 0.6)",
@@ -89,7 +89,7 @@ function StatisticsChart() {
                         {
                             label: "Currently Reading",
                             data: dates.map((date) => {
-                                const entry = results.added_to_currently.find((item) => item.date === date);
+                                const entry = results.added_to_currently?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(255, 99, 132, 0.6)",
@@ -97,7 +97,7 @@ function StatisticsChart() {
                         {
                             label: "Wish to Read",
                             data: dates.map((date) => {
-                                const entry = results.added_to_wish_to_read.find((item) => item.date === date);
+                                const entry = results.added_to_wish_to_read?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(164,255,99,0.6)",
@@ -105,7 +105,7 @@ function StatisticsChart() {
                         {
                             label: "Read Books",
                             data: dates.map((date) => {
-                                const entry = results.added_to_read_books.find((item) => item.date === date);
+                                const entry = results.added_to_read_books?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(255,200,99,0.6)",
@@ -113,7 +113,7 @@ function StatisticsChart() {
                         {
                             label: "Favorite Books",
                             data: dates.map((date) => {
-                                const entry = results.added_to_favorites.find((item) => item.date === date);
+                                const entry = results.added_to_favorites?.find((item) => item.date === date);
                                 return entry ? entry.count : 0;
                             }),
                             backgroundColor: "rgba(99,112,255,0.6)",

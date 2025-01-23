@@ -7,7 +7,7 @@ import notExistingUserPhoto from "../assets/user.svg";
 function LoadUserImage({ item, photoUrl }) {
     const [imageError, setImageError] = useState(false);
 
-    // console.log("item:", item);
+    console.log("item:", item);
 
     return (
         <div className="w-full">
