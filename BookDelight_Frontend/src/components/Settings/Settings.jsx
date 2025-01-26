@@ -15,6 +15,7 @@ function Settings() {
                     <div className="grid gap-2">
                         <LinkButton text="Change profile picture" link="/user/change-photo"/>
                         <LinkButton text="Verify Your adress email" link="/user/verify"/>
+                        <LinkButton text="Logging history" link="/user/logged"/>
                     </div>
                 </div>
             </div>

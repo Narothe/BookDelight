@@ -14,6 +14,7 @@ const {removeWishToRead, removeFavorite, removeReadBook, removeCurrentlyReading}
 const {insertUserData} = require("../services/user/addUserDataService");
 const {getUserData} = require("../services/user/getUserService");
 const {getPreferences} = require("../services/user/getPreferencesService");
+const {getUserLoggedInfo} = require("../services/user/getUserLoggedInfoService");
 
 
 const postCurrentlyReading = async (req, res) => {
@@ -184,6 +185,14 @@ const recommendBooks = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const showLoggedInfo = async (req, res) => {
+    const userId = req.user.userId;
+
+    const { result, error, statusCode } = await getUserLoggedInfo(userId);
+
+    writeResult(res, result, error, statusCode);
+}
+
 module.exports = {
     postCurrentlyReading,
     postCurrentlyReadingPage,
@@ -203,5 +212,6 @@ module.exports = {
     deleteCurrentlyReading,
     postCollectUserData,
     getUser,
-    recommendBooks
+    recommendBooks,
+    showLoggedInfo
 };

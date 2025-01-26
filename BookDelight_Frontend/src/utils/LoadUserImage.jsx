@@ -7,12 +7,12 @@ import notExistingUserPhoto from "../assets/user.svg";
 function LoadUserImage({ item, photoUrl }) {
     const [imageError, setImageError] = useState(false);
 
-    console.log("item:", item);
+    // console.log("item:", item);
 
     return (
         <div className="w-full">
             {item.photo_path === null || imageError ? (
-                <div className="flex w-12 place-self-center">
+                <div className="flex h-12 w-12 place-self-center">
                     <img src={notExistingUserPhoto} alt="alt" className="flex rounded-md justify-items-center"/>
                 </div>
             ) : (

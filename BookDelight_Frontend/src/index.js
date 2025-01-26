@@ -19,6 +19,7 @@ import ChangeBookCover from "./components/Book/ChangeBookCover";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import StatisticsChart from "./components/Statistics/StatisticsChart";
 import Statistics from "./components/Statistics/Statistics";
+import LoggingHistory from "./components/Settings/LoggingHistory";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -52,6 +53,12 @@ root.render(
                         <Route path="/add-book" element={
                             <ProtectedPath>
                                 <AddBook />
+                            </ProtectedPath>
+                        } />
+
+                        <Route path="/user/logged" element={
+                            <ProtectedPath>
+                                <LoggingHistory />
                             </ProtectedPath>
                         } />
 

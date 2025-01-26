@@ -66,35 +66,26 @@ function AdminDashboard() {
         return <div>Loading...</div>;
     }
 
-    console.log(userPhoto);
+    console.log('userData',userData);
 
     return (
         <div>
-            <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white">
-                <div className="flex border pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md w-full bg-white">
+            <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white justify-center">
+                <div className="flex border pt-4 pr-4 pb-4 mb-2 rounded-md shadow-md bg-white">
                     <div className="flex flex-col items-center w-28 mt-3">
-                        <div className="flex w-16 lg:w-20">
+                        <div className="flex mx-2 w-16 lg:w-20">
                             <LoadUserImage item={userPhoto} photoUrl={userPhotoUrl}/>
                         </div>
                         <div className="mt-2">
                             <p>{userData.countResult.admin_username}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col w-5/6 pl-4 border-l items-center text-lg">
-                        <p>Last logged user:</p>
-                        <div className="text-xl text-blue-500 font-semibold">
-                            <Link
-                                to={`/user/${userData.countResult.last_logged_id_user}`}>{userData.countResult.last_logged_username}</Link>
+                    <div className="flex flex-col place-content-center pl-2.5 border-l">
+                        <div className="flex gap-x-1 flex-row">
+                            <p>{userData.countResult.admin_first_name} </p>
+                            <p>{userData.countResult.admin_last_name}</p>
                         </div>
-                    </div>
-                    <div className="flex flex-col w-1/4 pl-2.5 border-l">
-                        <div className="hidden sm:block">
-                            <p>{userData.countResult.admin_first_name} {userData.countResult.admin_last_name}</p>
-                        </div>
-                        <div className="block sm:hidden">
-                            <p>{userData.countResult.admin_first_name} {TruncateText(userData.countResult.admin_last_name, 5)}</p>
-                        </div>
-                        <p>Age: {userData.admin_age}</p>
+                        <p>Age: {userData.countResult.admin_age}</p>
                         <p>Account created: {userData.countResult.admin_creation_days_ago} days ago</p>
                     </div>
 
@@ -167,7 +158,6 @@ function AdminDashboard() {
                             ))}
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
