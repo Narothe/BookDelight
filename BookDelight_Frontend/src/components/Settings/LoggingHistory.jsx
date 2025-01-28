@@ -39,36 +39,57 @@ function LoggingHistory() {
         return <div>Loading...</div>;
     }
 
-  return (
-      <div className="flex flex-row pt-4 border p-2 mb-4 shadow-md rounded-md bg-custom-new-white justify-center">
-          <div className="flex border p-4 mb-2 rounded-md shadow-md w-full bg-white">
-              <div className="w-full">
-                  <ul className="space-y-4">
-                      {userData.map((session, index) => (
-                          <Link to={`/user/${session.id_user}`}>
-                              <li
-                                  key={index}
-                                  className="p-3 border-b last:border-none flex justify-between items-center transition duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md rounded-md"
-                              >
-                                  <div className="flex flex-row">
-                                      <div className="w-12">
-                                          <LoadUserImage item={session} photoUrl={userPhotoUrl}/>
-                                      </div>
-                                      <div className="ml-2 content-center">
-                                          <p className="text-lg font-semibold">{session.username}</p>
-                                      </div>
-                                  </div>
-                                  <p className="text-sm text-gray-800">
-                                      {format(new Date(session.created_at), "HH:mm:ss, dd-MM-yyyy")}
-                                  </p>
-                              </li>
-                          </Link>
-                      ))}
-                  </ul>
-              </div>
-          </div>
-      </div>
-  );
+    return (
+        <div className="flex flex-col pt-4 border p-4 mb-4 shadow-md rounded-md bg-custom-new-white">
+            <div className="text-xl lg:text-2xl font-bold mb-2 font-mono pb-1 pl-2">
+                <p>Login history</p>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200 rounded-md shadow-md">
+                    <thead>
+                    <tr className="bg-gray-100 text-left">
+                        <th className="p-3 border-b">User</th>
+                        <th className="p-3 border-b">Session Created At</th>
+                        <th className="p-3 border-b">Browser</th>
+                        <th className="p-3 border-b">Operating System</th>
+                        <th className="p-3 border-b">Device</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {userData.map((session, index) => (
+                        <tr
+                            key={index}
+                            onClick={() => window.location.href = `/user/${session.id_user}`}
+                            className="cursor-pointer transition duration-300 ease-in-out hover:bg-gray-50"
+                        >
+                            <td className="p-3 flex items-center">
+                                <div className="w-12 h-12">
+                                    <LoadUserImage item={session} photoUrl={userPhotoUrl} />
+                                </div>
+                                <div className="text-sm text-gray-500 ml-3">
+                                    <p className="">{session.username}</p>
+                                    <p className="font-semibold">user id: {session.id_user}</p>
+                                </div>
+                            </td>
+                            <td className="p-3 text-sm text-gray-800">
+                                {format(new Date(session.session_created_at), "HH:mm:ss, dd-MM-yyyy")}
+                            </td>
+                            <td className="p-3 text-sm text-gray-800">
+                                {session.browser_name} {session.browser_version}
+                            </td>
+                            <td className="p-3 text-sm text-gray-800">
+                                {session.os_name} {session.os_version}
+                            </td>
+                            <td className="p-3 text-sm text-gray-800">
+                                {session.device_vendor} {session.device_model} ({session.device_type})
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
 }
 
 export default LoggingHistory;
