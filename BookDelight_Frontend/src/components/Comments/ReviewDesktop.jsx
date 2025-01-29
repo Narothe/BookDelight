@@ -111,11 +111,11 @@ function ReviewDesktop({review}) {
 
 
             if (response.status === 200) {
-                toast.success("Reply deleted successfully.");
+                toast.success("Review deleted successfully.");
                 setTimeout(() => window.location.reload(), 1000);
             }
         } catch (err) {
-            console.error("Error deleting reply:", err);
+            console.error("Error deleting review:", err);
             toast.error("An error occurred. Please try again later.");
         } finally {
             setLoading(false);

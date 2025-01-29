@@ -2,6 +2,7 @@ const {writeResult} = require("../utils/writeResult");
 const {adminDashboard} = require("../services/admin/getDashboardService");
 const {adminDeleteReply} = require("../services/admin/deleteReplyService");
 const {adminDeleteReview} = require("../services/admin/deleteReviewService");
+const {adminDeleteBook} = require("../services/admin/deleteBookService");
 
 const getDashboard = async (req, res) => {
     const userId = req.user.userId;
@@ -31,8 +32,17 @@ const deleteReviewByAdmin = async (req, res) => {
     writeResult(res, result, error, statusCode);
 }
 
+const deleteBookByAdmin = async (req, res) => {
+    const bookId = req.body;
+
+    const { result, error, statusCode } = await adminDeleteBook(bookId.bookId);
+
+    writeResult(res, result, error, statusCode);
+}
+
 module.exports = {
     getDashboard,
     deleteReplyByAdmin,
-    deleteReviewByAdmin
+    deleteReviewByAdmin,
+    deleteBookByAdmin
 };

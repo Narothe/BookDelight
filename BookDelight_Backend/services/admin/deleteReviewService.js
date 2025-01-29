@@ -1,5 +1,5 @@
 const {getOneReview} = require("../../models/review/getReviewModel");
-const {deleteReview} = require("../../models/reply/deleteReviewModel");
+const {deleteReview} = require("../../models/review/deleteReviewModel");
 
 
 const adminDeleteReview = async(id, reviewId) => {
