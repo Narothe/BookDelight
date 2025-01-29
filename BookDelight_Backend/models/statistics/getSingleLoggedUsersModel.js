@@ -23,8 +23,8 @@ const getUniqueLoggedUsers = async (userId) => {
                            ON s.id_user = cud.id_user
                                AND DATE (cud.creation_date) = DATE (s.created_at)
             LEFT JOIN bookdelight.user_photos up
-            LEFT JOIN bookdelight.users u ON up.id_user = u.id_user
         ON s.id_user = up.id_user
+        LEFT JOIN bookdelight.users u ON s.id_user = u.id_user
         WHERE s.id_user = $1
         ORDER BY s.created_at DESC;
     `;
