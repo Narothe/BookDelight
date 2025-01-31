@@ -175,3 +175,52 @@ module.exports = router;
  *                   type: string
  *                   example: An error occurred during deleting the review.
  */
+
+/**
+ * @swagger
+ * /book/:
+ *   delete:
+ *     summary: Delete a book by admin
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the book to be deleted
+ *     responses:
+ *       200:
+ *         description: Book deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: object
+ *                   example: { message: 'Book deleted successfully' }
+ *       404:
+ *         description: Book not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Book not found
+ *       500:
+ *         description: Internal server error during book deletion
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: An error occurred during deleting the book.
+ */
